@@ -1,0 +1,6 @@
+import Link from "next/link";
+import { SubmissionForm } from "@/components/submission-form";
+
+export default function EmployerRequirementPage() {
+  return <main className="min-h-screen bg-[#fff7ef] px-5 py-12"><div className="mx-auto max-w-2xl"><Link href="/" className="text-sm font-bold text-[#c9471e]">Back to CG Job Care</Link><p className="section-kicker mt-10 text-[#c9471e]">EMPLOYER REQUIREMENT</p><h1 className="section-title">Tell us who you need.</h1><p className="my-6 leading-7 text-[#72564a]">Your requirement is reviewed by our recruitment team before any public job posting is created.</p><SubmissionForm action="/api/employer-requirements" buttonText="Submit requirement" fields={[{ name: "company", label: "Company name", required: true }, { name: "contactName", label: "Contact person", required: true }, { name: "mobile", label: "Mobile number", type: "tel", required: true }, { name: "jobTitle", label: "Job title", required: true }, { name: "category", label: "Job category", required: true }, { name: "candidatesRequired", label: "Candidates required", type: "number", required: true }, { name: "city", label: "Job city", required: true }]} /></div></main>;
+}

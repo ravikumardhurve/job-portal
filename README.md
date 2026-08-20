@@ -1,4 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CG Job Care & Facility Services
+
+A Next.js App Router MVP for the public portal and the first recruitment and facility-service workflows.
+
+## Run locally
+
+```powershell
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+For a production compile check:
+
+```powershell
+npm run build
+```
+
+## Implemented flows
+
+- Public, responsive CG Job Care home page with job search presentation, jobs, services, and employer/customer actions.
+- Candidate registration at `/candidate/register`, including unique 10-digit mobile validation.
+- Employer manpower requirement intake at `/employer/requirement`. New requirements are saved with `NEW` status and are not public jobs.
+- Facility lead intake at `/services/request` for security, care, housekeeping, pest control, and manpower requests.
+- Typed backend contracts and API endpoints for jobs, candidates, applications, employer requirements, and facility requests.
+- The API explicitly exposes only `PUBLISHED` jobs and rejects duplicate applications for the same candidate and job.
+
+## API endpoints
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/jobs?q=guard&city=Raipur` | Search published jobs only |
+| `POST` | `/api/candidates` | Start candidate registration |
+| `POST` | `/api/applications` | Submit `{ candidateId, jobId }` |
+| `POST` | `/api/employer-requirements` | Capture a private employer requirement |
+| `POST` | `/api/service-requests` | Capture a facility service lead |
+
+## Current data layer
+
+The MVP repository in `src/lib/portal.ts` uses process memory to make the workflows runnable immediately. It resets after a server restart and must be replaced before deployment with MongoDB or PostgreSQL plus an ORM/repository implementation.
+
+The data model types already separate job status, application history, employer requirements, facility requests, and candidate verification status. The next backend phase should add persistent models for users, documents, interviews, placements, notifications, audit logs, roles, and permissions.
+
+## Production checklist
+
+- Add password hashing, mobile/email authentication, sessions, role-based authorization, rate limiting, CSRF protections where required, and audit logs.
+- Store resumes and identity documents in private S3/R2 buckets using signed URLs. Never expose Aadhaar or PAN files publicly.
+- Add database uniqueness constraints for candidate mobile, optional email, and `(candidateId, jobId)` applications.
+- Protect the future admin, recruiter, candidate, and employer dashboards with server-side authorization.
+- Add SMTP, SMS, and WhatsApp providers behind notification adapters.
+- Add validation, file upload MIME/size checks, CAPTCHA/honeypot protection, observability, backups, and deployment secrets.
+
+## Project structure
+
+```text
+src/app/                  Pages and route handlers
+src/app/api/              Full-stack REST endpoints
+src/components/           Reusable browser components
+src/lib/portal.ts         Domain types, business rules, and MVP repository
+```This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 

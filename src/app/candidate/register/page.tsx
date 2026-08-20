@@ -1,0 +1,6 @@
+import Link from "next/link";
+import { SubmissionForm } from "@/components/submission-form";
+
+export default function CandidateRegistrationPage() {
+  return <main className="min-h-screen bg-[#fff7ef] px-5 py-12"><div className="mx-auto max-w-2xl"><Link href="/" className="text-sm font-bold text-[#c9471e]">Back to CG Job Care</Link><p className="section-kicker mt-10 text-[#c9471e]">CANDIDATE REGISTRATION</p><h1 className="section-title">Start your job journey.</h1><p className="my-6 leading-7 text-[#72564a]">Begin with your basic information. You can complete education, experience and documents after registration.</p><SubmissionForm action="/api/candidates" buttonText="Create candidate profile" fields={[{ name: "fullName", label: "Full name", required: true }, { name: "mobile", label: "Mobile number", type: "tel", required: true }, { name: "email", label: "Email", type: "email" }, { name: "city", label: "Current city" }, { name: "preferredRole", label: "Preferred job role" }]} /></div></main>;
+}

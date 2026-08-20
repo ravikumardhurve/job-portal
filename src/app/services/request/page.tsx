@@ -1,0 +1,6 @@
+import Link from "next/link";
+import { SubmissionForm } from "@/components/submission-form";
+
+export default function ServiceRequestPage() {
+  return <main className="min-h-screen bg-[#fff7ef] px-5 py-12"><div className="mx-auto max-w-2xl"><Link href="/" className="text-sm font-bold text-[#c9471e]">Back to CG Job Care</Link><p className="section-kicker mt-10 text-[#c9471e]">FACILITY SERVICE REQUEST</p><h1 className="section-title">Request trusted help.</h1><p className="my-6 leading-7 text-[#72564a]">Security, care, housekeeping and facility requirements are managed separately from recruitment vacancies.</p><SubmissionForm action="/api/service-requests" buttonText="Request service" fields={[{ name: "customerName", label: "Your name", required: true }, { name: "mobile", label: "Mobile number", type: "tel", required: true }, { name: "serviceType", label: "Service type", type: "select", required: true, options: ["Security", "Baby Care", "Caretaker", "Housekeeping", "Pest Control", "Manpower", "Other"] }, { name: "staffRequired", label: "Staff required", type: "number" }, { name: "city", label: "City", required: true }, { name: "address", label: "Address", required: true }]} /></div></main>;
+}
