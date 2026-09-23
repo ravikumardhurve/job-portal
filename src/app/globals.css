@@ -302,6 +302,53 @@ body {
   background: linear-gradient(135deg, #f3f8ef 0%, #fffaf4 58%, #fff1df 100%);
 }
 
+.landing-hero > .relative.mx-auto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-hero > .relative.mx-auto > div:first-of-type {
+  display: flex;
+  width: 100%;
+  max-width: 64rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.landing-hero > .relative.mx-auto > .landing-hero-visual {
+  width: 100%;
+  max-width: 64rem;
+  min-height: 24rem;
+}
+
+.landing-hero .landing-hero-title {
+  max-width: 58rem;
+  text-align: center;
+}
+
+.landing-hero .landing-hero-title + p {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.landing-hero .landing-hero-title ~ .flex {
+  justify-content: center;
+}
+
+.landing-hero .landing-search {
+  width: 100%;
+}
+
+.landing-hero .landing-search + div {
+  justify-content: center;
+}
+
+.landing-hero .landing-search ~ .flex {
+  justify-content: center;
+}
+
 .landing-hero-orb {
   position: absolute;
   border-radius: 999px;
@@ -561,4 +608,8 @@ body {
   .landing-hero-title { font-size: 2.65rem; }
   .landing-hero-visual { min-height: 390px; }
   .landing-hero-visual > .relative { min-height: 390px; }
+}
+
+@media (min-width: 640px) {
+  .landing-hero > .relative.mx-auto > .landing-hero-visual { min-height: 510px; }
 }
