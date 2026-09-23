@@ -1,0 +1,10 @@
+import Link from "next/link";
+import { ArrowLeft, BriefcaseBusiness, ClipboardCheck } from "lucide-react";
+import { getCandidateSession } from "@/lib/candidate-auth";
+import { redirect } from "next/navigation";
+import { AppliedJobs } from "@/components/applied-jobs";
+
+export default async function CandidateApplicationsPage() {
+  if (!await getCandidateSession()) redirect("/candidate/login");
+  return <main className="min-h-screen bg-[#EEF5F0] text-[#1F332C]"><header className="border-b border-[#DCE8E1] bg-white"><div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4"><Link href="/candidate/dashboard" className="inline-flex items-center gap-2 text-sm font-bold text-[#0F5C38]"><ArrowLeft size={16} /> Dashboard</Link><Link href="/jobs" className="text-sm font-bold text-[#0F5C38]">Find jobs</Link></div></header><section className="mx-auto max-w-5xl px-5 py-9"><p className="section-kicker text-[#157A4A]">MY APPLICATIONS</p><h1 className="mt-2 text-3xl font-black">Track every job application.</h1><p className="mt-3 max-w-xl text-sm leading-6 text-[#5C6B63]">You will see application status changes here, from applied through interview, selection and joining.</p><div className="mt-7 rounded-lg border border-[#DCE8E1] bg-white p-6"><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#E9F3ED] text-[#157A4A]"><ClipboardCheck size={20} /></span><div><h2 className="font-black">Application status</h2><p className="text-sm text-[#5C6B63]">Updates are managed by the CG Job Care recruitment team.</p></div></div><AppliedJobs /></div><div className="mt-6 rounded-lg bg-[#1E2B26] p-6 text-white"><BriefcaseBusiness size={22} className="text-[#D4B04A]" /><h2 className="mt-4 text-xl font-black">Looking for more opportunities?</h2><p className="mt-2 text-sm text-[#D5E3DB]">Search current published jobs and apply once for each vacancy.</p><Link href="/jobs" className="mt-5 inline-block rounded-lg bg-[#157A4A] px-4 py-2.5 text-sm font-bold">Browse jobs</Link></div></section></main>;
+}

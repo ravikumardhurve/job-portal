@@ -1,0 +1,5 @@
+import { getAdminScope, getAdminSession } from "@/lib/admin-auth";
+import { portalStore, type ApplicationStatus } from "@/lib/portal";
+
+const statuses: ApplicationStatus[] = ["APPLIED", "UNDER_REVIEW", "SHORTLISTED", "INTERVIEW_SCHEDULED", "INTERVIEWED", "SELECTED", "JOINING_SCHEDULED", "JOINED", "REJECTED", "WITHDRAWN"];
+export async function PATCH(request: Request, { params }: RouteContext<"/api/admin/applications/[applicationId]">) { const session = await getAdminSession(); if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 }); const { applicationId } = await params; const body = await request.json() as { status?: ApplicationStatus }; if (!body.status || !statuses.includes(body.status)) return Response.json({ error: "Invalid application status." }, { status: 400 }); try { return Response.json({ data: await portalStore.updateApplicationStatus(applicationId, body.status, getAdminScope(session)) }); } catch { return Response.json({ error: "Application not found." }, { status: 404 }); } }

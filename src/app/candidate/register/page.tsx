@@ -1,6 +1,20 @@
 import Link from "next/link";
-import { SubmissionForm } from "@/components/submission-form";
+import { redirect } from "next/navigation";
+import { CandidateRegistrationWizard } from "@/components/candidate-registration-wizard";
+import { getCandidateSession } from "@/lib/candidate-auth";
 
-export default function CandidateRegistrationPage() {
-  return <main className="min-h-screen bg-[#fff7ef] px-5 py-12"><div className="mx-auto max-w-2xl"><Link href="/" className="text-sm font-bold text-[#c9471e]">Back to CG Job Care</Link><p className="section-kicker mt-10 text-[#c9471e]">CANDIDATE REGISTRATION</p><h1 className="section-title">Start your job journey.</h1><p className="my-6 leading-7 text-[#72564a]">Begin with your basic information. You can complete education, experience and documents after registration.</p><SubmissionForm action="/api/candidates" buttonText="Create candidate profile" fields={[{ name: "fullName", label: "Full name", required: true }, { name: "mobile", label: "Mobile number", type: "tel", required: true }, { name: "email", label: "Email", type: "email" }, { name: "city", label: "Current city" }, { name: "preferredRole", label: "Preferred job role" }]} /></div></main>;
+export default async function CandidateRegistrationPage() {
+  if (await getCandidateSession()) redirect("/candidate/profile");
+  return (
+    <main className="min-h-screen bg-[#F5FAF7] px-5 py-12">
+      <div className="mx-auto max-w-3xl">
+        <Link href="/" className="text-sm font-bold text-[#0F5C38]">Back to CG Job Care</Link>
+        <p className="section-kicker mt-10 text-[#0F5C38]">CANDIDATE REGISTRATION</p>
+        <h1 className="section-title">Create your candidate account.</h1>
+        <p className="my-6 leading-7 text-[#4B5A52]">Enter your basic details to sign up. After login, you can add address, education, experience, job preference and documents from your profile.</p>
+        <CandidateRegistrationWizard />
+        <p className="mt-5 text-sm text-[#4B5A52]">Already registered? <Link href="/candidate/login" className="font-bold text-[#0F5C38]">Candidate login</Link></p>
+      </div>
+    </main>
+  );
 }
