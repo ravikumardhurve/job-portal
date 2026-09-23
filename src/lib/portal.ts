@@ -227,7 +227,7 @@ const defaultSiteSettings: SiteSettings = {
   homeHeroBadge: "RAIPUR · CHHATTISGARH",
   homeHeroTitle: "Naukri ho ya trusted service,",
   homeHeroHighlight: "sahi madad ek jagah.",
-  homeHeroDescription: "Jobs, manpower, security guards, baby care, housekeeping aur pest control—clear process aur local support ke saath.",
+  homeHeroDescription: "Jobs, manpower, security guards, baby care, housekeeping aur pest control — clear process aur local support ke saath.",
   homeServicesTitle: "Five services, clearly separated.",
   homeServicesDescription: "Har service ki dedicated team aur request flow hai, isliye aapki enquiry sahi department tak jaati hai.",
   homeJobsTitle: "Latest jobs in Chhattisgarh",
