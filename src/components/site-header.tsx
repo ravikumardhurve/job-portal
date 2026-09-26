@@ -18,18 +18,19 @@ export async function SiteHeader() {
   const candidate = session ? await portalStore.getCandidateById(session.candidateId) : null;
   const logoUrl = settings.logoKey ? await createPublicDisplayUrl(settings.logoKey).catch(() => null) : null;
   return (
-    <header className="sticky top-0 z-30 border-b border-[#DCE8E1] bg-white/90 shadow-[0_8px_24px_rgba(21,73,47,.06)] backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-[#E9E9E5] bg-[#F7F6F1]/90 shadow-[0_8px_24px_rgba(17,24,43,.06)] backdrop-blur-xl">
       <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-5 px-5 lg:h-[74px] lg:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label={`${settings.companyName} home`}>
           {logoUrl ? (
             <Image src={logoUrl} alt={`${settings.companyName} logo`} width={40} height={40} unoptimized className="h-10 w-10 rounded-lg object-contain" />
           ) : (
-            <Image src="/brand/cg-job-care-logo.svg" alt="CG Job Care" width={164} height={40} priority className="h-10 w-auto" />
+            <span className="site-brand-fallback" aria-hidden="true">CG</span>
           )}
-          {logoUrl && <span className="leading-tight"><strong className="block text-[15px] text-[#1E2B26]">{settings.companyName}</strong>{settings.tagline && <small className="text-[11px] text-[#5C6B63]">{settings.tagline}</small>}</span>}
+          <span className="leading-tight"><strong className="block text-[15px] text-[#11182B]">{settings.companyName}</strong>{settings.tagline && <small className="text-[11px] text-[#6F7788]">{settings.tagline}</small>}</span>
         </Link>
-        <nav aria-label="Primary navigation" className="hidden items-center gap-1 rounded-full bg-[#F2F7F3] p-1 text-sm font-semibold text-[#4B5A52] lg:flex">
-          {navLinks.map((link) => <Link key={link.href} className="rounded-full px-3 py-2 hover:bg-white hover:text-[#157A4A]" href={link.href}>{link.label}</Link>)}
+        <nav aria-label="Primary navigation" className="hidden items-center gap-6 text-sm font-semibold text-[#4E5668] lg:flex">
+          <Link className="hover:text-[#2447E5]" href="/">Home</Link>
+          {navLinks.map((link) => <Link key={link.href} className="hover:text-[#2447E5]" href={link.href}>{link.label}</Link>)}
         </nav>
         <SiteHeaderNav candidate={candidate ? { fullName: candidate.fullName } : null} phone={settings.phone} />
       </div>

@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Jobs, Security, Pest Control, Baby Care, Caretaker and Housekeeping services in one place."
+  />
+
+  <title>CG Job Care & Facility Services</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0b1f3a;
+      --primary-2: #102d50;
+      --accent: #10b981;
+      --accent-dark: #059669;
+      --accent-soft: #ecfdf5;
+      --blue-soft: #eff6ff;
+      --orange-soft: #fff7ed;
+      --purple-soft: #faf5ff;
+      --red-soft: #fef2f2;
+      --text: #142033;
+      --muted: #667085;
+      --border: #e7ebf0;
+      --bg: #f7f9fc;
+      --white: #ffffff;
+      --shadow: 0 16px 45px rgba(15, 23, 42, 0.08);
+      --shadow-hover: 0 22px 60px rgba(15, 23, 42, 0.14);
+      --radius: 22px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+      height: 78px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(231,235,240,.8);
+    }
+
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: white;
+      font-size: 21px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 10px 25px rgba(16,185,129,.22);
+    }
+
+    .logo-text {
+      line-height: 1.1;
+      font-size: 17px;
+    }
+
+    .logo-text span {
+      display: block;
+      font-size: 10px;
+      color: var(--accent-dark);
+      letter-spacing: 1.2px;
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 600;
+      color: #475467;
+      transition: .25s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-dark);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: .25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: white;
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 10px 24px rgba(16,185,129,.22);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 43px;
+      height: 43px;
+      border-radius: 12px;
+      background: white;
+      border: 1px solid var(--border);
+      font-size: 22px;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 88px 0 85px;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(16,185,129,.16), transparent 28%),
+        radial-gradient(circle at 10% 80%, rgba(59,130,246,.09), transparent 25%),
+        linear-gradient(180deg, #fbfefd, #f7f9fc);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(15,23,42,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.025) 1px, transparent 1px);
+      background-size: 45px 45px;
+      mask-image: linear-gradient(to bottom, black, transparent);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #d1fae5;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 5.4vw, 70px);
+      line-height: 1.05;
+      letter-spacing: -3px;
+      color: var(--primary);
+      max-width: 680px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-description {
+      max-width: 610px;
+      margin: 23px 0 30px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .hero-buttons .btn {
+      padding: 15px 23px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 21px;
+      color: var(--primary);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Hero visual */
+
+    .hero-visual {
+      position: relative;
+      min-height: 475px;
+    }
+
+    .main-card {
+      position: absolute;
+      top: 30px;
+      right: 20px;
+      width: 90%;
+      height: 400px;
+      border-radius: 34px;
+      background: linear-gradient(145deg, #0b1f3a, #153e5c);
+      box-shadow: 0 35px 80px rgba(11,31,58,.25);
+      overflow: hidden;
+      padding: 32px;
+      color: white;
+    }
+
+    .main-card::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(16,185,129,.20);
+      right: -80px;
+      top: -80px;
+    }
+
+    .main-card h3 {
+      position: relative;
+      font-size: 25px;
+      margin-bottom: 7px;
+    }
+
+    .main-card > p {
+      position: relative;
+      color: #bdcad7;
+      font-size: 13px;
+      max-width: 320px;
+    }
+
+    .mini-services {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+      margin-top: 28px;
+    }
+
+    .mini-service {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.07);
+      backdrop-filter: blur(10px);
+      border-radius: 17px;
+    }
+
+    .mini-service .icon {
+      font-size: 24px;
+      margin-bottom: 7px;
+    }
+
+    .mini-service strong {
+      font-size: 12px;
+    }
+
+    .floating-card {
+      position: absolute;
+      z-index: 5;
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 18px;
+      padding: 14px 18px;
+    }
+
+    .floating-one {
+      left: -10px;
+      bottom: 58px;
+    }
+
+    .floating-two {
+      right: -10px;
+      top: 2px;
+    }
+
+    .floating-card strong {
+      font-size: 13px;
+      color: var(--primary);
+      display: block;
+    }
+
+    .floating-card span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* ================= COMMON ================= */
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-header {
+      max-width: 650px;
+      margin: 0 auto 45px;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .section-header h2 {
+      margin: 8px 0 13px;
+      color: var(--primary);
+      font-size: clamp(30px, 4vw, 43px);
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* ================= SERVICES ================= */
+
+    .services {
+      background: white;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 17px;
+    }
+
+    .service-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 25px 20px;
+      background: white;
+      transition: .3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: transparent;
+    }
+
+    .service-icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .service-card:nth-child(1) .service-icon {
+      background: var(--blue-soft);
+    }
+
+    .service-card:nth-child(2) .service-icon {
+      background: var(--accent-soft);
+    }
+
+    .service-card:nth-child(3) .service-icon {
+      background: var(--orange-soft);
+    }
+
+    .service-card:nth-child(4) .service-icon {
+      background: var(--purple-soft);
+    }
+
+    .service-card:nth-child(5) .service-icon {
+      background: var(--red-soft);
+    }
+
+    .service-card h3 {
+      color: var(--primary);
+      font-size: 17px;
+      margin-bottom: 7px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 12px;
+      min-height: 58px;
+    }
+
+    .service-link {
+      margin-top: 16px;
+      color: var(--accent-dark);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* ================= HOW IT WORKS ================= */
+
+    .how {
+      background: var(--bg);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 25px;
+      position: relative;
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      margin: auto auto 20px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--primary);
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 12px 30px rgba(11,31,58,.15);
+    }
+
+    .step:nth-child(4) .step-number {
+      background: var(--accent);
+    }
+
+    .step h3 {
+      font-size: 16px;
+      color: var(--primary);
+      margin-bottom: 7px;
+    }
+
+    .step p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ================= JOBS ================= */
+
+    .jobs-wrap {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .jobs-content h2 {
+      font-size: 42px;
+      color: var(--primary);
+      line-height: 1.15;
+      margin: 10px 0 18px;
+      letter-spacing: -1.5px;
+    }
+
+    .jobs-content p {
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    .job-search {
+      display: flex;
+      gap: 9px;
+      padding: 7px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .job-search input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      padding: 10px 12px;
+      color: var(--text);
+    }
+
+    .job-list {
+      display: grid;
+      gap: 13px;
+    }
+
+    .job-card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: .25s;
+    }
+
+    .job-card:hover {
+      transform: translateX(5px);
+      box-shadow: var(--shadow);
+    }
+
+    .job-logo {
+      min-width: 52px;
+      height: 52px;
+      border-radius: 15px;
+      background: var(--accent-soft);
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+    }
+
+    .job-info {
+      flex: 1;
+    }
+
+    .job-info h4 {
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    .job-info p {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .job-tag {
+      padding: 7px 10px;
+      border-radius: 9px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+    }
+
+    /* ================= TRUST ================= */
+
+    .trust {
+      background: var(--primary);
+      color: white;
+    }
+
+    .trust .section-label {
+      color: #6ee7b7;
+    }
+
+    .trust .section-header h2 {
+      color: white;
+    }
+
+    .trust .section-header p {
+      color: #aebdca;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 18px;
+    }
+
+    .trust-card {
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.055);
+      padding: 27px;
+      border-radius: 20px;
+    }
+
+    .trust-card .icon {
+      font-size: 29px;
+      margin-bottom: 15px;
+    }
+
+    .trust-card h3 {
+      font-size: 15px;
+      margin-bottom: 7px;
+    }
+
+    .trust-card p {
+      color: #aebdca;
+      font-size: 12px;
+    }
+
+    /* ================= CTA ================= */
+
+    .cta {
+      padding: 70px 0;
+    }
+
+    .cta-box {
+      padding: 55px;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(255,255,255,.22), transparent 20%),
+        linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .cta-box h2 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .cta-box p {
+      color: #dcfce7;
+      font-size: 14px;
+    }
+
+    .cta-box .btn {
+      background: white;
+      color: var(--primary);
+      padding: 15px 24px;
+      white-space: nowrap;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      background: #071629;
+      color: white;
+      padding: 60px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 45px;
+    }
+
+    .footer-about p {
+      max-width: 360px;
+      color: #93a4b7;
+      font-size: 13px;
+      margin-top: 17px;
+    }
+
+    .footer-column h4 {
+      font-size: 14px;
+      margin-bottom: 17px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #93a4b7;
+      font-size: 12px;
+      margin: 10px 0;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 23px;
+      text-align: center;
+      color: #6f8297;
+      font-size: 11px;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 1000px) {
+      .service-grid {
+        grid-template-columns: repeat(3,1fr);
+      }
+
+      .hero-inner {
+        gap: 25px;
+      }
+
+      .trust-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+    }
+
+    @media (max-width: 820px) {
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-links.mobile-open {
+        display: flex;
+        position: absolute;
+        top: 78px;
+        left: 20px;
+        right: 20px;
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 17px;
+      }
+
+      .hero {
+        padding-top: 55px;
+      }
+
+      .hero-inner,
+      .jobs-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 430px;
+      }
+
+      .main-card {
+        width: 95%;
+        right: 0;
+      }
+
+      .service-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .steps {
+        grid-template-columns: repeat(2,1fr);
+        gap: 40px 20px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .hero h1 {
+        font-size: 43px;
+        letter-spacing: -2px;
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .hero-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-buttons .btn {
+        padding: 13px 10px;
+      }
+
+      .hero-stats {
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .hero-visual {
+        min-height: 405px;
+      }
+
+      .main-card {
+        top: 25px;
+        width: 100%;
+        height: 365px;
+        padding: 24px;
+      }
+
+      .floating-one {
+        bottom: 0;
+        left: -3px;
+      }
+
+      .floating-two {
+        right: -4px;
+      }
+
+      .service-grid {
+        grid-template-columns: repeat(2,1fr);
+        gap: 11px;
+      }
+
+      .service-card {
+        padding: 19px 15px;
+      }
+
+      .service-card p {
+        min-height: 75px;
+      }
+
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .jobs-content h2 {
+        font-size: 34px;
+      }
+
+      .job-card {
+        padding: 15px;
+      }
+
+      .job-tag {
+        display: none;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 35px 25px;
+        display: block;
+      }
+
+      .cta-box h2 {
+        font-size: 28px;
+      }
+
+      .cta-box .btn {
+        margin-top: 22px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px 20px;
+      }
+
+      .footer-about {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+
+      <a href="#" class="logo">
+        <div class="logo-icon">CG</div>
+        <div class="logo-text">
+          CG Job Care
+          <span>FACILITY SERVICES</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#jobs">Find Jobs</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline">Login</button>
+        <a href="#services" class="btn btn-primary">Book a Service</a>
+      </div>
+
+      <button class="menu-btn" id="menuBtn">☰</button>
+
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <div class="container hero-inner">
+
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Trusted Jobs & Facility Services
+        </div>
+
+        <h1>
+          Jobs & Trusted
+          <span>Services</span>,
+          All in One Place.
+        </h1>
+
+        <p class="hero-description">
+          Find the right job or hire trusted professionals for security,
+          pest control, baby care, caretaker and housekeeping services.
+          Simple, reliable and convenient.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#jobs" class="btn btn-primary">
+            🔍 Find Jobs
+          </a>
+
+          <a href="#services" class="btn btn-outline">
+            📅 Book a Service
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>500+</strong>
+            <span>Job Opportunities</span>
+          </div>
+
+          <div class="stat">
+            <strong>250+</strong>
+            <span>Professionals</span>
+          </div>
+
+          <div class="stat">
+            <strong>1K+</strong>
+            <span>Happy Customers</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="floating-card floating-two">
+          <strong>✓ Verified Staff</strong>
+          <span>Trusted professionals</span>
+        </div>
+
+        <div class="main-card">
+          <h3>What do you need today?</h3>
+          <p>
+            Choose from our trusted professional services.
+          </p>
+
+          <div class="mini-services">
+
+            <div class="mini-service">
+              <div class="icon">🛡️</div>
+              <strong>Security Guard</strong>
+            </div>
+
+            <div class="mini-service">
+              <div class="icon">🧹</div>
+              <strong>Housekeeping</strong>
+            </div>
+
+            <div class="mini-service">
+              <div class="icon">👶</div>
+              <strong>Baby Care</strong>
+            </div>
+
+            <div class="mini-service">
+              <div class="icon">🪳</div>
+              <strong>Pest Control</strong>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="floating-card floating-one">
+          <strong>⭐ 4.9/5 Rating</strong>
+          <span>From satisfied customers</span>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+
+      <div class="section-header">
+        <span class="section-label">Our Services</span>
+        <h2>Everything You Need, Under One Roof</h2>
+        <p>
+          Whether you're searching for a job or need reliable professional
+          services, we're here to help.
+        </p>
+      </div>
+
+      <div class="service-grid">
+
+        <div class="service-card">
+          <div class="service-icon">💼</div>
+          <h3>Jobs</h3>
+          <p>
+            Discover job opportunities based on your skills and location.
+          </p>
+          <div class="service-link">Explore Jobs →</div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🛡️</div>
+          <h3>Security Guard</h3>
+          <p>
+            Professional security staff for homes, offices and businesses.
+          </p>
+          <div class="service-link">Book Service →</div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🪳</div>
+          <h3>Pest Control</h3>
+          <p>
+            Effective pest management solutions for home and commercial spaces.
+          </p>
+          <div class="service-link">Book Service →</div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">👶</div>
+          <h3>Baby & Caretaker</h3>
+          <p>
+            Caring professionals for babies, elderly and patient support.
+          </p>
+          <div class="service-link">Book Service →</div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🧹</div>
+          <h3>Housekeeping</h3>
+          <p>
+            Reliable housekeeping staff for homes, offices and facilities.
+          </p>
+          <div class="service-link">Book Service →</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="container">
+
+      <div class="section-header">
+        <span class="section-label">Simple Process</span>
+        <h2>Book a Service in 4 Easy Steps</h2>
+        <p>
+          Tell us what you need and we'll help you find the right professional.
+        </p>
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Choose Service</h3>
+          <p>Select the service that matches your requirement.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Share Details</h3>
+          <p>Enter location, date and your specific requirements.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Get Professional</h3>
+          <p>We connect you with an appropriate professional.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">✓</div>
+          <h3>Service Complete</h3>
+          <p>Get the service and share your experience.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- JOBS -->
+  <section id="jobs">
+    <div class="container jobs-wrap">
+
+      <div class="jobs-content">
+
+        <span class="section-label">Find Jobs</span>
+
+        <h2>
+          Your Next Opportunity Starts Here.
+        </h2>
+
+        <p>
+          Search available opportunities and apply for jobs that match your
+          skills and preferred location.
+        </p>
+
+        <div class="job-search">
+          <input
+            type="text"
+            id="jobInput"
+            placeholder="Search jobs..."
+          />
+
+          <button class="btn btn-primary" onclick="searchJobs()">
+            Search
+          </button>
+        </div>
+
+      </div>
+
+      <div class="job-list" id="jobList">
+
+        <div class="job-card" data-title="security guard">
+          <div class="job-logo">🛡️</div>
+          <div class="job-info">
+            <h4>Security Guard</h4>
+            <p>Full Time • ₹14,000 - ₹18,000/month</p>
+          </div>
+          <span class="job-tag">Apply Now</span>
+        </div>
+
+        <div class="job-card" data-title="housekeeping staff">
+          <div class="job-logo">🧹</div>
+          <div class="job-info">
+            <h4>Housekeeping Staff</h4>
+            <p>Full Time • ₹12,000 - ₹16,000/month</p>
+          </div>
+          <span class="job-tag">Apply Now</span>
+        </div>
+
+        <div class="job-card" data-title="caretaker">
+          <div class="job-logo">❤️</div>
+          <div class="job-info">
+            <h4>Patient Caretaker</h4>
+            <p>Full Time • ₹15,000 - ₹20,000/month</p>
+          </div>
+          <span class="job-tag">Apply Now</span>
+        </div>
+
+        <div class="job-card" data-title="baby sitter">
+          <div class="job-logo">👶</div>
+          <div class="job-info">
+            <h4>Baby Care / Babysitter</h4>
+            <p>Full Time • ₹13,000 - ₹18,000/month</p>
+          </div>
+          <span class="job-tag">Apply Now</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- TRUST -->
+  <section class="trust">
+    <div class="container">
+
+      <div class="section-header">
+        <span class="section-label">Why Choose Us</span>
+        <h2>Professional. Reliable. Convenient.</h2>
+        <p>
+          Our goal is to make finding jobs and trusted services simple.
+        </p>
+      </div>
+
+      <div class="trust-grid">
+
+        <div class="trust-card">
+          <div class="icon">✓</div>
+          <h3>Verified Professionals</h3>
+          <p>
+            Professionals are reviewed before being assigned to customers.
+          </p>
+        </div>
+
+        <div class="trust-card">
+          <div class="icon">⚡</div>
+          <h3>Quick Service</h3>
+          <p>
+            Submit your requirement and get a fast response from our team.
+          </p>
+        </div>
+
+        <div class="trust-card">
+          <div class="icon">🔒</div>
+          <h3>Safe & Secure</h3>
+          <p>
+            Your information and service requests are handled securely.
+          </p>
+        </div>
+
+        <div class="trust-card">
+          <div class="icon">🎧</div>
+          <h3>Customer Support</h3>
+          <p>
+            Our support team is available to help with your requirements.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="container">
+
+      <div class="cta-box">
+
+        <div>
+          <h2>Need a Professional Service?</h2>
+          <p>
+            Tell us your requirement and we'll help you find the right solution.
+          </p>
+        </div>
+
+        <button
+          class="btn"
+          onclick="bookService()"
+        >
+          Book a Service →
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-about">
+
+          <div class="logo">
+            <div class="logo-icon">CG</div>
+            <div class="logo-text" style="color:white">
+              CG Job Care
+              <span>FACILITY SERVICES</span>
+            </div>
+          </div>
+
+          <p>
+            Jobs, Security, Care & Facility — All Under One Roof.
+            Helping people find opportunities and reliable professional
+            services.
+          </p>
+
+        </div>
+
+        <div class="footer-column">
+          <h4>Services</h4>
+          <a href="#">Security Guard</a>
+          <a href="#">Pest Control</a>
+          <a href="#">Baby Care</a>
+          <a href="#">Housekeeping</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Jobs</h4>
+          <a href="#">Find Jobs</a>
+          <a href="#">Latest Jobs</a>
+          <a href="#">Apply</a>
+          <a href="#">Application Status</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+        </div>
+
+      </div>
+
+      <div class="copyright">
+        © 2026 CG Job Care & Facility Services. All rights reserved.
+      </div>
+
+    </div>
+  </footer>
+
+
+  <script>
+
+    // Mobile Menu
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("mobile-open");
+
+      if (navLinks.classList.contains("mobile-open")) {
+        menuBtn.innerHTML = "✕";
+      } else {
+        menuBtn.innerHTML = "☰";
+      }
+    });
+
+    // Close menu after clicking link
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("mobile-open");
+        menuBtn.innerHTML = "☰";
+      });
+    });
+
+
+    // Job Search
+    function searchJobs() {
+
+      const value = document
+        .getElementById("jobInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+      const jobs = document.querySelectorAll(".job-card");
+
+      jobs.forEach(job => {
+
+        const title = job.dataset.title.toLowerCase();
+
+        if (title.includes(value)) {
+          job.style.display = "flex";
+        } else {
+          job.style.display = "none";
+        }
+
+      });
+    }
+
+
+    // Search while typing
+    document
+      .getElementById("jobInput")
+      .addEventListener("input", searchJobs);
+
+
+    // Booking demo
+    function bookService() {
+      document
+        .getElementById("services")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+    }
+
+
+    // Service card interaction
+    document
+      .querySelectorAll(".service-card")
+      .forEach(card => {
+
+        card.addEventListener("click", () => {
+
+          const service =
+            card.querySelector("h3").innerText;
+
+          alert(
+            service +
+            " selected.\n\nBooking page/form can be connected here."
+          );
+
+        });
+
+      });
+
+
+    // Job card interaction
+    document
+      .querySelectorAll(".job-card")
+      .forEach(job => {
+
+        job.addEventListener("click", () => {
+
+          const jobTitle =
+            job.querySelector("h4").innerText;
+
+          alert(
+            "Apply for: " +
+            jobTitle +
+            "\n\nJob details/application page can be connected here."
+          );
+
+        });
+
+      });
+
+  </script>
+
+</body>
+</html>

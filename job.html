@@ -1,0 +1,3448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CG Job Care & Facility Services</title>
+
+  <meta name="description"
+        content="Jobs, security guards, pest control, baby care, caretakers and housekeeping services.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+  <style>
+    /* =====================================================
+       RESET + VARIABLES
+    ===================================================== */
+
+    :root{
+      --blue:#2447e5;
+      --blue-dark:#1734bb;
+      --blue-soft:#eef2ff;
+
+      --orange:#ff6b35;
+      --orange-dark:#e94f18;
+      --orange-soft:#fff0e9;
+
+      --yellow:#ffc83d;
+      --green:#23b26d;
+      --purple:#8155e7;
+
+      --navy:#11182b;
+      --text:#20283b;
+      --muted:#6f7788;
+
+      --cream:#f7f6f1;
+      --white:#ffffff;
+      --border:#e9e9e5;
+
+      --shadow:
+        0 20px 60px rgba(27,39,94,.10);
+
+      --shadow-lg:
+        0 35px 90px rgba(27,39,94,.16);
+
+      --radius:26px;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:"DM Sans",sans-serif;
+      color:var(--text);
+      background:var(--cream);
+      overflow-x:hidden;
+    }
+
+    body.menu-open{
+      overflow:hidden;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select{
+      font:inherit;
+    }
+
+    button{
+      border:none;
+      cursor:pointer;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    .container{
+      width:min(1180px,calc(100% - 40px));
+      margin:auto;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:1.4px;
+      text-transform:uppercase;
+
+      color:var(--blue);
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:22px;
+      height:3px;
+      border-radius:100px;
+      background:var(--orange);
+    }
+
+    .section-title{
+      font-family:"Manrope",sans-serif;
+      font-size:clamp(32px,4vw,52px);
+      line-height:1.08;
+      letter-spacing:-2px;
+      color:var(--navy);
+    }
+
+    .section-text{
+      color:var(--muted);
+      line-height:1.8;
+      font-size:15px;
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    .navbar{
+      position:fixed;
+      z-index:1000;
+      top:0;
+      left:0;
+      width:100%;
+
+      background:rgba(247,246,241,.88);
+      backdrop-filter:blur(18px);
+
+      border-bottom:1px solid rgba(17,24,43,.06);
+
+      transition:.3s;
+    }
+
+    .navbar.scrolled{
+      box-shadow:0 10px 40px rgba(17,24,43,.06);
+    }
+
+    .nav-wrap{
+      height:82px;
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand-mark{
+      width:44px;
+      height:44px;
+
+      border-radius:14px;
+
+      display:grid;
+      place-items:center;
+
+      color:white;
+      font-family:"Manrope";
+      font-weight:800;
+      font-size:15px;
+
+      background:var(--blue);
+
+      position:relative;
+      overflow:hidden;
+    }
+
+    .brand-mark::after{
+      content:"";
+      width:26px;
+      height:26px;
+      border-radius:50%;
+
+      position:absolute;
+      right:-9px;
+      bottom:-9px;
+
+      background:var(--orange);
+    }
+
+    .brand-name{
+      font-family:"Manrope";
+      font-weight:800;
+      color:var(--navy);
+      line-height:1.1;
+      font-size:16px;
+    }
+
+    .brand-name small{
+      display:block;
+
+      color:var(--muted);
+
+      font-family:"DM Sans";
+      font-size:9px;
+      letter-spacing:1.2px;
+      font-weight:700;
+
+      margin-top:4px;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:30px;
+      list-style:none;
+    }
+
+    .nav-links a{
+      font-size:14px;
+      font-weight:600;
+      color:#4e5668;
+      transition:.2s;
+    }
+
+    .nav-links a:hover{
+      color:var(--blue);
+    }
+
+    .nav-actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      min-height:46px;
+
+      padding:0 20px;
+
+      border-radius:13px;
+
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+
+      font-size:13px;
+      font-weight:700;
+
+      transition:.25s;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-light{
+      background:white;
+      border:1px solid var(--border);
+      color:var(--navy);
+    }
+
+    .btn-blue{
+      color:white;
+      background:var(--blue);
+      box-shadow:0 10px 25px rgba(36,71,229,.20);
+    }
+
+    .btn-blue:hover{
+      background:var(--blue-dark);
+    }
+
+    .btn-orange{
+      color:white;
+      background:var(--orange);
+      box-shadow:0 10px 25px rgba(255,107,53,.23);
+    }
+
+    .mobile-menu{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+
+      background:white;
+      border:1px solid var(--border);
+
+      display:none;
+      place-items:center;
+
+      font-size:22px;
+      color:var(--navy);
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .hero{
+      min-height:760px;
+
+      padding-top:82px;
+
+      display:flex;
+      align-items:center;
+
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+
+      position:absolute;
+      width:500px;
+      height:500px;
+
+      border-radius:50%;
+
+      right:-180px;
+      top:80px;
+
+      background:#e7eaff;
+      filter:blur(1px);
+    }
+
+    .hero::after{
+      content:"";
+
+      width:180px;
+      height:180px;
+
+      border-radius:50%;
+
+      position:absolute;
+      left:-100px;
+      bottom:50px;
+
+      background:#ffe2d5;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1fr .95fr;
+
+      gap:70px;
+      align-items:center;
+
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-copy{
+      padding:70px 0;
+    }
+
+    .hero-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+
+      background:white;
+
+      border:1px solid #e8e8e3;
+
+      border-radius:100px;
+
+      padding:7px 13px 7px 7px;
+
+      margin-bottom:25px;
+
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .tag-icon{
+      width:27px;
+      height:27px;
+
+      border-radius:50%;
+
+      background:var(--orange);
+      color:white;
+
+      display:grid;
+      place-items:center;
+
+      font-size:12px;
+    }
+
+    .hero h1{
+      font-family:"Manrope";
+      font-size:clamp(48px,6vw,78px);
+
+      letter-spacing:-4px;
+      line-height:.99;
+
+      color:var(--navy);
+
+      max-width:700px;
+    }
+
+    .hero h1 .blue{
+      color:var(--blue);
+    }
+
+    .hero h1 .orange{
+      color:var(--orange);
+    }
+
+    .hero-description{
+      margin:27px 0 31px;
+
+      max-width:590px;
+
+      font-size:17px;
+      line-height:1.75;
+
+      color:var(--muted);
+    }
+
+    .hero-actions{
+      display:flex;
+      align-items:center;
+      gap:12px;
+
+      margin-bottom:34px;
+    }
+
+    .hero-actions .btn{
+      min-height:54px;
+      padding:0 25px;
+      font-size:14px;
+    }
+
+    .mini-trust{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .avatars{
+      display:flex;
+    }
+
+    .avatar{
+      width:37px;
+      height:37px;
+
+      margin-left:-8px;
+
+      border:3px solid var(--cream);
+      border-radius:50%;
+
+      display:grid;
+      place-items:center;
+
+      font-size:15px;
+
+      background:white;
+    }
+
+    .avatar:first-child{
+      margin-left:0;
+    }
+
+    .trust-copy strong{
+      display:block;
+      font-size:13px;
+      color:var(--navy);
+    }
+
+    .trust-copy span{
+      color:var(--muted);
+      font-size:11px;
+    }
+
+
+    /* =====================================================
+       HERO VISUAL
+    ===================================================== */
+
+    .hero-art{
+      min-height:590px;
+      position:relative;
+    }
+
+    .hero-main-shape{
+      width:410px;
+      height:500px;
+
+      position:absolute;
+      right:20px;
+      top:45px;
+
+      border-radius:160px 160px 40px 40px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #3154e9,
+          #1839cc
+        );
+
+      overflow:hidden;
+
+      box-shadow:
+        0 40px 100px rgba(36,71,229,.25);
+    }
+
+    .hero-main-shape::before{
+      content:"";
+
+      width:290px;
+      height:290px;
+
+      border:60px solid rgba(255,255,255,.08);
+
+      border-radius:50%;
+
+      position:absolute;
+      right:-100px;
+      top:-80px;
+    }
+
+    .person-illustration{
+      position:absolute;
+
+      left:50%;
+      transform:translateX(-50%);
+
+      bottom:0;
+
+      width:270px;
+      height:390px;
+    }
+
+    .person-head{
+      position:absolute;
+
+      width:92px;
+      height:92px;
+
+      background:#f1b28d;
+
+      border-radius:50%;
+
+      left:90px;
+      top:10px;
+    }
+
+    .person-hair{
+      position:absolute;
+
+      width:98px;
+      height:52px;
+
+      background:#11182b;
+
+      border-radius:60px 60px 20px 20px;
+
+      left:87px;
+      top:0;
+
+      transform:rotate(-4deg);
+    }
+
+    .person-body{
+      position:absolute;
+
+      width:230px;
+      height:300px;
+
+      left:25px;
+      top:88px;
+
+      background:#ff6b35;
+
+      border-radius:85px 85px 25px 25px;
+    }
+
+    .person-body::after{
+      content:"CG";
+
+      position:absolute;
+
+      width:58px;
+      height:58px;
+
+      border-radius:50%;
+
+      background:white;
+      color:var(--blue);
+
+      display:grid;
+      place-items:center;
+
+      font-family:"Manrope";
+      font-weight:800;
+
+      left:86px;
+      top:75px;
+    }
+
+    .float-card{
+      position:absolute;
+
+      background:white;
+
+      border:1px solid rgba(17,24,43,.06);
+
+      box-shadow:var(--shadow-lg);
+
+      border-radius:20px;
+
+      padding:15px;
+
+      z-index:5;
+    }
+
+    .float-card h4{
+      font-size:13px;
+      color:var(--navy);
+    }
+
+    .float-card p{
+      font-size:10px;
+      color:var(--muted);
+      margin-top:3px;
+    }
+
+    .float-icon{
+      width:40px;
+      height:40px;
+
+      border-radius:12px;
+
+      display:grid;
+      place-items:center;
+
+      font-size:20px;
+
+      margin-bottom:10px;
+    }
+
+    .float-security{
+      left:-5px;
+      top:115px;
+      width:155px;
+    }
+
+    .float-security .float-icon{
+      background:var(--blue-soft);
+    }
+
+    .float-care{
+      right:-30px;
+      bottom:80px;
+      width:160px;
+    }
+
+    .float-care .float-icon{
+      background:var(--orange-soft);
+    }
+
+    .verified{
+      left:30px;
+      bottom:45px;
+
+      display:flex;
+      align-items:center;
+      gap:10px;
+
+      padding:12px 15px;
+    }
+
+    .verify-circle{
+      width:35px;
+      height:35px;
+
+      border-radius:50%;
+
+      background:#e7f8ef;
+      color:var(--green);
+
+      display:grid;
+      place-items:center;
+
+      font-weight:800;
+    }
+
+
+    /* =====================================================
+       QUICK FIND
+    ===================================================== */
+
+    .quick-find{
+      position:relative;
+      z-index:20;
+
+      margin-top:-40px;
+    }
+
+    .search-panel{
+      background:white;
+
+      border-radius:22px;
+
+      padding:16px;
+
+      box-shadow:
+        0 30px 70px rgba(30,39,76,.13);
+
+      display:grid;
+      grid-template-columns:1.3fr 1fr 1fr auto;
+
+      gap:8px;
+    }
+
+    .search-field{
+      min-height:62px;
+
+      background:#f8f8f5;
+
+      border-radius:14px;
+
+      padding:10px 15px;
+
+      display:flex;
+      align-items:center;
+      gap:11px;
+    }
+
+    .search-field .field-icon{
+      font-size:19px;
+    }
+
+    .field-content{
+      flex:1;
+    }
+
+    .field-content label{
+      display:block;
+
+      font-size:9px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+
+      color:#979daa;
+
+      font-weight:700;
+
+      margin-bottom:3px;
+    }
+
+    .field-content input,
+    .field-content select{
+      width:100%;
+
+      border:none;
+      outline:none;
+
+      background:transparent;
+
+      color:var(--navy);
+
+      font-size:13px;
+      font-weight:600;
+    }
+
+    .search-button{
+      min-width:135px;
+
+      border-radius:14px;
+
+      background:var(--blue);
+      color:white;
+
+      font-weight:700;
+    }
+
+
+    /* =====================================================
+       SERVICE BENTO
+    ===================================================== */
+
+    .services{
+      padding:130px 0 110px;
+    }
+
+    .section-heading-row{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+
+      gap:40px;
+
+      margin-bottom:45px;
+    }
+
+    .section-heading-row .section-title{
+      max-width:600px;
+      margin-top:12px;
+    }
+
+    .section-heading-row .section-text{
+      max-width:410px;
+    }
+
+    .service-bento{
+      display:grid;
+
+      grid-template-columns:
+        1.15fr .85fr .85fr;
+
+      grid-template-rows:
+        265px 265px;
+
+      gap:16px;
+    }
+
+    .service-box{
+      position:relative;
+
+      border-radius:26px;
+
+      overflow:hidden;
+
+      padding:28px;
+
+      transition:.3s;
+
+      cursor:pointer;
+    }
+
+    .service-box:hover{
+      transform:translateY(-5px);
+    }
+
+    .service-box h3{
+      font-family:"Manrope";
+      font-size:23px;
+      line-height:1.2;
+
+      margin-bottom:8px;
+    }
+
+    .service-box p{
+      font-size:12px;
+      line-height:1.6;
+      max-width:250px;
+
+      opacity:.76;
+    }
+
+    .service-number{
+      position:absolute;
+
+      right:20px;
+      top:17px;
+
+      font-family:"Manrope";
+      font-size:11px;
+      font-weight:800;
+
+      opacity:.55;
+    }
+
+    .service-arrow{
+      width:43px;
+      height:43px;
+
+      border-radius:50%;
+
+      display:grid;
+      place-items:center;
+
+      position:absolute;
+      left:27px;
+      bottom:26px;
+
+      transition:.3s;
+    }
+
+    .service-box:hover .service-arrow{
+      transform:translateX(6px);
+    }
+
+    .service-big{
+      grid-row:span 2;
+
+      background:var(--blue);
+
+      color:white;
+    }
+
+    .service-big h3{
+      font-size:34px;
+      max-width:250px;
+    }
+
+    .service-big .service-arrow{
+      background:white;
+      color:var(--blue);
+    }
+
+    .service-art{
+      position:absolute;
+
+      width:270px;
+      height:270px;
+
+      border-radius:50%;
+
+      right:-70px;
+      bottom:-55px;
+
+      background:rgba(255,255,255,.10);
+    }
+
+    .service-art::after{
+      content:"🛡️";
+
+      position:absolute;
+
+      left:65px;
+      top:48px;
+
+      font-size:105px;
+
+      transform:rotate(-8deg);
+    }
+
+    .pest{
+      background:#ffdf75;
+      color:#302500;
+    }
+
+    .pest .service-arrow{
+      background:#302500;
+      color:white;
+    }
+
+    .care{
+      background:#f1e9ff;
+      color:#3d246b;
+    }
+
+    .care .service-arrow{
+      background:#6f42c1;
+      color:white;
+    }
+
+    .house{
+      background:#daf4e5;
+      color:#153c27;
+    }
+
+    .house .service-arrow{
+      background:#1c8b56;
+      color:white;
+    }
+
+    .jobs-card{
+      background:#ffddd0;
+      color:#65250d;
+    }
+
+    .jobs-card .service-arrow{
+      background:var(--orange);
+      color:white;
+    }
+
+    .big-emoji{
+      position:absolute;
+
+      right:24px;
+      bottom:13px;
+
+      font-size:72px;
+
+      filter:
+        drop-shadow(
+          0 15px 15px rgba(0,0,0,.08)
+        );
+    }
+
+
+    /* =====================================================
+       TRUST STRIP
+    ===================================================== */
+
+    .trust-strip{
+      background:var(--navy);
+      color:white;
+
+      padding:22px 0;
+    }
+
+    .trust-items{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+    }
+
+    .trust-item{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+
+      border-right:
+        1px solid rgba(255,255,255,.12);
+
+      padding:8px 15px;
+    }
+
+    .trust-item:last-child{
+      border-right:0;
+    }
+
+    .trust-item span:first-child{
+      font-size:21px;
+    }
+
+    .trust-item strong{
+      display:block;
+      font-size:12px;
+    }
+
+    .trust-item small{
+      display:block;
+      color:#9ba4b8;
+      font-size:9px;
+      margin-top:2px;
+    }
+
+
+    /* =====================================================
+       JOBS
+    ===================================================== */
+
+    .jobs-section{
+      padding:110px 0;
+      background:white;
+    }
+
+    .jobs-layout{
+      display:grid;
+      grid-template-columns:.75fr 1.25fr;
+
+      gap:70px;
+      align-items:start;
+    }
+
+    .jobs-left{
+      position:sticky;
+      top:120px;
+    }
+
+    .jobs-left .section-title{
+      margin:12px 0 20px;
+    }
+
+    .jobs-left .section-text{
+      margin-bottom:27px;
+    }
+
+    .jobs-count{
+      margin-top:38px;
+
+      padding-top:25px;
+
+      border-top:1px solid var(--border);
+
+      display:flex;
+      gap:35px;
+    }
+
+    .count-item strong{
+      display:block;
+
+      font-family:"Manrope";
+      font-size:27px;
+
+      color:var(--navy);
+    }
+
+    .count-item span{
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .job-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .job{
+      border:1px solid var(--border);
+
+      border-radius:19px;
+
+      padding:19px;
+
+      display:flex;
+      align-items:center;
+
+      gap:16px;
+
+      transition:.25s;
+
+      background:white;
+    }
+
+    .job:hover{
+      border-color:#cbd3ff;
+      box-shadow:0 16px 40px rgba(36,71,229,.08);
+      transform:translateX(4px);
+    }
+
+    .job-icon{
+      min-width:53px;
+      width:53px;
+      height:53px;
+
+      border-radius:15px;
+
+      display:grid;
+      place-items:center;
+
+      background:var(--blue-soft);
+
+      font-size:22px;
+    }
+
+    .job:nth-child(2) .job-icon{
+      background:var(--orange-soft);
+    }
+
+    .job:nth-child(3) .job-icon{
+      background:#e9f8f0;
+    }
+
+    .job:nth-child(4) .job-icon{
+      background:#f3edff;
+    }
+
+    .job-content{
+      flex:1;
+    }
+
+    .job-top{
+      display:flex;
+      align-items:center;
+      gap:9px;
+    }
+
+    .job-top h4{
+      font-family:"Manrope";
+      color:var(--navy);
+      font-size:15px;
+    }
+
+    .new-tag{
+      padding:3px 7px;
+
+      border-radius:100px;
+
+      background:#e7f8ef;
+      color:#16854e;
+
+      font-size:8px;
+      font-weight:800;
+    }
+
+    .job-meta{
+      margin-top:5px;
+
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .job-apply{
+      padding:9px 14px;
+
+      border-radius:10px;
+
+      color:var(--blue);
+      background:var(--blue-soft);
+
+      font-size:10px;
+      font-weight:800;
+
+      white-space:nowrap;
+    }
+
+
+    /* =====================================================
+       HOW IT WORKS
+    ===================================================== */
+
+    .process{
+      padding:110px 0;
+    }
+
+    .process-header{
+      text-align:center;
+      max-width:700px;
+      margin:0 auto 55px;
+    }
+
+    .process-header .eyebrow{
+      justify-content:center;
+    }
+
+    .process-header .section-title{
+      margin:12px 0 15px;
+    }
+
+    .process-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+    }
+
+    .process-card{
+      background:white;
+
+      border:1px solid var(--border);
+
+      border-radius:23px;
+
+      padding:26px;
+
+      min-height:225px;
+
+      position:relative;
+
+      transition:.3s;
+    }
+
+    .process-card:hover{
+      transform:translateY(-6px);
+      box-shadow:var(--shadow);
+    }
+
+    .process-no{
+      font-family:"Manrope";
+      font-size:50px;
+      line-height:1;
+
+      color:#e6e7e9;
+
+      font-weight:800;
+
+      margin-bottom:27px;
+    }
+
+    .process-card h3{
+      font-family:"Manrope";
+      font-size:16px;
+      color:var(--navy);
+
+      margin-bottom:9px;
+    }
+
+    .process-card p{
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.7;
+    }
+
+    .process-card:last-child{
+      background:var(--orange);
+      border-color:var(--orange);
+      color:white;
+    }
+
+    .process-card:last-child .process-no{
+      color:rgba(255,255,255,.25);
+    }
+
+    .process-card:last-child h3{
+      color:white;
+    }
+
+    .process-card:last-child p{
+      color:#ffe0d4;
+    }
+
+
+    /* =====================================================
+       CTA
+    ===================================================== */
+
+    .cta-section{
+      padding:20px 0 100px;
+    }
+
+    .cta-box{
+      min-height:360px;
+
+      background:var(--blue);
+
+      border-radius:32px;
+
+      padding:60px;
+
+      position:relative;
+
+      overflow:hidden;
+
+      color:white;
+
+      display:flex;
+      align-items:center;
+    }
+
+    .cta-box::before{
+      content:"";
+
+      width:430px;
+      height:430px;
+
+      border:90px solid rgba(255,255,255,.06);
+
+      border-radius:50%;
+
+      position:absolute;
+
+      right:-110px;
+      top:-130px;
+    }
+
+    .cta-box::after{
+      content:"";
+
+      width:200px;
+      height:200px;
+
+      background:var(--orange);
+
+      border-radius:50%;
+
+      position:absolute;
+
+      right:110px;
+      bottom:-125px;
+    }
+
+    .cta-content{
+      position:relative;
+      z-index:2;
+
+      max-width:650px;
+    }
+
+    .cta-content h2{
+      font-family:"Manrope";
+      font-size:clamp(35px,5vw,55px);
+
+      line-height:1.06;
+      letter-spacing:-2px;
+
+      margin-bottom:17px;
+    }
+
+    .cta-content p{
+      max-width:520px;
+
+      color:#cdd5ff;
+
+      font-size:14px;
+      line-height:1.7;
+
+      margin-bottom:27px;
+    }
+
+    .cta-buttons{
+      display:flex;
+      gap:10px;
+    }
+
+    .cta-buttons .btn{
+      min-height:52px;
+    }
+
+    .white-btn{
+      background:white;
+      color:var(--blue);
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer{
+      background:#0b1020;
+      color:white;
+
+      padding:70px 0 25px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr 1.1fr;
+
+      gap:60px;
+
+      margin-bottom:55px;
+    }
+
+    .footer-brand .brand-name{
+      color:white;
+    }
+
+    .footer-description{
+      max-width:340px;
+
+      color:#7f899f;
+
+      font-size:12px;
+      line-height:1.8;
+
+      margin-top:18px;
+    }
+
+    .footer-column h4{
+      font-family:"Manrope";
+      font-size:13px;
+
+      margin-bottom:19px;
+    }
+
+    .footer-column a{
+      display:block;
+
+      color:#7f899f;
+
+      font-size:11px;
+
+      margin:12px 0;
+
+      transition:.2s;
+    }
+
+    .footer-column a:hover{
+      color:white;
+      transform:translateX(3px);
+    }
+
+    .footer-contact{
+      color:#7f899f;
+      font-size:11px;
+      line-height:1.8;
+    }
+
+    .footer-contact div{
+      margin-bottom:10px;
+    }
+
+    .footer-bottom{
+      border-top:
+        1px solid rgba(255,255,255,.07);
+
+      padding-top:22px;
+
+      display:flex;
+      justify-content:space-between;
+
+      color:#586177;
+
+      font-size:10px;
+    }
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    .toast{
+      position:fixed;
+
+      right:20px;
+      bottom:20px;
+
+      background:var(--navy);
+      color:white;
+
+      padding:14px 18px;
+
+      border-radius:13px;
+
+      box-shadow:var(--shadow-lg);
+
+      z-index:5000;
+
+      font-size:12px;
+
+      transform:translateY(100px);
+      opacity:0;
+
+      transition:.3s;
+    }
+
+    .toast.show{
+      transform:translateY(0);
+      opacity:1;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media(max-width:1000px){
+
+      .hero-grid{
+        gap:20px;
+      }
+
+      .hero-main-shape{
+        width:350px;
+      }
+
+      .service-bento{
+        grid-template-columns:1fr 1fr;
+        grid-template-rows:auto;
+      }
+
+      .service-big{
+        grid-row:span 2;
+      }
+
+      .trust-items{
+        grid-template-columns:1fr 1fr;
+        gap:15px 0;
+      }
+
+      .trust-item:nth-child(2){
+        border-right:0;
+      }
+
+      .process-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+    }
+
+
+    @media(max-width:820px){
+
+      .nav-links,
+      .nav-actions{
+        display:none;
+      }
+
+      .mobile-menu{
+        display:grid;
+      }
+
+      .nav-links.active{
+        display:flex;
+
+        position:fixed;
+
+        top:82px;
+        left:15px;
+        right:15px;
+
+        background:white;
+
+        border-radius:18px;
+
+        padding:24px;
+
+        flex-direction:column;
+        align-items:flex-start;
+
+        box-shadow:var(--shadow-lg);
+
+        z-index:999;
+      }
+
+      .hero{
+        padding-top:82px;
+      }
+
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-copy{
+        padding:65px 0 20px;
+      }
+
+      .hero-art{
+        min-height:540px;
+      }
+
+      .hero-main-shape{
+        left:50%;
+        right:auto;
+
+        transform:translateX(-50%);
+
+        width:390px;
+      }
+
+      .float-security{
+        left:5%;
+      }
+
+      .float-care{
+        right:3%;
+      }
+
+      .verified{
+        left:7%;
+      }
+
+      .quick-find{
+        margin-top:10px;
+      }
+
+      .search-panel{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .search-button{
+        min-height:58px;
+      }
+
+      .section-heading-row{
+        display:block;
+      }
+
+      .section-heading-row .section-text{
+        margin-top:17px;
+      }
+
+      .jobs-layout{
+        grid-template-columns:1fr;
+        gap:45px;
+      }
+
+      .jobs-left{
+        position:static;
+      }
+
+      .footer-grid{
+        grid-template-columns:2fr 1fr 1fr;
+      }
+
+    }
+
+
+    @media(max-width:600px){
+
+      .container{
+        width:calc(100% - 28px);
+      }
+
+      .nav-wrap{
+        height:72px;
+      }
+
+      .brand-mark{
+        width:40px;
+        height:40px;
+      }
+
+      .brand-name{
+        font-size:14px;
+      }
+
+      .hero{
+        padding-top:72px;
+      }
+
+      .hero-copy{
+        padding-top:45px;
+      }
+
+      .hero h1{
+        font-size:46px;
+        letter-spacing:-2.8px;
+      }
+
+      .hero-description{
+        font-size:14px;
+      }
+
+      .hero-actions{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+      }
+
+      .hero-actions .btn{
+        padding:0 12px;
+      }
+
+      .hero-art{
+        min-height:455px;
+      }
+
+      .hero-main-shape{
+        width:310px;
+        height:410px;
+
+        top:20px;
+
+        border-radius:
+          120px 120px 30px 30px;
+      }
+
+      .person-illustration{
+        transform:
+          translateX(-50%)
+          scale(.82);
+
+        transform-origin:bottom;
+      }
+
+      .float-security{
+        left:-5px;
+        top:70px;
+        width:135px;
+      }
+
+      .float-care{
+        right:-5px;
+        bottom:30px;
+        width:140px;
+      }
+
+      .verified{
+        left:0;
+        bottom:12px;
+      }
+
+      .search-panel{
+        grid-template-columns:1fr;
+        padding:11px;
+      }
+
+      .search-field{
+        min-height:58px;
+      }
+
+      .search-button{
+        min-height:54px;
+      }
+
+      .services{
+        padding:85px 0;
+      }
+
+      .section-heading-row{
+        margin-bottom:30px;
+      }
+
+      .section-title{
+        font-size:36px;
+        letter-spacing:-1.5px;
+      }
+
+      .service-bento{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+      }
+
+      .service-box{
+        min-height:230px;
+        padding:20px;
+        border-radius:20px;
+      }
+
+      .service-big{
+        grid-column:1 / -1;
+        grid-row:auto;
+
+        min-height:320px;
+      }
+
+      .service-big h3{
+        font-size:30px;
+      }
+
+      .service-box:not(.service-big) h3{
+        font-size:17px;
+      }
+
+      .service-box:not(.service-big) p{
+        font-size:10px;
+      }
+
+      .service-arrow{
+        width:37px;
+        height:37px;
+
+        left:20px;
+        bottom:20px;
+      }
+
+      .big-emoji{
+        font-size:50px;
+        right:15px;
+      }
+
+      .trust-items{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .trust-item{
+        justify-content:flex-start;
+        padding:10px;
+      }
+
+      .jobs-section{
+        padding:80px 0;
+      }
+
+      .job{
+        padding:14px;
+      }
+
+      .job-icon{
+        width:47px;
+        min-width:47px;
+        height:47px;
+      }
+
+      .job-meta{
+        gap:6px;
+      }
+
+      .job-apply{
+        display:none;
+      }
+
+      .process{
+        padding:80px 0;
+      }
+
+      .process-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+      }
+
+      .process-card{
+        padding:20px;
+        min-height:215px;
+      }
+
+      .process-no{
+        font-size:40px;
+      }
+
+      .cta-section{
+        padding-bottom:70px;
+      }
+
+      .cta-box{
+        min-height:390px;
+        padding:35px 25px;
+        border-radius:24px;
+      }
+
+      .cta-content h2{
+        font-size:38px;
+      }
+
+      .cta-buttons{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr 1fr;
+        gap:40px 20px;
+      }
+
+      .footer-brand{
+        grid-column:1 / -1;
+      }
+
+      .footer-bottom{
+        display:block;
+        line-height:2;
+      }
+
+    }
+
+
+    @media(max-width:390px){
+
+      .hero h1{
+        font-size:41px;
+      }
+
+      .service-bento{
+        grid-template-columns:1fr;
+      }
+
+      .service-big{
+        grid-column:auto;
+      }
+
+      .service-box{
+        min-height:230px;
+      }
+
+      .process-grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="navbar" id="navbar">
+
+  <div class="container nav-wrap">
+
+    <a href="#home" class="brand">
+
+      <div class="brand-mark">
+        CG
+      </div>
+
+      <div class="brand-name">
+        CG Job Care
+
+        <small>
+          FACILITY SERVICES
+        </small>
+      </div>
+
+    </a>
+
+
+    <ul class="nav-links" id="navLinks">
+
+      <li>
+        <a href="#home">Home</a>
+      </li>
+
+      <li>
+        <a href="#services">Services</a>
+      </li>
+
+      <li>
+        <a href="#jobs">Find Jobs</a>
+      </li>
+
+      <li>
+        <a href="#process">How it Works</a>
+      </li>
+
+      <li>
+        <a href="#contact">Contact</a>
+      </li>
+
+    </ul>
+
+
+    <div class="nav-actions">
+
+      <button
+        class="btn btn-light"
+        onclick="showToast('Login page can be connected here.')"
+      >
+        Login
+      </button>
+
+      <a
+        href="#services"
+        class="btn btn-blue"
+      >
+        Book Service
+      </a>
+
+    </div>
+
+
+    <button
+      class="mobile-menu"
+      id="menuBtn"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<header
+  class="hero"
+  id="home"
+>
+
+  <div class="container hero-grid">
+
+    <div class="hero-copy">
+
+      <div class="hero-tag">
+
+        <span class="tag-icon">
+          ★
+        </span>
+
+        Jobs & trusted services in one place
+
+      </div>
+
+
+      <h1>
+
+        Find work.
+
+        <br>
+
+        Find
+
+        <span class="blue">
+          trusted
+        </span>
+
+        <br>
+
+        <span class="orange">
+          people.
+        </span>
+
+      </h1>
+
+
+      <p class="hero-description">
+
+        From finding your next job to hiring reliable
+        professionals for your home and business —
+        everything you need is now in one place.
+
+      </p>
+
+
+      <div class="hero-actions">
+
+        <a
+          href="#jobs"
+          class="btn btn-blue"
+        >
+          Find a Job
+          <span>→</span>
+        </a>
+
+
+        <a
+          href="#services"
+          class="btn btn-light"
+        >
+          Explore Services
+        </a>
+
+      </div>
+
+
+      <div class="mini-trust">
+
+        <div class="avatars">
+
+          <div class="avatar">👨</div>
+          <div class="avatar">👩</div>
+          <div class="avatar">👨‍💼</div>
+          <div class="avatar">👩‍💼</div>
+
+        </div>
+
+
+        <div class="trust-copy">
+
+          <strong>
+            Trusted by growing communities
+          </strong>
+
+          <span>
+            Jobs • Home • Business • Care
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- HERO ART -->
+
+    <div class="hero-art">
+
+      <div class="hero-main-shape">
+
+        <div class="person-illustration">
+
+          <div class="person-head"></div>
+
+          <div class="person-hair"></div>
+
+          <div class="person-body"></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="float-card float-security">
+
+        <div class="float-icon">
+          🛡️
+        </div>
+
+        <h4>
+          Security Staff
+        </h4>
+
+        <p>
+          Home & business security
+        </p>
+
+      </div>
+
+
+      <div class="float-card float-care">
+
+        <div class="float-icon">
+          ❤️
+        </div>
+
+        <h4>
+          Care Services
+        </h4>
+
+        <p>
+          Baby & patient care
+        </p>
+
+      </div>
+
+
+      <div class="float-card verified">
+
+        <div class="verify-circle">
+          ✓
+        </div>
+
+        <div>
+
+          <h4>
+            Verified Professionals
+          </h4>
+
+          <p>
+            Trusted service network
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     QUICK SEARCH
+===================================================== -->
+
+<section class="quick-find">
+
+  <div class="container">
+
+    <div class="search-panel">
+
+
+      <div class="search-field">
+
+        <span class="field-icon">
+          🔍
+        </span>
+
+        <div class="field-content">
+
+          <label>
+            What are you looking for?
+          </label>
+
+          <input
+            id="mainSearch"
+            type="text"
+            placeholder="Job or service..."
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <div class="search-field">
+
+        <span class="field-icon">
+          📍
+        </span>
+
+        <div class="field-content">
+
+          <label>
+            Location
+          </label>
+
+          <input
+            id="locationInput"
+            type="text"
+            placeholder="Enter your city"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <div class="search-field">
+
+        <span class="field-icon">
+          ⚙️
+        </span>
+
+        <div class="field-content">
+
+          <label>
+            Category
+          </label>
+
+          <select id="category">
+
+            <option>
+              All Categories
+            </option>
+
+            <option>
+              Jobs
+            </option>
+
+            <option>
+              Security Guard
+            </option>
+
+            <option>
+              Pest Control
+            </option>
+
+            <option>
+              Baby Care
+            </option>
+
+            <option>
+              Caretaker
+            </option>
+
+            <option>
+              Housekeeping
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="search-button"
+        onclick="mainSearch()"
+      >
+        Search →
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
+<section
+  class="services"
+  id="services"
+>
+
+  <div class="container">
+
+
+    <div class="section-heading-row">
+
+      <div>
+
+        <div class="eyebrow">
+          What we do
+        </div>
+
+        <h2 class="section-title">
+
+          One platform.
+
+          <br>
+
+          Many everyday needs.
+
+        </h2>
+
+      </div>
+
+
+      <p class="section-text">
+
+        Whether you need a job, a security guard,
+        professional cleaning, pest control or someone
+        you can trust to care for your family — start here.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="service-bento">
+
+
+      <!-- SECURITY -->
+
+      <article
+        class="service-box service-big"
+        onclick="selectService('Security Guard')"
+      >
+
+        <span class="service-number">
+          01
+        </span>
+
+        <h3>
+          Security Guard Services
+        </h3>
+
+        <p>
+          Reliable security personnel for homes,
+          offices, shops, events and commercial facilities.
+        </p>
+
+        <div class="service-art"></div>
+
+        <span class="service-arrow">
+          →
+        </span>
+
+      </article>
+
+
+
+      <!-- PEST -->
+
+      <article
+        class="service-box pest"
+        onclick="selectService('Pest Control')"
+      >
+
+        <span class="service-number">
+          02
+        </span>
+
+        <h3>
+          Pest Control
+        </h3>
+
+        <p>
+          Professional solutions for residential
+          and commercial spaces.
+        </p>
+
+        <span class="big-emoji">
+          🪳
+        </span>
+
+        <span class="service-arrow">
+          →
+        </span>
+
+      </article>
+
+
+
+      <!-- CARE -->
+
+      <article
+        class="service-box care"
+        onclick="selectService('Baby Care & Caretaker')"
+      >
+
+        <span class="service-number">
+          03
+        </span>
+
+        <h3>
+          Baby Care & Caretaker
+        </h3>
+
+        <p>
+          Trusted support for babies,
+          elderly people and patients.
+        </p>
+
+        <span class="big-emoji">
+          👶
+        </span>
+
+        <span class="service-arrow">
+          →
+        </span>
+
+      </article>
+
+
+
+      <!-- HOUSEKEEPING -->
+
+      <article
+        class="service-box house"
+        onclick="selectService('Housekeeping')"
+      >
+
+        <span class="service-number">
+          04
+        </span>
+
+        <h3>
+          Housekeeping
+        </h3>
+
+        <p>
+          Cleaning and housekeeping staff
+          for homes and workplaces.
+        </p>
+
+        <span class="big-emoji">
+          🧹
+        </span>
+
+        <span class="service-arrow">
+          →
+        </span>
+
+      </article>
+
+
+
+      <!-- JOBS -->
+
+      <article
+        class="service-box jobs-card"
+        onclick="goToJobs()"
+      >
+
+        <span class="service-number">
+          05
+        </span>
+
+        <h3>
+          Find Jobs
+        </h3>
+
+        <p>
+          Search new opportunities
+          matching your skills.
+        </p>
+
+        <span class="big-emoji">
+          💼
+        </span>
+
+        <span class="service-arrow">
+          →
+        </span>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TRUST STRIP
+===================================================== -->
+
+<div class="trust-strip">
+
+  <div class="container trust-items">
+
+
+    <div class="trust-item">
+
+      <span>
+        ✓
+      </span>
+
+      <div>
+
+        <strong>
+          Verified Staff
+        </strong>
+
+        <small>
+          Trusted professionals
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="trust-item">
+
+      <span>
+        ⚡
+      </span>
+
+      <div>
+
+        <strong>
+          Quick Response
+        </strong>
+
+        <small>
+          Simple booking process
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="trust-item">
+
+      <span>
+        🔒
+      </span>
+
+      <div>
+
+        <strong>
+          Safe & Reliable
+        </strong>
+
+        <small>
+          Your trust matters
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="trust-item">
+
+      <span>
+        ☎
+      </span>
+
+      <div>
+
+        <strong>
+          Customer Support
+        </strong>
+
+        <small>
+          We're here to help
+        </small>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JOBS
+===================================================== -->
+
+<section
+  class="jobs-section"
+  id="jobs"
+>
+
+  <div class="container jobs-layout">
+
+
+    <div class="jobs-left">
+
+      <div class="eyebrow">
+        Career opportunities
+      </div>
+
+      <h2 class="section-title">
+
+        Looking for
+
+        <br>
+
+        your next job?
+
+      </h2>
+
+
+      <p class="section-text">
+
+        Browse opportunities across security,
+        housekeeping, care and facility services.
+        Apply directly through our platform.
+
+      </p>
+
+
+      <button
+        class="btn btn-orange"
+        onclick="showToast('All Jobs page can be connected here.')"
+      >
+        Browse All Jobs →
+      </button>
+
+
+      <div class="jobs-count">
+
+        <div class="count-item">
+
+          <strong>
+            500+
+          </strong>
+
+          <span>
+            Job openings
+          </span>
+
+        </div>
+
+
+        <div class="count-item">
+
+          <strong>
+            20+
+          </strong>
+
+          <span>
+            Job categories
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="job-list">
+
+
+      <article class="job">
+
+        <div class="job-icon">
+          🛡️
+        </div>
+
+        <div class="job-content">
+
+          <div class="job-top">
+
+            <h4>
+              Security Guard
+            </h4>
+
+            <span class="new-tag">
+              NEW
+            </span>
+
+          </div>
+
+          <div class="job-meta">
+
+            <span>📍 Raipur</span>
+
+            <span>● Full Time</span>
+
+            <span>₹14K – ₹18K</span>
+
+          </div>
+
+        </div>
+
+        <button
+          class="job-apply"
+          onclick="applyJob('Security Guard')"
+        >
+          Apply
+        </button>
+
+      </article>
+
+
+
+      <article class="job">
+
+        <div class="job-icon">
+          🧹
+        </div>
+
+        <div class="job-content">
+
+          <div class="job-top">
+
+            <h4>
+              Housekeeping Staff
+            </h4>
+
+          </div>
+
+          <div class="job-meta">
+
+            <span>📍 Raipur</span>
+
+            <span>● Full Time</span>
+
+            <span>₹12K – ₹16K</span>
+
+          </div>
+
+        </div>
+
+        <button
+          class="job-apply"
+          onclick="applyJob('Housekeeping Staff')"
+        >
+          Apply
+        </button>
+
+      </article>
+
+
+
+      <article class="job">
+
+        <div class="job-icon">
+          ❤️
+        </div>
+
+        <div class="job-content">
+
+          <div class="job-top">
+
+            <h4>
+              Patient Caretaker
+            </h4>
+
+            <span class="new-tag">
+              NEW
+            </span>
+
+          </div>
+
+          <div class="job-meta">
+
+            <span>📍 Bhilai</span>
+
+            <span>● Full Time</span>
+
+            <span>₹15K – ₹20K</span>
+
+          </div>
+
+        </div>
+
+        <button
+          class="job-apply"
+          onclick="applyJob('Patient Caretaker')"
+        >
+          Apply
+        </button>
+
+      </article>
+
+
+
+      <article class="job">
+
+        <div class="job-icon">
+          👶
+        </div>
+
+        <div class="job-content">
+
+          <div class="job-top">
+
+            <h4>
+              Baby Care Assistant
+            </h4>
+
+          </div>
+
+          <div class="job-meta">
+
+            <span>📍 Raipur</span>
+
+            <span>● Full Time</span>
+
+            <span>₹13K – ₹18K</span>
+
+          </div>
+
+        </div>
+
+        <button
+          class="job-apply"
+          onclick="applyJob('Baby Care Assistant')"
+        >
+          Apply
+        </button>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PROCESS
+===================================================== -->
+
+<section
+  class="process"
+  id="process"
+>
+
+  <div class="container">
+
+
+    <div class="process-header">
+
+      <div class="eyebrow">
+        Simple & easy
+      </div>
+
+      <h2 class="section-title">
+        From requirement to solution.
+      </h2>
+
+      <p class="section-text">
+
+        No complicated process.
+        Tell us what you need and we'll help
+        you take the next step.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="process-grid">
+
+
+      <article class="process-card">
+
+        <div class="process-no">
+          01
+        </div>
+
+        <h3>
+          Choose
+        </h3>
+
+        <p>
+          Select whether you're looking for
+          a job or professional service.
+        </p>
+
+      </article>
+
+
+
+      <article class="process-card">
+
+        <div class="process-no">
+          02
+        </div>
+
+        <h3>
+          Tell us your need
+        </h3>
+
+        <p>
+          Share your location,
+          requirement and preferred time.
+        </p>
+
+      </article>
+
+
+
+      <article class="process-card">
+
+        <div class="process-no">
+          03
+        </div>
+
+        <h3>
+          Get matched
+        </h3>
+
+        <p>
+          Find the appropriate job opportunity
+          or service professional.
+        </p>
+
+      </article>
+
+
+
+      <article class="process-card">
+
+        <div class="process-no">
+          04
+        </div>
+
+        <h3>
+          You're ready
+        </h3>
+
+        <p>
+          Apply for the job or confirm
+          your service booking.
+        </p>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section
+  class="cta-section"
+  id="contact"
+>
+
+  <div class="container">
+
+
+    <div class="cta-box">
+
+
+      <div class="cta-content">
+
+        <h2>
+
+          Need someone
+
+          <br>
+
+          you can trust?
+
+        </h2>
+
+
+        <p>
+
+          Tell us what service you need.
+          Our platform helps connect you with
+          the right professional for your requirement.
+
+        </p>
+
+
+        <div class="cta-buttons">
+
+          <button
+            class="btn white-btn"
+            onclick="selectService('Service Booking')"
+          >
+            Book a Service →
+          </button>
+
+
+          <a
+            href="#jobs"
+            class="btn btn-orange"
+          >
+            Find a Job
+          </a>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+  <div class="container">
+
+
+    <div class="footer-grid">
+
+
+      <div class="footer-brand">
+
+        <div class="brand">
+
+          <div class="brand-mark">
+            CG
+          </div>
+
+          <div class="brand-name">
+
+            CG Job Care
+
+            <small>
+              FACILITY SERVICES
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <p class="footer-description">
+
+          Jobs, Security, Care & Facility —
+          All Under One Roof.
+
+          A simpler way to find opportunities
+          and reliable everyday services.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="footer-column">
+
+        <h4>
+          Services
+        </h4>
+
+        <a href="#services">
+          Security Guard
+        </a>
+
+        <a href="#services">
+          Pest Control
+        </a>
+
+        <a href="#services">
+          Baby Care
+        </a>
+
+        <a href="#services">
+          Housekeeping
+        </a>
+
+      </div>
+
+
+
+      <div class="footer-column">
+
+        <h4>
+          Quick Links
+        </h4>
+
+        <a href="#jobs">
+          Find Jobs
+        </a>
+
+        <a href="#process">
+          How it Works
+        </a>
+
+        <a href="#">
+          About Us
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
+      </div>
+
+
+
+      <div class="footer-column">
+
+        <h4>
+          Contact
+        </h4>
+
+        <div class="footer-contact">
+
+          <div>
+            📍 Chhattisgarh, India
+          </div>
+
+          <div>
+            ☎ Contact support
+          </div>
+
+          <div>
+            ✉ Email support
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 CG Job Care & Facility Services
+      </span>
+
+      <span>
+        Privacy Policy · Terms & Conditions
+      </span>
+
+    </div>
+
+
+  </div>
+
+</footer>
+
+
+
+<!-- TOAST -->
+
+<div
+  class="toast"
+  id="toast"
+>
+</div>
+
+
+
+<script>
+
+  /* =====================================================
+     NAVBAR
+  ===================================================== */
+
+  const navbar =
+    document.getElementById("navbar");
+
+  const menuBtn =
+    document.getElementById("menuBtn");
+
+  const navLinks =
+    document.getElementById("navLinks");
+
+
+  window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 20){
+
+      navbar.classList.add("scrolled");
+
+    }else{
+
+      navbar.classList.remove("scrolled");
+
+    }
+
+  });
+
+
+
+  menuBtn.addEventListener("click", () => {
+
+    navLinks.classList.toggle("active");
+
+    document.body.classList.toggle("menu-open");
+
+    menuBtn.innerHTML =
+      navLinks.classList.contains("active")
+      ? "✕"
+      : "☰";
+
+  });
+
+
+
+  document
+    .querySelectorAll(".nav-links a")
+    .forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        navLinks.classList.remove("active");
+
+        document.body.classList.remove("menu-open");
+
+        menuBtn.innerHTML = "☰";
+
+      });
+
+    });
+
+
+
+  /* =====================================================
+     SEARCH
+  ===================================================== */
+
+  function mainSearch(){
+
+    const keyword =
+      document
+        .getElementById("mainSearch")
+        .value
+        .trim();
+
+    const location =
+      document
+        .getElementById("locationInput")
+        .value
+        .trim();
+
+    const category =
+      document
+        .getElementById("category")
+        .value;
+
+
+    if(
+      !keyword &&
+      !location &&
+      category === "All Categories"
+    ){
+
+      showToast(
+        "Enter a job, service, location or select a category."
+      );
+
+      return;
+
+    }
+
+
+    let message = "Searching";
+
+    if(keyword){
+      message += " for " + keyword;
+    }
+
+    if(category !== "All Categories"){
+      message += " in " + category;
+    }
+
+    if(location){
+      message += " near " + location;
+    }
+
+    showToast(message + "...");
+
+  }
+
+
+
+  /* =====================================================
+     SERVICES
+  ===================================================== */
+
+  function selectService(service){
+
+    showToast(
+      service +
+      " selected — booking form can open here."
+    );
+
+  }
+
+
+
+  function goToJobs(){
+
+    document
+      .getElementById("jobs")
+      .scrollIntoView({
+        behavior:"smooth"
+      });
+
+  }
+
+
+
+  /* =====================================================
+     JOB APPLY
+  ===================================================== */
+
+  function applyJob(job){
+
+    showToast(
+      "Application form for " +
+      job +
+      " can open here."
+    );
+
+  }
+
+
+
+  /* =====================================================
+     TOAST
+  ===================================================== */
+
+  let toastTimer;
+
+
+  function showToast(message){
+
+    const toast =
+      document.getElementById("toast");
+
+    toast.innerText = message;
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer = setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    },3000);
+
+  }
+
+</script>
+
+
+</body>
+</html>

@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import { portalStore } from "@/lib/portal";
 import { createPublicDisplayUrl } from "@/lib/storage";
 import { getSiteUrl } from "@/lib/seo";
 import "./globals.css";
-
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await portalStore.getSiteSettings();
@@ -34,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" className={`${jakarta.variable} h-full antialiased`}>
+    <html lang="en-IN" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <div id="main-content" tabIndex={-1} className="flex min-h-full flex-1 flex-col">{children}</div>
