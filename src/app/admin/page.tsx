@@ -5,5 +5,5 @@ import { getAdminSession } from "@/lib/admin-auth";
 export default async function AdminPage() {
   const session = await getAdminSession();
   if (!session) redirect("/admin/login");
-  return <AdminWorkspace role={session.role} />;
+  return <AdminWorkspace role={session.role} name={session.name} />;
 }

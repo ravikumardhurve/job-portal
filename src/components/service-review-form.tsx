@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { Send, Star } from "lucide-react";
 import type { ServicePageSlug } from "@/lib/service-pages";
+import styles from "./service-review-form.module.css";
 
 export function ServiceReviewForm({ serviceSlug }: { serviceSlug: ServicePageSlug }) {
   const [rating, setRating] = useState(5);
@@ -36,24 +37,28 @@ export function ServiceReviewForm({ serviceSlug }: { serviceSlug: ServicePageSlu
   }
 
   return (
-    <form onSubmit={submit} className="rounded-2xl border border-[#DCE8E1] bg-white p-6 shadow-sm">
-      <p className="text-xs font-black tracking-[.12em] text-[#157A4A]">SHARE YOUR EXPERIENCE</p>
-      <h3 className="mt-2 text-2xl font-black">Apna review dein</h3>
-      <p className="mt-2 text-sm leading-6 text-[#5C6B63]">Har review verification ke baad publish hota hai.</p>
-      <div className="mt-5 grid gap-4 sm:grid-cols-2">
-        <label className="grid gap-2 text-sm font-bold">Name<input name="customerName" required minLength={2} maxLength={80} className="admin-input" /></label>
-        <label className="grid gap-2 text-sm font-bold">City<input name="city" maxLength={80} className="admin-input" /></label>
+    <form onSubmit={submit} className={styles.form} aria-label="Share your service experience" aria-busy={busy}>
+      <p className={styles.eyebrow}>YOUR EXPERIENCE MATTERS</p>
+      <h3>Share your review.</h3>
+      <p className={styles.intro}>Har review verification ke baad publish hota hai.</p>
+      <div className={styles.fields}>
+        <label>Name<input name="customerName" autoComplete="name" required minLength={2} maxLength={80} placeholder="Your name" /></label>
+        <label>City <span>(optional)</span><input name="city" autoComplete="address-level2" maxLength={80} placeholder="Your city" /></label>
       </div>
-      <fieldset className="mt-4">
-        <legend className="text-sm font-bold">Rating</legend>
-        <div className="mt-2 flex gap-1" aria-label={`${rating} out of 5 stars`}>
-          {[1, 2, 3, 4, 5].map((value) => <button key={value} type="button" onClick={() => setRating(value)} aria-label={`${value} star`} className="p-1"><Star size={24} className={value <= rating ? "fill-[#D4A72C] text-[#D4A72C]" : "text-[#B9C8C0]"} /></button>)}
+      <fieldset className={styles.rating}>
+        <legend>Your rating</legend>
+        <div className={styles.ratingRow}>
+          <div className={styles.stars}>
+            {[1, 2, 3, 4, 5].map((value) => <button key={value} type="button" onClick={() => setRating(value)} aria-label={`Rate ${value} out of 5 stars`} aria-pressed={rating === value}><Star size={25} className={value <= rating ? styles.filled : styles.unfilled} /></button>)}
+          </div>
+          <span aria-live="polite">{rating} / 5</span>
         </div>
       </fieldset>
-      <label className="mt-4 grid gap-2 text-sm font-bold">Your review<textarea name="comment" required minLength={15} maxLength={1000} className="admin-input min-h-28 py-3" placeholder="Service ke baare mein apna experience share karein..." /></label>
-      {message && <p className="mt-4 rounded-lg bg-[#E8F5ED] px-4 py-3 text-sm font-bold text-[#258653]">{message}</p>}
-      {error && <p className="mt-4 rounded-lg bg-[#FFF0E7] px-4 py-3 text-sm font-bold text-[#C9471E]">{error}</p>}
-      <button disabled={busy} className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#157A4A] px-5 py-3 text-sm font-black text-white disabled:opacity-60"><Send size={16} />{busy ? "Submitting..." : "Submit review"}</button>
+      <label className={styles.comment}>Your review<textarea name="comment" required minLength={15} maxLength={1000} rows={4} placeholder="Service ke baare mein apna experience share karein..." aria-describedby="review-length-hint" /></label>
+      <p id="review-length-hint" className={styles.hint}>15–1,000 characters. Please don&apos;t include personal contact details.</p>
+      {message && <p role="status" className={styles.success}>{message}</p>}
+      {error && <p role="alert" className={styles.error}>{error}</p>}
+      <button type="submit" disabled={busy} className={styles.submit}><Send size={16} />{busy ? "Submitting..." : "Submit review"}</button>
     </form>
   );
 }

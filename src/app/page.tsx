@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { ArrowRight, BadgeCheck, BriefcaseBusiness, CheckCircle2, HeartHandshake, MapPin, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
+import { ArrowRight, BadgeCheck, BriefcaseBusiness, HeartHandshake, MapPin, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
 import { LandingSearch } from "@/components/landing-search";
+import { HeroServicesCarousel } from "@/components/hero-services-carousel";
 import { SiteHeader } from "@/components/site-header";
 import { portalStore } from "@/lib/portal";
 import { createPublicDisplayUrl } from "@/lib/storage";
-import { CHHATTISGARH_SERVICE_CITIES } from "@/lib/service-pages";
+import { CHHATTISGARH_SERVICE_CITIES, type ServicePageSlug } from "@/lib/service-pages";
+import { resolveServiceImages } from "@/lib/site-images";
 import { getSiteUrl } from "@/lib/seo";
 
 const icons = {
@@ -41,6 +43,11 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const [landing, categories, settings] = await Promise.all([portalStore.getPublicLanding(), portalStore.listJobCategoryCounts(), portalStore.getSiteSettings()]);
   const logoUrl = settings.logoKey ? await createPublicDisplayUrl(settings.logoKey).catch(() => null) : null;
+  const heroServices = await Promise.all(services.map(async (service) => {
+    const slug = (service.href === "/jobs" ? "job-placement" : service.href.split("/").pop()) as ServicePageSlug;
+    const { heroImage } = await resolveServiceImages(settings, slug);
+    return { title: service.title, description: service.text, href: service.href, image: heroImage, visual: service.visual };
+  }));
   const stats = [
     { value: landing.stats.activeJobs, label: "Active jobs" },
     { value: landing.stats.candidateCount, label: "Registered candidates" },
@@ -79,12 +86,7 @@ export default async function Home() {
             <div className="classic-mini-trust"><div className="classic-avatars"><span>{String.fromCodePoint(0x1f468)}</span><span>{String.fromCodePoint(0x1f469)}</span><span>{String.fromCodePoint(0x1f468, 0x200d, 0x1f4bc)}</span><span>{String.fromCodePoint(0x1f469, 0x200d, 0x1f4bc)}</span></div><div><strong>Trusted by growing communities</strong><small>Jobs &middot; Home &middot; Business &middot; Care</small></div></div>
           </div>
 
-          <div className="classic-hero-art">
-            <div className="classic-hero-main-shape"><div className="classic-hero-ring" /><div className="classic-person"><span className="classic-person-head" /><span className="classic-person-hair" /><span className="classic-person-body" /></div></div>
-            <div className="classic-float-card classic-security"><span>{icons.shield}</span><strong>Security Staff</strong><small>Home &amp; business security</small></div>
-            <div className="classic-float-card classic-care"><span>{icons.heart}</span><strong>Care Services</strong><small>Baby &amp; patient care</small></div>
-            <div className="classic-float-card classic-verified"><b><CheckCircle2 size={18} /></b><div><strong>Verified Professionals</strong><small>Trusted service network</small></div></div>
-          </div>
+          <HeroServicesCarousel services={heroServices} />
         </div>
       </header>
 

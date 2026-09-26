@@ -1,58 +1,76 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BarChart3, CalendarRange } from "lucide-react";
 import { BUSINESS_VERTICAL_LABELS, type BusinessVertical } from "@/lib/admin-scope";
+import styles from "./admin-dashboard.module.css";
 
 type Analytics = {
   totals: { jobs: number; applications: number; requirements: number; services: number };
   comparison: Array<{ vertical: BusinessVertical; jobs: number; applications: number; requirements: number; services: number }>;
   timeline: Array<{ date: string; applications: number; requirements: number; services: number }>;
 };
+const series = [
+  { key: "jobs", label: "Jobs", color: "#2447e5" },
+  { key: "applications", label: "Applications", color: "#23a077" },
+  { key: "requirements", label: "Hiring", color: "#ed8152" },
+  { key: "services", label: "Services", color: "#9061cf" },
+] as const;
 
 export function AdminDashboardAnalytics() {
-  const [from, setFrom] = useState(() => { const date = new Date(); date.setDate(date.getDate() - 29); return date.toISOString().slice(0, 10); });
+  const [from, setFrom] = useState(() => { const date = new Date(); date.setUTCDate(date.getUTCDate() - 29); return date.toISOString().slice(0, 10); });
   const [to, setTo] = useState(() => new Date().toISOString().slice(0, 10));
   const [data, setData] = useState<Analytics>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
-
-  const load = useCallback(async (signal: AbortSignal) => {
-    setLoading(true);
-    setError(undefined);
-    try {
-      const response = await fetch(`/api/admin/analytics?${new URLSearchParams({ from, to })}`, { signal });
-      const result = await response.json() as { data?: Analytics; error?: string };
-      if (!response.ok || !result.data) throw new Error(result.error ?? "Analytics load nahi ho paaya.");
-      setData(result.data);
-    } catch (cause) {
-      if (!signal.aborted) setError(cause instanceof Error ? cause.message : "Analytics load nahi ho paaya.");
-    } finally {
-      if (!signal.aborted) setLoading(false);
-    }
-  }, [from, to]);
+  const [revision, setRevision] = useState(0);
+  const validRange = Boolean(from && to && from <= to);
 
   useEffect(() => {
+    if (!validRange) return;
     const controller = new AbortController();
-    const timer = window.setTimeout(() => void load(controller.signal), 0);
+    async function load() {
+      setLoading(true);
+      setError(undefined);
+      try {
+        const response = await fetch(`/api/admin/analytics?${new URLSearchParams({ from, to })}`, { signal: controller.signal });
+        const result = await response.json() as { data?: Analytics; error?: string };
+        if (!response.ok || !result.data) throw new Error(result.error || "Could not load analytics. Please try again.");
+        if (!controller.signal.aborted) setData(result.data);
+      } catch (cause) {
+        if (!controller.signal.aborted) setError(cause instanceof Error ? cause.message : "Could not load analytics.");
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    }
+    const timer = window.setTimeout(() => void load(), 0);
     return () => { window.clearTimeout(timer); controller.abort(); };
-  }, [load]);
+  }, [from, to, validRange, revision]);
 
-  const maxComparison = Math.max(1, ...(data?.comparison.map((item) => item.jobs + item.applications + item.requirements + item.services) ?? [1]));
-  const maxDay = Math.max(1, ...(data?.timeline.map((item) => item.applications + item.requirements + item.services) ?? [1]));
+  function changeDate(kind: "from" | "to", value: string) {
+    setLoading(true);
+    setData(undefined);
+    setError(undefined);
+    if (kind === "from") setFrom(value); else setTo(value);
+  }
+
+  const maxComparison = Math.max(1, ...(data?.comparison.map((item) => item.jobs + item.applications + item.requirements + item.services) ?? []));
+  const maxDay = Math.max(1, ...(data?.timeline.map((item) => item.applications + item.requirements + item.services) ?? []));
   const noActivity = data && Object.values(data.totals).every((count) => count === 0);
 
-  return <section className="mt-7 rounded-xl border border-[#E0E8E2] bg-white p-6" aria-busy={loading}>
-    <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="section-kicker text-[#E95D2B]">PERFORMANCE</p><h2 className="mt-1 text-xl font-black">Business comparison and trends</h2></div><div className="flex gap-2"><label className="grid gap-1 text-[10px] font-black text-[#71837A]">FROM<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} className="admin-input" /></label><label className="grid gap-1 text-[10px] font-black text-[#71837A]">TO<input type="date" value={to} onChange={(event) => setTo(event.target.value)} className="admin-input" /></label></div></div>
-    {loading && <p className="mt-6 rounded-lg bg-[#F7FAF8] p-5 text-sm text-[#71837A]" role="status">Business data loading...</p>}
-    {error && <p className="mt-6 rounded-lg bg-[#FFF0E7] p-4 text-sm font-bold text-[#C9471E]" role="alert">{error} <button type="button" className="ml-2 underline" onClick={() => void load(new AbortController().signal)}>Retry</button></p>}
-    {!loading && !error && noActivity && <p className="mt-6 rounded-lg border border-dashed border-[#DCE8E1] p-5 text-sm text-[#71837A]">Selected date range mein abhi koi business activity nahi hai. Dates badalkar dekhein.</p>}
-    {!loading && !error && data && !noActivity && <>
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        <div className="rounded-xl bg-[#F7FAF8] p-5"><div className="flex items-center gap-2 font-black"><BarChart3 size={18} className="text-[#E95D2B]" />Category comparison</div><div className="mt-5 grid gap-4">{data.comparison.map((item) => { const total = item.jobs + item.applications + item.requirements + item.services; return <div key={item.vertical}><div className="flex justify-between text-xs font-bold"><span>{BUSINESS_VERTICAL_LABELS[item.vertical]}</span><span>{total}</span></div><div className="mt-2 flex h-3 overflow-hidden rounded-full bg-[#E4EAE6]" aria-hidden="true"><span className="bg-[#3D69BE]" style={{ width: `${item.jobs / maxComparison * 100}%` }} /><span className="bg-[#157A4A]" style={{ width: `${item.applications / maxComparison * 100}%` }} /><span className="bg-[#E95D2B]" style={{ width: `${item.requirements / maxComparison * 100}%` }} /><span className="bg-[#7F4BB0]" style={{ width: `${item.services / maxComparison * 100}%` }} /></div><p className="mt-1 text-[10px] text-[#71837A]">Jobs {item.jobs} · Applications {item.applications} · Hiring {item.requirements} · Services {item.services}</p></div>; })}</div></div>
-        <div className="rounded-xl bg-[#35231C] p-5 text-white"><div className="flex items-center gap-2 font-black"><CalendarRange size={18} className="text-[#FFCF68]" />Daily activity</div><div className="mt-6 flex h-52 items-end gap-1 overflow-x-auto">{data.timeline.map((item) => { const total = item.applications + item.requirements + item.services; return <div key={item.date} title={`${item.date}: ${total} activities`} className="flex min-w-5 flex-1 flex-col items-center justify-end"><span className="w-full rounded-t bg-[#FFCF68]" style={{ height: `${Math.max(5, total / maxDay * 170)}px` }} /><span className="mt-2 text-[8px] text-[#DFCFC6]">{item.date.slice(8)}</span></div>; })}{!data.timeline.length && <p className="self-center text-sm text-[#DFCFC6]">Selected range mein activity nahi hai.</p>}</div></div>
-      </div>
-      <div className="mt-4 flex flex-wrap gap-4 text-xs font-bold text-[#52665C]"><span>Jobs {data.totals.jobs}</span><span>Applications {data.totals.applications}</span><span>Employer requirements {data.totals.requirements}</span><span>Service requests {data.totals.services}</span></div>
+  return <section className={styles.panel} aria-busy={validRange && loading} aria-labelledby="analytics-heading">
+    <div className={styles.panelHeading}><div><p className={styles.eyebrow}>PERFORMANCE AT A GLANCE</p><h2 id="analytics-heading">Activity & business insights</h2><p>New records in the selected date range (UTC).</p></div><div className={styles.dateFilters}><label htmlFor="analytics-from">From<input id="analytics-from" type="date" value={from} max={to || undefined} onChange={(event) => changeDate("from", event.target.value)} aria-describedby={!validRange ? "date-error" : undefined} /></label><span aria-hidden="true">—</span><label htmlFor="analytics-to">To<input id="analytics-to" type="date" value={to} min={from || undefined} onChange={(event) => changeDate("to", event.target.value)} aria-describedby={!validRange ? "date-error" : undefined} /></label></div></div>
+    {!validRange ? <p id="date-error" className={styles.analyticsNotice} role="alert">Choose both dates, with the end date on or after the start date.</p> : <>
+      {loading && <p className={styles.analyticsNotice} role="status">Loading business activity...</p>}
+      {error && <div className={styles.error} role="alert"><span>{error}</span><button type="button" onClick={() => { setLoading(true); setError(undefined); setRevision((value) => value + 1); }}>Retry</button></div>}
+      {!loading && !error && noActivity && <div className={styles.empty}><BarChart3 size={26} /><h3>No activity in this date range.</h3><p>Try a different range. New jobs, applications and requests will appear here as they are recorded.</p></div>}
+      {!loading && !error && data && !noActivity && <>
+        <div className={styles.analyticsTotals}>{series.map(({ key, label, color }) => <div key={key}><span><i style={{ backgroundColor: color }} />{label}</span><strong>{data.totals[key].toLocaleString("en-IN")}</strong></div>)}</div>
+        <div className={styles.chartGrid}>
+          <div className={styles.comparison}><h3><BarChart3 size={17} />Business comparison</h3><div className={styles.barList}>{data.comparison.map((item) => { const total = item.jobs + item.applications + item.requirements + item.services; return <div key={item.vertical}><div className={styles.barLabel}><span>{BUSINESS_VERTICAL_LABELS[item.vertical]}</span><strong>{total}</strong></div><div className={styles.barTrack} aria-hidden="true">{series.map(({ key, color }) => <span key={key} style={{ width: `${item[key] / maxComparison * 100}%`, backgroundColor: color }} />)}</div><p>Jobs {item.jobs} · Applications {item.applications} · Hiring {item.requirements} · Services {item.services}</p></div>; })}</div></div>
+          <div className={styles.timeline}><h3><CalendarRange size={17} />Daily enquiries & applications</h3><p>Applications, hiring and service requests. Only days with activity are shown.</p>{data.timeline.length ? <><div className={styles.timelineBars} role="img" aria-label="Daily activity bar chart. Exact dates and counts are available in the table below.">{data.timeline.map((item) => { const total = item.applications + item.requirements + item.services; return <div key={item.date} title={`${item.date}: ${total} records`}><span style={{ height: `${total / maxDay * 150}px` }} /><small>{item.date.slice(5)}</small></div>; })}</div><details className={styles.chartDetails}><summary>View daily numbers</summary><div className={styles.tableScroll} tabIndex={0} role="region" aria-label="Daily activity data"><table><thead><tr><th scope="col">Date</th><th scope="col">Applications</th><th scope="col">Hiring</th><th scope="col">Services</th></tr></thead><tbody>{data.timeline.map((item) => <tr key={item.date}><th scope="row">{item.date}</th><td>{item.applications}</td><td>{item.requirements}</td><td>{item.services}</td></tr>)}</tbody></table></div></details></> : <p className={styles.timelineEmpty}>No enquiries or applications in this range.</p>}</div>
+        </div>
+      </>}
     </>}
   </section>;
 }

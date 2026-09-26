@@ -1,0 +1,171 @@
+.page { min-height: 100vh; }
+.page :is(a, summary):focus-visible { outline: 3px solid #ff6b35; outline-offset: 4px; }
+.blue { --tint: #eef2ff; --ink: #2447e5; }
+.orange { --tint: #fff0e9; --ink: #b94319; }
+.purple { --tint: #f1e9ff; --ink: #6f42c1; }
+.hero { padding-block: 25px 48px; border-bottom: 1px solid #e5e7ee; background: linear-gradient(120deg, #f7f6f1 35%, #eef2ff); }
+.breadcrumb { display: flex; gap: 10px; margin-bottom: 28px; color: #6f7788; font-size: 12px; }
+.breadcrumb a:hover { color: #2447e5; }
+.heroGrid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 75px; align-items: center; }
+.heroGrid > *, .localSection > *, .faqGrid > * { min-width: 0; }
+.hero h1 { margin-top: 17px; color: #11182b; font-size: clamp(39px, 4.8vw, 63px); font-weight: 800; line-height: 1.05; letter-spacing: -.055em; }
+.hero h1 > span { color: #2447e5; }
+.hero h1 > em { color: #ff6b35; font-style: normal; }
+.intro { max-width: 520px; margin-top: 22px; color: #6f7788; font-size: 15px; line-height: 1.8; }
+.heroGrid > div > a { margin-top: 24px; }
+.startCard { padding: 30px; border: 1px solid #e3e6f3; border-radius: 26px; background: white; box-shadow: 0 20px 55px #1b275e08; }
+.startIcon { display: grid; place-items: center; width: 55px; height: 55px; border-radius: 17px; background: #fff0e9; color: #e94f18; }
+.startCard > p { margin-top: 23px; color: #2447e5; font-size: 9px; font-weight: 800; letter-spacing: .12em; }
+.startCard h2 { margin-top: 12px; color: #11182b; font-size: 30px; font-weight: 800; line-height: 1.15; letter-spacing: -.04em; }
+.startCard ul { display: grid; gap: 12px; margin-block: 23px; padding: 0; list-style: none; }
+.startCard li { display: flex; align-items: center; gap: 8px; color: #4e5668; font-size: 12px; }
+.startCard li svg { flex-shrink: 0; color: #2447e5; }
+.startNote { display: block; padding-top: 16px; border-top: 1px solid #edeef2; color: #6f7788; font-size: 11px; line-height: 1.7; }
+.heading { margin-top: 12px; color: #11182b; font-size: clamp(28px, 3vw, 37px); font-weight: 800; line-height: 1.16; letter-spacing: -.045em; }
+.heading > span { color: #2447e5; }
+.sectionHeading { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 25px; }
+.sectionHeading > p { max-width: 320px; color: #6f7788; font-size: 13px; line-height: 1.75; }
+.contactSection { padding-block: 48px; }
+.contactGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.contactGrid > a { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: 25px; border: 1px solid #e9e9e5; border-radius: 21px; background: white; transition: border-color .2s, box-shadow .2s; }
+.contactGrid > a:hover { border-color: #cbd3ff; box-shadow: 0 14px 35px #2447e50a; }
+.contactIcon { display: grid; place-items: center; flex-shrink: 0; width: 46px; height: 46px; border-radius: 14px; background: var(--tint); color: var(--ink); }
+.contactGrid h3 { margin-top: 19px; color: #11182b; font-size: 20px; font-weight: 800; letter-spacing: -.025em; }
+.contactGrid strong { margin-top: 12px; color: var(--ink); font-size: 14px; overflow-wrap: anywhere; }
+.contactGrid p { margin-block: 8px 18px; color: #6f7788; font-size: 12px; line-height: 1.7; }
+.contactAction { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; margin-top: auto; color: #2447e5; font-size: 12px; font-weight: 750; }
+.emptyContact { display: flex; align-items: flex-start; gap: 15px; padding: 24px; border: 1px dashed #cbd3eb; border-radius: 18px; background: white; }
+.emptyContact > svg { flex-shrink: 0; color: #2447e5; }
+.emptyContact h3 { font-size: 17px; font-weight: 800; }
+.emptyContact p { margin-top: 8px; color: #6f7788; font-size: 13px; line-height: 1.7; }
+.emptyContact a { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; margin-top: 8px; color: #2447e5; font-size: 12px; font-weight: 700; }
+.enquirySection { padding-block: 45px; border-block: 1px solid #e9e9e5; background: white; }
+.enquiryGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.enquiryGrid article { display: flex; flex-direction: column; padding: 25px; border: 1px solid #e9e9e5; border-radius: 22px; }
+.enquiryTop { display: flex; align-items: center; justify-content: space-between; }
+.enquiryTop > span:last-child { color: #949bab; font-size: 11px; font-weight: 800; }
+.enquiryGrid h3 { margin-top: 21px; color: #11182b; font-size: 22px; font-weight: 800; line-height: 1.25; letter-spacing: -.03em; }
+.enquiryGrid article > p { margin-block: 13px 20px; color: #6f7788; font-size: 13px; line-height: 1.8; }
+.enquiryActions { display: grid; gap: 7px; margin-top: auto; }
+.enquiryActions > a { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; font-size: 11px; font-weight: 750; }
+.enquiryActions > a:first-child { padding: 10px; border-radius: 11px; background: #2447e5; color: white; }
+.enquiryActions > a:first-child:hover { background: #1734bb; }
+.enquiryActions > a:last-child { color: #626b7c; }
+.enquiryActions > a:last-child:hover { color: #2447e5; }
+.localSection { display: grid; grid-template-columns: 1.15fr 1fr; gap: 70px; align-items: start; padding-block: 55px; }
+.localCopy > p:not(:first-child) { margin-top: 18px; color: #6f7788; font-size: 14px; line-height: 1.8; }
+.textLink { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; margin-top: 13px; color: #2447e5; font-size: 12px; font-weight: 750; }
+.nextSteps { margin-top: 24px; padding-top: 22px; border-top: 1px solid #e2e4e9; }
+.nextSteps h3 { font-size: 16px; font-weight: 800; }
+.nextSteps ol { display: grid; gap: 13px; margin-top: 17px; padding: 0; list-style: none; }
+.nextSteps li { display: flex; gap: 12px; color: #6f7788; font-size: 12px; line-height: 1.7; }
+.nextSteps li > span { color: #ff6b35; font-weight: 800; }
+.locationCard { padding: 32px; border-radius: 25px; background: #11182b; color: white; }
+.locationIcon { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; background: #ffffff12; color: #ff9b75; }
+.cardEyebrow { margin-top: 24px; color: #ff9b75; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+.locationCard h3 { margin-top: 12px; font-size: 27px; font-weight: 800; line-height: 1.2; letter-spacing: -.035em; overflow-wrap: anywhere; }
+.locationCard dl { display: grid; gap: 21px; margin-top: 26px; }
+.locationCard dt { display: flex; align-items: center; gap: 8px; color: #ffb393; font-size: 11px; font-weight: 700; }
+.locationCard dd { margin-top: 9px; color: #e0e5f0; font-size: 14px; line-height: 1.8; overflow-wrap: anywhere; }
+.mapLink { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; margin-top: 27px; padding: 11px 16px; border-radius: 11px; background: white; color: #2447e5; font-size: 12px; font-weight: 750; }
+.visitNote { margin-top: 18px; padding-top: 17px; border-top: 1px solid #ffffff18; color: #b8c1d3; font-size: 11px; line-height: 1.75; }
+.faqSection { padding-block: 45px; border-block: 1px solid #e9e9e5; background: white; }
+.faqGrid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: start; }
+.faqIntro { margin-top: 16px; color: #6f7788; font-size: 14px; line-height: 1.75; }
+.faqList { display: grid; gap: 10px; }
+.faqList details { padding-inline: 19px; border: 1px solid #e9e9e5; border-radius: 14px; background: #f7f6f1; }
+.faqList summary { display: flex; align-items: center; justify-content: space-between; gap: 15px; min-height: 60px; padding-block: 14px; list-style: none; cursor: pointer; font-size: 13px; font-weight: 750; line-height: 1.5; }
+.faqList summary::-webkit-details-marker { display: none; }
+.faqList summary svg { flex-shrink: 0; color: #2447e5; }
+.faqList details[open] summary svg { transform: rotate(45deg); }
+.faqList details[open] { border-color: #cbd3ff; }
+.faqList details p { padding-bottom: 19px; color: #6f7788; font-size: 13px; line-height: 1.8; }
+.cta { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 36px 40px; margin-block: 48px; border-radius: 25px; background: #2447e5; color: white; }
+.cta p { color: #ffce9a; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+.cta h2 { margin-top: 12px; font-size: 37px; font-weight: 800; line-height: 1.1; letter-spacing: -.04em; }
+.cta span { display: block; margin-top: 14px; color: #e0e5ff; font-size: 13px; line-height: 1.7; }
+.ctaActions { display: grid; justify-items: center; gap: 8px; }
+.hireLink { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; font-size: 12px; font-weight: 700; }
+.footer { padding-block: 28px; background: #0b1020; color: white; }
+.footer > div { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.footer > div > div > a { font-size: 16px; font-weight: 800; }
+.footer p, .footer small { color: #a4aec2; font-size: 11px; }
+.footer p { margin-top: 4px; }
+.footer nav { display: flex; flex-wrap: wrap; gap: 18px; color: #b8c1d3; font-size: 12px; }
+.footer a:hover { color: #ff9b75; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 1000px) {
+  .heroGrid, .localSection, .faqGrid { gap: 32px; }
+  .startCard { padding: 25px; }
+  .enquiryGrid { gap: 12px; }
+  .enquiryGrid article { padding: 20px; }
+}
+@media (max-width: 800px) {
+  .heroGrid, .localSection, .faqGrid { grid-template-columns: minmax(0, 1fr); }
+  .heroGrid { gap: 28px; }
+  .intro { max-width: 600px; }
+  .startCard { display: grid; grid-template-columns: auto 1fr; column-gap: 20px; }
+  .startIcon { grid-row: span 2; }
+  .startCard > p { margin-top: 0; }
+  .startCard ul, .startNote { grid-column: 1 / -1; }
+  .sectionHeading { display: block; }
+  .sectionHeading > p { max-width: 520px; margin-top: 13px; }
+  .enquiryGrid { grid-template-columns: minmax(0, 1fr); }
+  .enquiryActions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .enquiryActions > a:first-child { padding-inline: 16px; }
+  .cta { align-items: flex-start; flex-direction: column; gap: 22px; }
+  .ctaActions { display: flex; flex-wrap: wrap; gap: 15px; }
+}
+@media (max-width: 600px) {
+  .hero { padding-block: 18px 27px; }
+  .breadcrumb { margin-bottom: 22px; font-size: 11px; }
+  .hero h1 { margin-top: 13px; font-size: clamp(36px, 10vw, 46px); }
+  .intro { font-size: 14px; margin-top: 17px; line-height: 1.75; }
+  .heroGrid > div > a { min-height: 44px; margin-top: 20px; }
+  .startCard { padding: 20px; border-radius: 18px; column-gap: 13px; }
+  .startIcon { width: 44px; height: 44px; border-radius: 13px; }
+  .startCard > p { font-size: 8px; }
+  .startCard h2 { font-size: 23px; margin-top: 9px; }
+  .startCard ul { margin-block: 18px; gap: 10px; }
+  .startCard li { font-size: 11px; }
+  .startNote { font-size: 10px; padding-top: 13px; }
+  .heading { font-size: 28px; margin-top: 10px; }
+  .sectionHeading { margin-bottom: 20px; }
+  .contactSection, .localSection { padding-block: 32px; }
+  .contactGrid { gap: 10px; }
+  .contactGrid > a { padding: 20px; border-radius: 16px; }
+  .contactIcon { width: 41px; height: 41px; border-radius: 12px; }
+  .contactGrid h3 { font-size: 19px; margin-top: 15px; }
+  .contactGrid strong { margin-top: 9px; font-size: 13px; }
+  .contactGrid p { margin-bottom: 12px; }
+  .emptyContact { padding: 18px; gap: 11px; border-radius: 15px; }
+  .emptyContact h3 { font-size: 16px; }
+  .emptyContact p { font-size: 12px; }
+  .enquirySection, .faqSection { padding-block: 30px; }
+  .enquiryGrid article { padding: 20px; border-radius: 16px; }
+  .enquiryGrid h3 { margin-top: 16px; font-size: 21px; }
+  .enquiryGrid article > p { margin-block: 10px 15px; }
+  .enquiryActions { display: grid; gap: 4px; }
+  .localSection { gap: 25px; }
+  .localCopy > p:not(:first-child) { font-size: 13px; }
+  .nextSteps { margin-top: 18px; padding-top: 18px; }
+  .locationCard { padding: 24px; border-radius: 19px; }
+  .locationIcon { width: 45px; height: 45px; border-radius: 13px; }
+  .cardEyebrow { margin-top: 20px; font-size: 9px; }
+  .locationCard h3 { font-size: 25px; }
+  .locationCard dl { margin-top: 21px; gap: 18px; }
+  .locationCard dd { font-size: 13px; }
+  .mapLink { min-height: 44px; margin-top: 22px; }
+  .faqGrid { gap: 22px; }
+  .faqIntro { font-size: 13px; margin-top: 12px; }
+  .faqList details { padding-inline: 15px; border-radius: 12px; }
+  .faqList summary { min-height: 54px; font-size: 12px; }
+  .faqList details p { font-size: 12px; }
+  .cta { padding: 25px 22px; margin-block: 30px; border-radius: 19px; }
+  .cta h2 { font-size: 31px; }
+  .ctaActions > a { min-height: 44px; }
+  .footer > div { align-items: flex-start; flex-direction: column; gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contactGrid > a { transition: none; }
+}

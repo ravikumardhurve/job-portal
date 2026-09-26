@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BriefcaseBusiness, CheckCircle2, MapPin } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Check, MapPin, Navigation, Plus } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { CHHATTISGARH_SERVICE_CITIES, SERVICE_PAGES, SERVICE_PAGE_SLUGS } from "@/lib/service-pages";
+import { portalStore } from "@/lib/portal";
 import { getSiteUrl } from "@/lib/seo";
+import { CityDirectory } from "./city-directory";
+import styles from "./locations.module.css";
 
-export const metadata: Metadata = {
-  title: "Jobs & Services Across Chhattisgarh | CG Job Care",
-  description: "Explore jobs, security guards, baby care, caretakers, housekeeping and pest control requests in Raipur and major Chhattisgarh cities.",
-  keywords: ["jobs in Chhattisgarh", "services in Raipur", "security guard Chhattisgarh", "pest control Chhattisgarh", "caretaker Raipur", "housekeeping Chhattisgarh"],
-  alternates: { canonical: "/locations" },
-  openGraph: { title: "Jobs & Services Across Chhattisgarh | CG Job Care", description: "Local job opportunities and service request support across major cities in Chhattisgarh.", url: "/locations", type: "website", locale: "en_IN" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await portalStore.getSiteSettings();
+  const title = `Jobs & Services Across Chhattisgarh | ${settings.companyName}`;
+  const description = "Explore city-wise jobs and service enquiries in Raipur, Bhilai, Durg, Bilaspur and other Chhattisgarh cities. Check local availability with our team.";
+  return { title, description, alternates: { canonical: "/locations" }, openGraph: { title, description, url: "/locations", type: "website", locale: "en_IN", siteName: settings.companyName } };
+}
 
 const cityDetails: Record<(typeof CHHATTISGARH_SERVICE_CITIES)[number], string> = {
   Raipur: "Jobs, recruitment, security guards, baby care, caretakers, housekeeping and pest control requirements in the state capital region.",
@@ -26,24 +28,72 @@ const cityDetails: Record<(typeof CHHATTISGARH_SERVICE_CITIES)[number], string> 
   Dhamtari: "Local recruitment, caretaker, housekeeping, security and pest control enquiries for Dhamtari customers.",
 };
 
-export default function LocationsPage() {
-  const baseUrl = getSiteUrl();
+const faqs = [
+  { question: "Does every listed city have an office?", answer: "No. This directory lists cities for job searches and service enquiries, not branch offices. For our published contact details and location, visit the Contact page and confirm before planning a visit." },
+  { question: "What if there are no jobs in my city?", answer: "Published vacancies change over time. Try nearby cities or browse all jobs. You can also create a candidate profile with your location and work preferences; registration does not guarantee a job." },
+  { question: "Can I request a service in a nearby town or village?", answer: "Yes. Share your actual city or town, locality and requirements in the service request form. Our team will review the location and confirm whether the requested support can be arranged." },
+];
+
+export default async function LocationsPage() {
+  const settings = await portalStore.getSiteSettings();
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "CG Job Care service areas in Chhattisgarh",
-    url: `${baseUrl}/locations`,
-    description: "Jobs and service request coverage information for major cities across Chhattisgarh.",
+    name: `${settings.companyName} locations in Chhattisgarh`,
+    url: `${getSiteUrl()}/locations`,
+    description: "City-wise job searches and service enquiries. Local availability is confirmed after review.",
     mainEntity: { "@type": "ItemList", itemListElement: CHHATTISGARH_SERVICE_CITIES.map((city, index) => ({ "@type": "ListItem", position: index + 1, name: `${city}, Chhattisgarh` })) },
   };
   return (
-    <main className="min-h-screen bg-[#F8FBF9] text-[#1E2B26]">
+    <main className={`classic-page ${styles.page}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <SiteHeader />
-      <section className="border-b border-[#DCE8E1] bg-[#0E3D31] text-white"><div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20"><p className="text-xs font-black tracking-[.14em] text-[#FFE093]">CHHATTISGARH COVERAGE</p><h1 className="mt-4 max-w-4xl text-4xl font-black leading-tight sm:text-5xl">Jobs and trusted service requests across major cities.</h1><p className="mt-5 max-w-3xl text-base leading-8 text-[#D7E7E0]">CG Job Care candidates, employers, families aur businesses ko Raipur aur Chhattisgarh ke major cities mein job discovery, manpower aur facility-service enquiry process se connect karta hai.</p><div className="mt-8 flex flex-wrap gap-3"><Link href="/jobs" className="inline-flex items-center gap-2 rounded-lg bg-[#F4C95D] px-5 py-3 text-sm font-black text-[#18382F]">Find jobs <ArrowRight size={16} /></Link><Link href="/services" className="rounded-lg border border-white/35 px-5 py-3 text-sm font-black">Explore services</Link></div></div></section>
-      <section className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20"><div className="max-w-3xl"><p className="section-kicker text-[#157A4A]">AREAS WE SERVE</p><h2 className="section-title">Major cities in Chhattisgarh</h2><p className="mt-4 leading-7 text-[#5C6B63]">Har city mein live job aur staff availability alag ho sakti hai. Request submit hone ke baad local availability, schedule aur next step confirm kiya jaata hai.</p></div><div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{CHHATTISGARH_SERVICE_CITIES.map((city) => <article key={city} className="rounded-xl border border-[#DCE8E1] bg-white p-6"><span className="grid h-11 w-11 place-items-center rounded-lg bg-[#E8F5ED] text-[#157A4A]"><MapPin size={20} /></span><h2 className="mt-5 text-xl font-black">Jobs and services in {city}</h2><p className="mt-3 text-sm leading-6 text-[#5C6B63]">{cityDetails[city]}</p><div className="mt-5 flex gap-4"><Link href={`/jobs?city=${encodeURIComponent(city)}`} className="text-xs font-black text-[#0F5C38]">Jobs in {city}</Link><Link href="/services/request" className="text-xs font-black text-[#0F5C38]">Request service</Link></div></article>)}</div></section>
-      <section className="border-y border-[#DCE8E1] bg-white"><div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20"><div className="max-w-3xl"><p className="section-kicker text-[#157A4A]">SERVICES AVAILABLE FOR REQUEST</p><h2 className="section-title">Choose the support you need.</h2></div><div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-5">{SERVICE_PAGE_SLUGS.map((slug) => { const service = SERVICE_PAGES[slug]; return <Link key={slug} href={`/services/${slug}`} className="group rounded-xl border border-[#DCE8E1] bg-[#F8FBF9] p-5 hover:border-[#157A4A]"><CheckCircle2 size={19} className="text-[#157A4A]" /><h3 className="mt-4 font-black">{service.shortTitle}</h3><p className="mt-2 text-xs leading-5 text-[#5C6B63]">{service.summary}</p><span className="mt-4 inline-flex items-center gap-1 text-xs font-black text-[#0F5C38]">View details <ArrowRight size={13} /></span></Link>; })}</div></div></section>
-      <section className="mx-auto grid max-w-7xl gap-8 px-5 py-14 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8"><div><BriefcaseBusiness className="text-[#157A4A]" /><h2 className="mt-4 text-3xl font-black">Looking for work anywhere in Chhattisgarh?</h2><p className="mt-3 max-w-2xl leading-7 text-[#5C6B63]">Candidate account banakar profile complete karein, city aur job preference set karein aur available vacancies par apply karein.</p></div><Link href="/candidate/register" className="inline-flex items-center gap-2 rounded-lg bg-[#157A4A] px-5 py-3 text-sm font-black text-white">Register as candidate <ArrowRight size={16} /></Link></section>
+      <section className={styles.hero} aria-labelledby="locations-heading">
+        <div className="classic-container">
+          <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Locations</span></nav>
+          <div className={styles.heroGrid}>
+            <div>
+              <p className="classic-eyebrow">ROOTED IN CHHATTISGARH</p>
+              <h1 id="locations-heading">Your city.<br /><span>Your next</span><br /><em>possibility.</em></h1>
+              <p className={styles.intro}>Find work closer to home. Find support for the people and places that matter. Explore jobs and share your service needs with {settings.companyName}, city by city.</p>
+              <div className={styles.heroActions}><a href="#city-directory" className="classic-button classic-button-blue">Explore Locations <ArrowRight size={17} /></a><Link href="/contact" className={styles.textLink}>Talk to Our Team <ArrowUpRight size={16} /></Link></div>
+            </div>
+            <aside className={styles.finder}>
+              <span className={styles.finderIcon}><Navigation size={27} /></span>
+              <p className={styles.cardEyebrow}>A LOCAL PLACE TO START</p>
+              <h2>Where are you<br />looking for work?</h2>
+              <p className={styles.finderCopy}>Choose a city to see its currently published vacancies.</p>
+              <form action="/jobs" method="get">
+                <label htmlFor="jobs-city">Your preferred city</label>
+                <select id="jobs-city" name="city" defaultValue="" required><option value="" disabled>Select a city</option>{CHHATTISGARH_SERVICE_CITIES.map((city) => <option key={city} value={city}>{city}</option>)}</select>
+                <button type="submit">Find Jobs in This City <ArrowRight size={16} /></button>
+              </form>
+              <div className={styles.finderNote}><MapPin size={16} /><p>Looking for a service instead?<br /><a href="#city-directory">Choose your city below.</a></p></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="city-directory" className={`classic-container ${styles.directory}`} aria-labelledby="directory-heading">
+        <div className={styles.sectionHeading}><div><p className="classic-eyebrow">FIND YOUR LOCATION</p><h2 id="directory-heading" className={styles.heading}>Local needs. One place to begin.</h2></div><p>Browse openings or send a service requirement for your city.</p></div>
+        <CityDirectory cities={CHHATTISGARH_SERVICE_CITIES.map((name) => ({ name, description: cityDetails[name] }))} />
+        <div className={styles.coverageNote}><MapPin size={19} /><p><strong>A note on availability.</strong> These are enquiry locations, not a list of offices. Jobs, staff and services vary by city. Your exact locality, requirements and schedule are reviewed before availability is confirmed.</p></div>
+      </section>
+
+      <section className={styles.services} aria-labelledby="services-heading"><div className="classic-container">
+        <div className={styles.sectionHeading}><div><p className="classic-eyebrow">MORE THAN A LOCATION</p><h2 id="services-heading" className={styles.heading}>What brings you here?</h2></div><p>Understand the service before you share your requirement.</p></div>
+        <div className={styles.serviceGrid}>{SERVICE_PAGE_SLUGS.map((slug, index) => <Link key={slug} href={`/services/${slug}`}><span>{String(index + 1).padStart(2, "0")}</span><h3>{SERVICE_PAGES[slug].shortTitle}</h3><p>{SERVICE_PAGES[slug].summary}</p><span className={styles.serviceAction}>Explore service <ArrowUpRight size={16} /></span></Link>)}</div>
+      </div></section>
+
+      <section className={`classic-container ${styles.localSection}`} aria-labelledby="coverage-heading">
+        <div><p className="classic-eyebrow">YOUR LOCALITY MATTERS</p><h2 id="coverage-heading" className={styles.heading}>A city is the start.<br /><span>The details make the difference.</span></h2><p className={styles.localIntro}>A home in the city centre and a workplace on the outskirts may need different arrangements. Help us understand where you are and what support you need.</p><ul className={styles.checklist}><li><Check size={17} />Your city, locality and a nearby landmark</li><li><Check size={17} />The service or staff you are looking for</li><li><Check size={17} />Your preferred start date and schedule</li></ul><Link href="/services/request" className={styles.textLink}>Share a Service Requirement <ArrowRight size={16} /></Link></div>
+        <aside className={styles.nearbyCard}><MapPin size={30} /><p>DON&apos;T SEE YOUR LOCATION?</p><h3>Tell us where<br />you need us.</h3><p>A nearby town, a new locality or a workplace outside the city—share the details. We&apos;ll review your request and discuss what may be possible.</p><Link href="/contact">Ask About Your Area <ArrowUpRight size={17} /></Link><small>Submitting an enquiry does not confirm a booking.</small></aside>
+      </section>
+
+      <section className={styles.faqSection} aria-labelledby="faq-heading"><div className={`classic-container ${styles.faqGrid}`}><div><p className="classic-eyebrow">GOOD TO KNOW</p><h2 id="faq-heading" className={styles.heading}>A little local clarity.</h2></div><div className={styles.faqList}>{faqs.map(({ question, answer }) => <details key={question}><summary><span>{question}</span><Plus size={18} aria-hidden="true" /></summary><p>{answer}</p></details>)}</div></div></section>
+
+      <section className={`classic-container ${styles.cta}`}><div><BriefcaseBusiness size={25} /><h2>Your next opportunity<br />could be closer than you think.</h2><p>Create a candidate profile and explore roles that fit your location and skills.</p></div><Link href="/candidate/register" className="classic-button classic-button-white">Create Your Profile <ArrowRight size={17} /></Link></section>
+      <footer className={styles.footer}><div className="classic-container"><div><Link href="/">{settings.companyName}</Link>{settings.tagline && <p>{settings.tagline}</p>}</div><nav aria-label="Footer navigation"><Link href="/jobs">Find Jobs</Link><Link href="/services">Services</Link><Link href="/contact">Contact</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></nav><small>&copy; {new Date().getFullYear()} {settings.companyName}</small></div></footer>
     </main>
   );
 }
