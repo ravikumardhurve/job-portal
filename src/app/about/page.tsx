@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Building2, Check, ClipboardCheck, HeartHandshake, Mail, MapPin, MessageCircle, Phone, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
-import { SiteHeader } from "@/components/site-header";
 import { portalStore } from "@/lib/portal";
 import { CHHATTISGARH_SERVICE_CITIES } from "@/lib/service-pages";
 import styles from "./about.module.css";
@@ -51,7 +50,6 @@ export default async function AboutPage() {
 
   return (
     <main className={`classic-page ${styles.page}`}>
-      <SiteHeader />
       <section className={styles.hero} aria-labelledby="about-heading">
         <div className="classic-container">
           <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">About us</span></nav>

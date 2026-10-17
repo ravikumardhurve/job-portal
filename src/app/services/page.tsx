@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Building2, Check, HeartHandshake, MapPin, Phone, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
-import { SiteHeader } from "@/components/site-header";
 import { SERVICE_PAGES, type ServicePageSlug } from "@/lib/service-pages";
 import { portalStore } from "@/lib/portal";
 import { resolveServiceImages } from "@/lib/site-images";
@@ -38,7 +37,6 @@ export default async function ServicesPage() {
 
   return (
     <main className={`classic-page ${styles.page}`}>
-      <SiteHeader />
       <section className={styles.hero} aria-labelledby="services-heading">
         <div className={`classic-container ${styles.heroGrid}`}>
           <div>

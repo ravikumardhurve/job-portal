@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SiteHeader } from "@/components/site-header";
 import { portalStore } from "@/lib/portal";
 
 export const metadata: Metadata = { title: "Privacy Policy | Job Care Services", description: "How Job Care Services collects, uses, protects and deletes candidate and customer information.", alternates: { canonical: "/privacy" } };
 
 export default async function PrivacyPolicyPage() {
   const settings = await portalStore.getSiteSettings();
-  return <main className="min-h-screen bg-[#F5FAF7] text-[#1E2B26]"><SiteHeader /><article className="mx-auto max-w-4xl px-5 py-12"><p className="section-kicker text-[#157A4A]">LEGAL & PRIVACY</p><h1 className="mt-2 text-4xl font-black">Privacy Policy</h1><p className="mt-3 text-sm text-[#6B7A72]">Effective and last updated: 21 September 2026</p><div className="mt-8 grid gap-5">
+  return <main className="min-h-screen bg-[#F5FAF7] text-[#1E2B26]"><article className="mx-auto max-w-4xl px-5 py-12"><p className="section-kicker text-[#157A4A]">LEGAL & PRIVACY</p><h1 className="mt-2 text-4xl font-black">Privacy Policy</h1><p className="mt-3 text-sm text-[#6B7A72]">Effective and last updated: 21 September 2026</p><div className="mt-8 grid gap-5">
     <PolicySection title="1. Who we are"><p>{settings.companyName} provides recruitment coordination, job application support and facility-service enquiry management in Chhattisgarh. Questions about this policy can be submitted through our <Link className="font-bold text-[#0F5C38] underline" href="/contact">contact page</Link>{settings.email ? <> or emailed to <a className="font-bold text-[#0F5C38] underline" href={`mailto:${settings.email}`}>{settings.email}</a></> : null}{settings.phone ? <>. You may also call <a className="font-bold text-[#0F5C38] underline" href={`tel:${settings.phone}`}>{settings.phone}</a></> : null}.</p></PolicySection>
     <PolicySection title="2. Information we collect"><p>Candidate account details may include name, mobile number, email, location, address, education, experience, job preference and application activity. When voluntarily uploaded, documents may include a resume, photograph, Aadhaar, PAN, qualification, experience or police-verification records. Employer and service forms collect contact and requirement details.</p></PolicySection>
     <PolicySection title="3. Why we use information"><p>We use information to create and secure accounts, match candidates with suitable jobs, process applications, coordinate interviews, verify documents, respond to service requests, prevent misuse and maintain operational records. We do not use identity documents for unrelated advertising.</p></PolicySection>

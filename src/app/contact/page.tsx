@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Building2, Check, Clock3, HeartHandshake, Mail, MapPin, MessageCircle, Phone, Plus } from "lucide-react";
-import { SiteHeader } from "@/components/site-header";
 import { portalStore } from "@/lib/portal";
 import styles from "./contact.module.css";
 
@@ -49,7 +48,6 @@ export default async function ContactPage() {
 
   return (
     <main className={`classic-page ${styles.page}`}>
-      <SiteHeader />
       <section className={styles.hero} aria-labelledby="contact-heading">
         <div className="classic-container">
           <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Contact</span></nav>

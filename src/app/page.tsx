@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { ArrowRight, BadgeCheck, BriefcaseBusiness, HeartHandshake, MapPin, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
 import { LandingSearch } from "@/components/landing-search";
 import { HeroServicesCarousel } from "@/components/hero-services-carousel";
-import { SiteHeader } from "@/components/site-header";
 import { portalStore } from "@/lib/portal";
 import { createPublicDisplayUrl } from "@/lib/storage";
 import { CHHATTISGARH_SERVICE_CITIES, type ServicePageSlug } from "@/lib/service-pages";
@@ -82,7 +81,6 @@ export default async function Home() {
   return (
     <main className="classic-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }} />
-      <SiteHeader />
 
       <header id="home" className="classic-hero">
         <div className="classic-hero-orb classic-hero-orb-one" /><div className="classic-hero-orb classic-hero-orb-two" />

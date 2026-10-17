@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Check, HeartHandshake, ImageIcon, MapPin, Phone, Plus, ShieldCheck, Sparkles, Star, UsersRound } from "lucide-react";
 import { ServiceReviewForm } from "@/components/service-review-form";
-import { SiteHeader } from "@/components/site-header";
 import { portalStore } from "@/lib/portal";
 import { CHHATTISGARH_SERVICE_CITIES, isServicePageSlug, SERVICE_PAGES, SERVICE_PAGE_SLUGS } from "@/lib/service-pages";
 import { getSiteUrl } from "@/lib/seo";
@@ -100,7 +99,6 @@ export default async function DedicatedServicePage({ params }: PageProps) {
   return (
     <main className={`classic-page ${styles.page} ${styles[tone]}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <SiteHeader />
       <section className={styles.hero} aria-labelledby="service-heading">
         <div className="classic-container">
           <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/services">Services</Link><span aria-hidden="true">/</span><span aria-current="page">{service.shortTitle}</span></nav>

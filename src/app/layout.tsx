@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { SiteHeader } from "@/components/site-header";
+import { PublicHeaderGate } from "@/components/public-header-gate";
 import { portalStore } from "@/lib/portal";
 import { createPublicDisplayUrl } from "@/lib/storage";
 import { getGoogleSiteVerification, getSiteUrl } from "@/lib/seo";
@@ -32,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en-IN" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <a href="#main-content" className="skip-link">Skip to main content</a>
+        <PublicHeaderGate><SiteHeader /></PublicHeaderGate>
         <div id="main-content" tabIndex={-1} className="flex min-h-full flex-1 flex-col">{children}</div>
       </body>
     </html>

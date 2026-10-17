@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SiteHeader } from "@/components/site-header";
 import { portalStore } from "@/lib/portal";
 
 export const metadata: Metadata = { title: "Terms and Conditions | Job Care Services", description: "Terms for using Job Care Services recruitment and facility-service platform.", alternates: { canonical: "/terms" } };
 
 export default async function TermsPage() {
   const settings = await portalStore.getSiteSettings();
-  return <main className="min-h-screen bg-[#F5FAF7] text-[#1E2B26]"><SiteHeader /><article className="mx-auto max-w-4xl px-5 py-12"><p className="section-kicker text-[#157A4A]">PLATFORM TERMS</p><h1 className="mt-2 text-4xl font-black">Terms and Conditions</h1><p className="mt-3 text-sm text-[#6B7A72]">Effective and last updated: 21 September 2026</p><div className="mt-8 grid gap-5">
+  return <main className="min-h-screen bg-[#F5FAF7] text-[#1E2B26]"><article className="mx-auto max-w-4xl px-5 py-12"><p className="section-kicker text-[#157A4A]">PLATFORM TERMS</p><h1 className="mt-2 text-4xl font-black">Terms and Conditions</h1><p className="mt-3 text-sm text-[#6B7A72]">Effective and last updated: 21 September 2026</p><div className="mt-8 grid gap-5">
     <Term title="1. Platform purpose">{settings.companyName} helps candidates discover opportunities and enables employers and customers to submit recruitment or facility-service requirements. The platform coordinates information and workflows; it does not guarantee selection, employment, staff availability or a specific service outcome.</Term>
     <Term title="2. Candidate accounts">Candidates must be at least 18 years old and provide accurate, current information. Account credentials must be kept confidential. Impersonation, forged documents, duplicate accounts and unauthorized use are prohibited.</Term>
     <Term title="3. Jobs and applications">Job information may be supplied by employers or administrators and can change or close. Candidates should independently confirm role, salary, location, duties and employer details before joining. Applying does not guarantee an interview or placement.</Term>

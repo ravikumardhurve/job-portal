@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, Bookmark, BriefcaseBusiness, Check, MapPin } from "lucide-react";
 import { JobExplorer } from "@/components/job-explorer";
-import { SiteHeader } from "@/components/site-header";
 import { portalStore, type JobSearchFilters } from "@/lib/portal";
 import { SALARY_BANDS } from "@/lib/constants";
 import { getCandidateSession } from "@/lib/candidate-auth";
@@ -62,7 +61,6 @@ export default async function JobsPage({ searchParams }: PageProps<"/jobs">) {
 
   return (
     <main className={`classic-page ${styles.page}`}>
-      <SiteHeader />
       <section className={styles.hero} aria-labelledby="jobs-heading">
         <div className={`classic-container ${styles.heroGrid}`}>
           <div>

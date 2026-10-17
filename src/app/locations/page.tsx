@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Check, MapPin, Navigation, Plus } from "lucide-react";
-import { SiteHeader } from "@/components/site-header";
 import { CHHATTISGARH_SERVICE_CITIES, SERVICE_PAGES, SERVICE_PAGE_SLUGS } from "@/lib/service-pages";
 import { portalStore } from "@/lib/portal";
 import { getSiteUrl } from "@/lib/seo";
@@ -47,7 +46,6 @@ export default async function LocationsPage() {
   return (
     <main className={`classic-page ${styles.page}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <SiteHeader />
       <section className={styles.hero} aria-labelledby="locations-heading">
         <div className="classic-container">
           <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Locations</span></nav>

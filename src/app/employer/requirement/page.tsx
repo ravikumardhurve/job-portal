@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { SubmissionForm } from "@/components/submission-form";
-import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
   title: "Hire Staff in Chhattisgarh | Job Care Services",
@@ -9,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function EmployerRequirementPage() {
-  return <main className="min-h-screen bg-[#F5FAF7]"><SiteHeader /><div className="mx-auto max-w-2xl px-5 py-12"><p className="section-kicker mt-4 text-[#0F5C38]">EMPLOYER REQUIREMENT</p><h1 className="section-title">Tell us who you need.</h1><p className="my-6 leading-7 text-[#4B5A52]">Your requirement is reviewed by our recruitment team before any public job posting is created.</p><SubmissionForm action="/api/employer-requirements" buttonText="Submit requirement" fields={[{ name: "company", label: "Company name", required: true }, { name: "contactName", label: "Contact person", required: true }, { name: "mobile", label: "Mobile number", type: "tel", required: true }, { name: "contactEmail", label: "Email (for updates)", type: "email" }, { name: "jobTitle", label: "Job title", required: true }, { name: "category", label: "Job category", required: true }, { name: "candidatesRequired", label: "Candidates required", type: "number", required: true }, { name: "city", label: "Job city", required: true }]} /></div></main>;
+  return <main className="min-h-screen bg-[#F5FAF7]"><div className="mx-auto max-w-2xl px-5 py-12"><p className="section-kicker mt-4 text-[#0F5C38]">EMPLOYER REQUIREMENT</p><h1 className="section-title">Tell us who you need.</h1><p className="my-6 leading-7 text-[#4B5A52]">Your requirement is reviewed by our recruitment team before any public job posting is created.</p><SubmissionForm action="/api/employer-requirements" buttonText="Submit requirement" fields={[{ name: "company", label: "Company name", required: true }, { name: "contactName", label: "Contact person", required: true }, { name: "mobile", label: "Mobile number", type: "tel", required: true }, { name: "contactEmail", label: "Email (for updates)", type: "email" }, { name: "jobTitle", label: "Job title", required: true }, { name: "category", label: "Job category", required: true }, { name: "candidatesRequired", label: "Candidates required", type: "number", required: true }, { name: "city", label: "Job city", required: true }]} /></div></main>;
 }
