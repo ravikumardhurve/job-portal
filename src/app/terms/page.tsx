@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { portalStore } from "@/lib/portal";
 
-export const metadata: Metadata = { title: "Terms and Conditions | CG Job Care", description: "Terms for using CG Job Care recruitment and facility-service platform.", alternates: { canonical: "/terms" } };
+export const metadata: Metadata = { title: "Terms and Conditions | Job Care Services", description: "Terms for using Job Care Services recruitment and facility-service platform.", alternates: { canonical: "/terms" } };
 
 export default async function TermsPage() {
   const settings = await portalStore.getSiteSettings();

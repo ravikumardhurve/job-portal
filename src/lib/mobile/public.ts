@@ -14,7 +14,7 @@ const section = (title: string, ...paragraphs: string[]): Section => ({ title, p
 function publicSettings(s: SiteSettings) {
   return {
     companyName: s.companyName, tagline: s.tagline, phone: s.phone, whatsapp: s.whatsapp,
-    email: s.email, address: s.address, city: s.city, state: s.state, workingHours: s.workingHours,
+    email: s.email, address: s.address, city: s.city, state: s.state, postalCode: s.postalCode, workingHours: s.workingHours,
     googleBusinessProfileUrl: webUrl(s.googleBusinessProfileUrl),
     homeAnnouncementText: s.homeAnnouncementText,
     homeHeroBadge: s.homeHeroBadge || "Jobs & trusted services in one place",

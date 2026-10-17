@@ -47,7 +47,7 @@ const steps = [
 
 export default async function AboutPage() {
   const settings = await portalStore.getSiteSettings();
-  const address = [settings.address, settings.city, settings.state].filter(Boolean).join(", ");
+  const address = [settings.address, settings.city, settings.state, settings.postalCode].filter(Boolean).join(", ");
 
   return (
     <main className={`classic-page ${styles.page}`}>

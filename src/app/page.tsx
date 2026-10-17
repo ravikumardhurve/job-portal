@@ -55,16 +55,25 @@ export default async function Home() {
     { value: landing.stats.serviceClientCount, label: "Service requests" },
   ];
   const baseUrl = getSiteUrl();
+  const businessAddress = settings.address || settings.city || settings.state || settings.postalCode ? {
+    "@type": "PostalAddress",
+    ...(settings.address ? { streetAddress: settings.address } : {}),
+    ...(settings.city ? { addressLocality: settings.city } : {}),
+    ...(settings.state ? { addressRegion: settings.state } : {}),
+    ...(settings.postalCode ? { postalCode: settings.postalCode } : {}),
+    addressCountry: "IN",
+  } : undefined;
+  const contactLocation = [settings.address, settings.city, settings.state, settings.postalCode].filter(Boolean).join(", ") || "Chhattisgarh, India";
   const organizationJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "LocalBusiness"],
     "@id": `${baseUrl}/#organization`,
     name: settings.companyName,
     url: baseUrl,
     description: settings.metaDescription,
     ...(settings.email ? { email: settings.email } : {}),
     ...(settings.phone ? { telephone: settings.phone } : {}),
-    ...((settings.address || settings.city || settings.state) ? { address: { "@type": "PostalAddress", ...(settings.address ? { streetAddress: settings.address } : {}), ...(settings.city ? { addressLocality: settings.city } : {}), ...(settings.state ? { addressRegion: settings.state } : {}), addressCountry: "IN" } } : {}),
+    ...(businessAddress ? { address: businessAddress } : {}),
     ...((settings.facebookUrl || settings.instagramUrl || settings.googleBusinessProfileUrl) ? { sameAs: [settings.facebookUrl, settings.instagramUrl, settings.googleBusinessProfileUrl].filter(Boolean) } : {}),
     areaServed: CHHATTISGARH_SERVICE_CITIES.map((city) => ({ "@type": "City", name: `${city}, Chhattisgarh` })),
     knowsAbout: ["Job placement", "Manpower recruitment", "Security guards", "Baby care", "Caretakers", "Housekeeping", "Pest control"],
@@ -104,7 +113,7 @@ export default async function Home() {
 
       <section id="contact" className="classic-cta"><div className="classic-container"><div className="classic-cta-box"><div><p className="classic-eyebrow classic-eyebrow-light">READY TO START?</p><h2>{settings.homeCtaTitle || "Need someone you can trust?"}</h2><p>{settings.homeCtaDescription || "Tell us what service you need. Our platform helps connect you with the right professional for your requirement."}</p><div className="classic-actions"><Link href="/services/request" className="classic-button classic-button-white">Book a Service <ArrowRight size={17} /></Link><Link href="/candidate/register" className="classic-button classic-button-orange">Find a Job</Link></div></div></div></div></section>
 
-      <footer className="classic-footer"><div className="classic-container classic-footer-grid"><div><div className="classic-footer-brand">{logoUrl ? <Image src={logoUrl} alt={`${settings.companyName} logo`} width={44} height={44} unoptimized className="classic-footer-logo" /> : <span className="classic-footer-mark">CG</span>}<span><strong>{settings.companyName}</strong><small>{settings.tagline || "FACILITY SERVICES"}</small></span></div><p>{settings.companyName} - {settings.tagline || "Jobs, Security, Care & Facility"}. A simpler way to find opportunities and reliable everyday services.</p></div><div><strong>Services</strong><Link href="/services/security-services">Security Guard</Link><Link href="/services/pest-control">Pest Control</Link><Link href="/services/baby-care">Baby Care</Link><Link href="/services/housekeeping">Housekeeping</Link></div><div><strong>Quick Links</strong><Link href="/jobs">Find Jobs</Link><Link href="#process">How it Works</Link><Link href="/about">About Us</Link><Link href="#contact">Contact</Link></div><div><strong>Contact</strong><p className="classic-footer-contact">{settings.address || ([settings.city, settings.state].filter(Boolean).join(", ") || "Chhattisgarh, India")}{settings.workingHours && <><br />{settings.workingHours}</>}{settings.phone && <><br /><a href={`tel:${settings.phone}`}>{settings.phone}</a></>}{settings.email && <><br /><a href={`mailto:${settings.email}`}>{settings.email}</a></>}</p></div></div><div className="classic-footer-bottom"><span>&copy; {new Date().getFullYear()} {settings.companyName}</span><span><Link href="/privacy">Privacy Policy</Link> &middot; <Link href="/terms">Terms &amp; Conditions</Link></span></div></footer>
+      <footer className="classic-footer"><div className="classic-container classic-footer-grid"><div><div className="classic-footer-brand">{logoUrl ? <Image src={logoUrl} alt={`${settings.companyName} logo`} width={44} height={44} unoptimized className="classic-footer-logo" /> : <span className="classic-footer-mark">JC</span>}<span><strong>{settings.companyName}</strong><small>{settings.tagline || "FACILITY SERVICES"}</small></span></div><p>{settings.companyName} - {settings.tagline || "Jobs, Security, Care & Facility"}. A simpler way to find opportunities and reliable everyday services.</p></div><div><strong>Services</strong><Link href="/services/security-services">Security Guard</Link><Link href="/services/pest-control">Pest Control</Link><Link href="/services/baby-care">Baby Care</Link><Link href="/services/housekeeping">Housekeeping</Link></div><div><strong>Quick Links</strong><Link href="/jobs">Find Jobs</Link><Link href="#process">How it Works</Link><Link href="/about">About Us</Link><Link href="#contact">Contact</Link></div><div><strong>Contact</strong><p className="classic-footer-contact">{contactLocation}{settings.workingHours && <><br />{settings.workingHours}</>}{settings.phone && <><br /><a href={`tel:${settings.phone}`}>{settings.phone}</a></>}{settings.email && <><br /><a href={`mailto:${settings.email}`}>{settings.email}</a></>}</p></div></div><div className="classic-footer-bottom"><span>&copy; {new Date().getFullYear()} {settings.companyName}</span><span><Link href="/privacy">Privacy Policy</Link> &middot; <Link href="/terms">Terms &amp; Conditions</Link></span></div></footer>
     </main>
   );
 }

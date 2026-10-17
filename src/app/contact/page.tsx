@@ -37,7 +37,10 @@ export default async function ContactPage() {
   const settings = await portalStore.getSiteSettings();
   const whatsappNumber = settings.whatsapp?.replace(/[^0-9]/g, "");
   const businessUrl = publicWebUrl(settings.googleBusinessProfileUrl);
-  const location = [settings.address, settings.city, settings.state].filter(Boolean).join(", ");
+  const location = [settings.address, settings.city, settings.state, settings.postalCode].filter(Boolean).join(", ");
+  const mapQuery = location || "Raipur, Chhattisgarh";
+  const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
+  const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
   const contacts = [
     ...(settings.phone ? [{ icon: Phone, tone: "blue", title: "Give us a call", detail: settings.phone, note: settings.workingHours || "Discuss your question with our team.", href: `tel:${settings.phone}`, external: false, action: "Call now" }] : []),
     ...(whatsappNumber ? [{ icon: MessageCircle, tone: "orange", title: "Start a WhatsApp chat", detail: "A little detail goes a long way.", note: "Share your city and what you need.", href: `https://wa.me/${whatsappNumber}`, external: true, action: "Open WhatsApp" }] : []),
@@ -67,6 +70,17 @@ export default async function ContactPage() {
       <section className={`classic-container ${styles.localSection}`} aria-labelledby="local-heading">
         <div className={styles.localCopy}><p className="classic-eyebrow">LOCAL SUPPORT</p><h2 id="local-heading" className={styles.heading}>Closer to your needs.<br /><span>Clear on the next step.</span></h2><p>We welcome enquiries from Raipur and across Chhattisgarh. Share your location so we can discuss the opportunities and support available in your area.</p><Link href="/locations" className={styles.textLink}>Explore service coverage <ArrowRight size={16} /></Link><div className={styles.nextSteps}><h3>After you send a requirement</h3><ol><li><span>01</span>Your details are reviewed by the relevant team.</li><li><span>02</span>Missing information or preferences are clarified.</li><li><span>03</span>Availability and next steps are discussed with you.</li></ol></div></div>
         <aside className={styles.locationCard}><span className={styles.locationIcon}><MapPin size={27} /></span><p className={styles.cardEyebrow}>CONTACT INFORMATION</p><h3>{settings.companyName}</h3><dl>{location ? <div><dt><MapPin size={16} />{settings.address ? "Address" : "Location"}</dt><dd>{location}</dd></div> : <div><dt>Service area</dt><dd>Raipur &amp; Chhattisgarh</dd></div>}{settings.workingHours && <div><dt><Clock3 size={16} />Working hours</dt><dd>{settings.workingHours}</dd></div>}</dl>{businessUrl ? <a href={businessUrl} target="_blank" rel="noopener noreferrer" className={styles.mapLink}>View our Google profile <ArrowUpRight size={17} /><span className={styles.srOnly}> (opens in a new tab)</span></a> : <Link href="/locations" className={styles.mapLink}>View our coverage <ArrowUpRight size={17} /></Link>}<p className={styles.visitNote}>{settings.address ? "Please confirm the location and a suitable time with our team before planning a visit." : "Exact service availability is confirmed after reviewing your location and requirement."}</p></aside>
+      </section>
+
+      <section className={`classic-container ${styles.mapSection}`} aria-labelledby="map-heading">
+        <div className={styles.mapHeader}>
+          <div><p className="classic-eyebrow">FIND US</p><h2 id="map-heading" className={styles.heading}>Visit us in <span>{settings.city || "Raipur"}.</span></h2></div>
+          <p>{location || "Raipur, Chhattisgarh"}</p>
+        </div>
+        <div className={styles.mapCard}>
+          <iframe title={`Map showing ${mapQuery}`} src={mapsEmbedUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className={styles.mapEmbed} allowFullScreen />
+        </div>
+        <div className={styles.mapActions}><span>Location shown is based on the published business address.</span><a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={styles.mapLink}>Open in Google Maps <ArrowUpRight size={17} /><span className={styles.srOnly}> (opens in a new tab)</span></a></div>
       </section>
 
       <section className={styles.faqSection} aria-labelledby="faq-heading"><div className={`classic-container ${styles.faqGrid}`}><div><p className="classic-eyebrow">BEFORE YOU GET IN TOUCH</p><h2 id="faq-heading" className={styles.heading}>A few helpful answers.</h2><p className={styles.faqIntro}>A little clarity can make your first conversation easier.</p></div><div className={styles.faqList}>{faqs.map((faq) => <details key={faq.question}><summary><span>{faq.question}</span><Plus size={18} aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}</div></div></section>

@@ -14,7 +14,7 @@ import { candidateView, jobView, MobileError, paging, readBody, textField } from
  */
 export type AuthenticatedAdmin = Extract<Awaited<ReturnType<typeof authenticate>>, { kind: "admin" }>;
 
-const settingsKeys = ["companyName", "tagline", "homeAnnouncementText", "homeHeroBadge", "homeHeroTitle", "homeHeroHighlight", "homeHeroDescription", "homeServicesTitle", "homeServicesDescription", "homeJobsTitle", "homeJobsDescription", "homeCtaTitle", "homeCtaDescription", "metaTitle", "metaDescription", "phone", "whatsapp", "email", "address", "city", "state", "workingHours", "facebookUrl", "instagramUrl", "googleBusinessProfileUrl", "gstNumber"] as const;
+const settingsKeys = ["companyName", "tagline", "homeAnnouncementText", "homeHeroBadge", "homeHeroTitle", "homeHeroHighlight", "homeHeroDescription", "homeServicesTitle", "homeServicesDescription", "homeJobsTitle", "homeJobsDescription", "homeCtaTitle", "homeCtaDescription", "metaTitle", "metaDescription", "phone", "whatsapp", "email", "address", "city", "state", "postalCode", "workingHours", "facebookUrl", "instagramUrl", "googleBusinessProfileUrl", "gstNumber"] as const;
 const documentTypes = ["RESUME", "AADHAAR_FRONT", "AADHAAR_BACK", "PAN", "PHOTO", "POLICE_VERIFICATION", "EXPERIENCE_CERTIFICATE", "EDUCATION_CERTIFICATE", "OTHER"] as const;
 const documentFields = ["type", "status", "rejectionReason", "createdAt", "verifiedAt"];
 const reportColumns = {

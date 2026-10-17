@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { portalStore } from "@/lib/portal";
 
-export const metadata: Metadata = { title: "Privacy Policy | CG Job Care", description: "How CG Job Care collects, uses, protects and deletes candidate and customer information.", alternates: { canonical: "/privacy" } };
+export const metadata: Metadata = { title: "Privacy Policy | Job Care Services", description: "How Job Care Services collects, uses, protects and deletes candidate and customer information.", alternates: { canonical: "/privacy" } };
 
 export default async function PrivacyPolicyPage() {
   const settings = await portalStore.getSiteSettings();

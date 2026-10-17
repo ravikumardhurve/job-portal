@@ -3,7 +3,7 @@ import { SubmissionForm } from "@/components/submission-form";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
-  title: "Request a Service in Chhattisgarh | CG Job Care",
+  title: "Request a Service in Chhattisgarh | Job Care Services",
   description: "Request security, baby care, caretaker, housekeeping, pest control or manpower support in Raipur and across Chhattisgarh.",
   alternates: { canonical: "/services/request" },
 };

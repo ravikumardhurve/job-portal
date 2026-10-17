@@ -16,24 +16,24 @@ function toSchemaEmploymentType(type: Job["employmentType"]) {
 
 export async function generateMetadata({ params }: PageProps<"/jobs/[jobId]">): Promise<Metadata> {
   const { jobId } = await params;
-  const job = await portalStore.getPublishedJob(jobId);
-  if (!job) return { title: "Job not found | CG Job Care", robots: { index: false, follow: true } };
-  const title = `${job.title} in ${job.city} | CG Job Care`;
-  const description = `${job.title} at ${job.company} in ${job.city}, Chhattisgarh. Salary Rs. ${job.salaryMin.toLocaleString("en-IN")} - ${job.salaryMax.toLocaleString("en-IN")} per month. ${job.vacancies} vacancies. Apply now with CG Job Care.`;
+  const [job, settings] = await Promise.all([portalStore.getPublishedJob(jobId), portalStore.getSiteSettings()]);
+  if (!job) return { title: `Job not found | ${settings.companyName}`, robots: { index: false, follow: true } };
+  const title = `${job.title} in ${job.city} | ${settings.companyName}`;
+  const description = `${job.title} at ${job.company} in ${job.city}, Chhattisgarh. Salary Rs. ${job.salaryMin.toLocaleString("en-IN")} - ${job.salaryMax.toLocaleString("en-IN")} per month. ${job.vacancies} vacancies. Apply now with ${settings.companyName}.`;
   const canonical = `/jobs/${job.id}`;
   return { title, description, alternates: { canonical }, openGraph: { title, description, url: canonical, type: "website", locale: "en_IN" }, twitter: { card: "summary", title, description } };
 }
 
 export default async function JobDetailPage({ params }: PageProps<"/jobs/[jobId]">) {
   const { jobId } = await params;
-  const [job, session] = await Promise.all([portalStore.getPublishedJob(jobId), getCandidateSession()]);
+  const [job, session, settings] = await Promise.all([portalStore.getPublishedJob(jobId), getCandidateSession(), portalStore.getSiteSettings()]);
 
   if (!job) notFound();
 
   const salary = `Rs. ${job.salaryMin.toLocaleString("en-IN")} - ${job.salaryMax.toLocaleString("en-IN")} per month`;
   const savedJobIds = session ? await portalStore.listSavedJobIds(session.candidateId) : [];
   const initialSaved = savedJobIds.includes(job.id);
-  const description = job.description ?? "We are looking for reliable candidates who are ready to work with a local employer. CG Job Care will guide eligible candidates through profile verification, interview coordination and joining.";
+  const description = job.description ?? `We are looking for reliable candidates who are ready to work with a local employer. ${settings.companyName} will guide eligible candidates through profile verification, interview coordination and joining.`;
   const canonicalUrl = `${getSiteUrl()}/jobs/${job.id}`;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -41,7 +41,7 @@ export default async function JobDetailPage({ params }: PageProps<"/jobs/[jobId]
     title: job.title,
     description,
     url: canonicalUrl,
-    identifier: { "@type": "PropertyValue", name: "CG Job Care", value: job.id },
+    identifier: { "@type": "PropertyValue", name: settings.companyName, value: job.id },
     datePosted: job.postedAt,
     ...(job.applicationDeadline ? { validThrough: job.applicationDeadline } : {}),
     employmentType: toSchemaEmploymentType(job.employmentType),

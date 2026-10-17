@@ -24,7 +24,7 @@ export async function SiteHeader() {
           {logoUrl ? (
             <Image src={logoUrl} alt={`${settings.companyName} logo`} width={40} height={40} unoptimized className="h-10 w-10 rounded-lg object-contain" />
           ) : (
-            <span className="site-brand-fallback" aria-hidden="true">CG</span>
+            <span className="site-brand-fallback" aria-hidden="true">JC</span>
           )}
           <span className="leading-tight"><strong className="block text-[15px] text-[#11182B]">{settings.companyName}</strong>{settings.tagline && <small className="text-[11px] text-[#6F7788]">{settings.tagline}</small>}</span>
         </Link>

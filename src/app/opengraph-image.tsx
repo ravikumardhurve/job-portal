@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "CG Job Care - Jobs and trusted local services across Chhattisgarh";
+export const alt = "Job Care Services - Jobs, home care and trusted local services in Raipur";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -11,10 +11,10 @@ export default function OpenGraphImage() {
       <div style={{ position: "absolute", width: 260, height: 260, borderRadius: 999, background: "#d4b04a", right: 110, bottom: -150, opacity: 0.55 }} />
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
-          <div style={{ display: "flex", width: 82, height: 82, borderRadius: 22, alignItems: "center", justifyContent: "center", background: "#f4c95d", color: "#18382f", fontSize: 31, fontWeight: 900 }}>CG</div>
+          <div style={{ display: "flex", width: 82, height: 82, borderRadius: 22, alignItems: "center", justifyContent: "center", background: "#f4c95d", color: "#18382f", fontSize: 31, fontWeight: 900 }}>JC</div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: 34, fontWeight: 800 }}>CG Job Care</span>
-            <span style={{ marginTop: 6, color: "#cfe0d8", fontSize: 17, letterSpacing: 3 }}>JOBS &amp; FACILITY SERVICES</span>
+            <span style={{ fontSize: 34, fontWeight: 800 }}>Job Care Services</span>
+            <span style={{ marginTop: 6, color: "#cfe0d8", fontSize: 17, letterSpacing: 3 }}>JOBS &amp; HOME CARE SERVICES</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 880 }}>

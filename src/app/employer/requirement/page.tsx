@@ -3,8 +3,8 @@ import { SubmissionForm } from "@/components/submission-form";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
-  title: "Hire Staff in Chhattisgarh | CG Job Care",
-  description: "Share your staffing requirement with CG Job Care for recruitment support in Raipur and across Chhattisgarh.",
+  title: "Hire Staff in Chhattisgarh | Job Care Services",
+  description: "Share your staffing requirement with Job Care Services for recruitment support in Raipur and across Chhattisgarh.",
   alternates: { canonical: "/employer/requirement" },
 };
 

@@ -211,6 +211,7 @@ export interface SiteSettings {
   address?: string;
   city?: string;
   state?: string;
+  postalCode?: string;
   workingHours?: string;
   facebookUrl?: string;
   instagramUrl?: string;
@@ -219,21 +220,25 @@ export interface SiteSettings {
 }
 
 const defaultSiteSettings: SiteSettings = {
-  companyName: "CG Job Care",
-  tagline: "Facility Services",
-  metaTitle: "CG Job Care & Facility Services | Raipur",
-  metaDescription: "Job placement, recruitment and facility services in Raipur and across Chhattisgarh.",
-  homeAnnouncementText: "Raipur aur Chhattisgarh ke liye trusted jobs aur facility support",
-  homeHeroBadge: "RAIPUR · CHHATTISGARH",
-  homeHeroTitle: "Naukri ho ya trusted service,",
-  homeHeroHighlight: "sahi madad ek jagah.",
-  homeHeroDescription: "Jobs, manpower, security guards, baby care, housekeeping aur pest control — clear process aur local support ke saath.",
+  companyName: "Job Care Services",
+  tagline: "Jobs, Home Care & Facility Services",
+  metaTitle: "Job Care Services | Jobs & Home Care in Raipur",
+  metaDescription: "Job Care Services in Kabir Nagar, Raipur connects job seekers, employers and families with jobs, security, housekeeping, pest control and home care.",
+  homeAnnouncementText: "Jobs, home care aur facility services in Kabir Nagar, Raipur",
+  homeHeroBadge: "KABIR NAGAR · RAIPUR",
+  homeHeroTitle: "Jobs, care and trusted services,",
+  homeHeroHighlight: "closer to home.",
+  homeHeroDescription: "Job Care Services connects job seekers, employers and families with local support in Kabir Nagar, Raipur and across Chhattisgarh.",
   homeServicesTitle: "Five services, clearly separated.",
   homeServicesDescription: "Har service ki dedicated team aur request flow hai, isliye aapki enquiry sahi department tak jaati hai.",
   homeJobsTitle: "Latest jobs in Chhattisgarh",
   homeJobsDescription: "Salary, location aur vacancy details dekhkar apne profile se apply karein.",
   homeCtaTitle: "Aaj hi apni requirement share karein.",
   homeCtaDescription: "Candidate registration simple hai. Employers aur customers apni requirement directly operational team ko bhej sakte hain.",
+  address: "MIG 2/15, Siddhi Vinayak Chowk, Kabir Nagar, near Shiv Mandir",
+  city: "Raipur",
+  state: "Chhattisgarh",
+  postalCode: "492099",
 };
 
 const placeholderContactValues = new Set(["+919999999999", "9999999999", "support@cgjobcare.com", "Raipur, Chhattisgarh", "Mon-Sat, 9:30 AM - 6:30 PM"]);

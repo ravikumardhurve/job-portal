@@ -213,6 +213,7 @@ export function SiteSettingsManager() {
             <Field label="Address"><input name="address" defaultValue={settings.address ?? ""} className="admin-input" /></Field>
             <Field label="City"><input aria-label="City" name="city" defaultValue={settings.city ?? ""} className="admin-input" /></Field>
             <Field label="State"><input name="state" defaultValue={settings.state ?? ""} className="admin-input" /></Field>
+            <Field label="Postal code"><input name="postalCode" inputMode="numeric" defaultValue={settings.postalCode ?? ""} className="admin-input" /></Field>
             <Field label="Working hours"><input name="workingHours" defaultValue={settings.workingHours ?? ""} className="admin-input" /></Field>
           </div>
         </section></details>
