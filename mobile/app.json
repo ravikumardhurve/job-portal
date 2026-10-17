@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "CG Job Care",
+    "slug": "cg-job-care",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "cgjobcare",
+    "ios": { "supportsTablet": true },
+    "android": { "package": "com.cgjobcare.mobile" },
+    "plugins": ["expo-secure-store"]
+  }
+}

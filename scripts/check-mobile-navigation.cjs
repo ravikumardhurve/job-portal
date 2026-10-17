@@ -1,0 +1,24 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- Isolated navigation checks. */
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const ts = require('typescript');
+const compiledModule = { exports: {} };
+const file = path.join(__dirname, '../mobile/src/navigation.ts');
+vm.runInNewContext(ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText, { module: compiledModule, exports: compiledModule.exports });
+const { publicPages, candidatePages, adminPages, pageTitle, pushPage } = compiledModule.exports;
+for (const list of [publicPages, candidatePages, adminPages]) assert.equal(new Set(list.map(item => item.id)).size, list.length);
+for (const id of ['home', 'jobs', 'services', 'service-request', 'about', 'contact', 'locations', 'employer', 'privacy-policy', 'terms']) assert.ok(publicPages.some(item => item.id === id), `Missing public page: ${id}`);
+for (const id of ['dashboard', 'applications', 'interviews', 'saved', 'profile-edit', 'documents', 'notifications', 'privacy']) assert.ok(candidatePages.some(item => item.id === id), `Missing candidate page: ${id}`);
+for (const id of ['overview', 'jobs', 'applications', 'candidates', 'interviews', 'services', 'requirements', 'reports', 'reviews', 'audit-logs', 'privacy-requests', 'team', 'settings', 'account']) assert.ok(adminPages.some(item => item.id === id), `Missing admin page: ${id}`);
+const start = ['home'];
+assert.equal(pushPage(start, 'home'), start, 'Repeated tap must not create a duplicate history entry');
+const stack = pushPage(pushPage(start, 'jobs'), 'job:fixture');
+assert.equal(stack.join('/'), 'home/jobs/job:fixture');
+assert.equal(start.length, 1, 'History updates must not mutate previous state');
+assert.equal(stack.slice(0, -1).at(-1), 'jobs');
+assert.equal(pageTitle('services', true), 'Service requests');
+assert.equal(pageTitle('services', false), 'Our services');
+assert.equal(pageTitle('candidate-verify:fixture', true), 'Candidate verification');
+console.log('Mobile navigation checks passed: public/candidate/admin page registry, roles and back history.');

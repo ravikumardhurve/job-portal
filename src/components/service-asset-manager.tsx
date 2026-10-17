@@ -1,5 +1,7 @@
 "use client";
 
+import styles from "@/components/admin-management.module.css";
+
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ImageIcon, Plus, Trash2, UploadCloud } from "lucide-react";
@@ -74,37 +76,37 @@ export function ServiceAssetManager() {
   }
 
   return (
-    <section className="rounded-lg border border-[#E0E8E2] bg-white p-6">
-      <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#FFF0E7] text-[#E95D2B]"><ImageIcon size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#E95D2B]">SERVICE MEDIA LIBRARY</p><h2 className="text-lg font-black">Hero photos &amp; work galleries</h2></div></div>
-      <p className="mt-3 text-sm leading-6 text-[#71837A]">Har service ka main photo aur completed-work gallery yahan se manage karein. JPG, PNG ya WebP image, maximum 5MB.</p>
+    <section className="rounded-lg border border-[#e5e8f0] bg-white p-4 sm:p-6">
+      <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#FFF0E7] text-[#2447e5]"><ImageIcon size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#2447e5]">SERVICE MEDIA LIBRARY</p><h2 className="text-lg font-black">Hero photos &amp; work galleries</h2></div></div>
+      <p className="mt-3 text-sm leading-6 text-[#657189]">Har service ka main photo aur completed-work gallery yahan se manage karein. JPG, PNG ya WebP image, maximum 5MB.</p>
       {message && <p className="mt-5 rounded-lg bg-[#E8F5ED] px-4 py-3 text-sm font-bold text-[#258653]">{message}</p>}
       {error && <p role="alert" className="mt-5 rounded-lg bg-[#FFF0E7] px-4 py-3 text-sm font-bold text-[#C9471E]">{error} {!assets && <button type="button" onClick={() => { setError(undefined); void refresh().catch((cause: unknown) => setError(cause instanceof Error ? cause.message : "Service images load nahi ho sake.")); }} className="ml-2 underline">Retry</button>}</p>}
-      {!assets ? !error && <p role="status" className="mt-6 text-sm font-semibold text-[#71837A]">Loading service media...</p> : <div className="mt-6 grid gap-6">{SERVICE_PAGE_SLUGS.map((slug) => {
+      {!assets ? !error && <p role="status" className="mt-4 sm:mt-6 text-sm font-semibold text-[#657189]">Loading service media...</p> : <div className="mt-4 sm:mt-6 grid gap-6">{SERVICE_PAGE_SLUGS.map((slug) => {
         const service = SERVICE_PAGES[slug];
         const asset = assets[slug];
         const heroInput = `${slug}:hero`;
         const galleryInput = `${slug}:gallery`;
-        return <article key={slug} className="rounded-xl border border-[#DFE8E2] p-5">
-          <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-black tracking-[.1em] text-[#157A4A]">{service.eyebrow}</p><h3 className="mt-1 text-xl font-black">{service.shortTitle}</h3></div><a href={`/services/${slug}`} target="_blank" rel="noreferrer" className="text-xs font-black text-[#C9471E]">View public page</a></div>
+        return <details key={slug} className={styles.fold}><summary>{service.shortTitle}</summary><article  className="rounded-xl border border-[#e5e8f0] p-3.5 sm:p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-black tracking-[.1em] text-[#2447e5]">{service.eyebrow}</p><h3 className="mt-1 text-xl font-black">{service.shortTitle}</h3></div><a href={`/services/${slug}`} target="_blank" rel="noreferrer" className="text-xs font-black text-[#C9471E]">View public page</a></div>
           <div className="mt-5 grid gap-5 lg:grid-cols-[260px_1fr]">
             <div>
               <p className="text-sm font-black">Hero image</p>
-              <div className="mt-2 grid h-40 place-items-center overflow-hidden rounded-lg bg-[#F3F7F4]">{asset.hero ? <div className="group relative h-full w-full">
+              <div className="mt-2 grid h-40 place-items-center overflow-hidden rounded-lg bg-[#f2f4fa]">{asset.hero ? <div className="group relative h-full w-full">
                 <Image src={asset.hero.url} alt={`${service.shortTitle} hero preview`} fill sizes="260px" unoptimized className="object-cover" />
                 <button type="button" disabled={busy === asset.hero.key} onClick={() => remove(slug, "hero", asset.hero!.key)} className="absolute right-2 top-2 grid h-8 w-8 place-items-center rounded-full bg-black/65 text-white"><Trash2 size={14} /></button>
-              </div> : <span className="px-4 text-center text-xs text-[#8A9991]">Default representative photo active</span>}</div>
+              </div> : <span className="px-4 text-center text-xs text-[#758096]">Default representative photo active</span>}</div>
               <input ref={(element) => { inputs.current[heroInput] = element; }} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(event) => upload(slug, "SERVICE_HERO", event)} />
-              <button type="button" disabled={busy === `${slug}:SERVICE_HERO`} onClick={() => inputs.current[heroInput]?.click()} className="mt-3 inline-flex items-center gap-2 rounded-lg border border-[#E95D2B] px-3 py-2 text-xs font-black text-[#C9471E] disabled:opacity-60"><UploadCloud size={14} />{asset.hero ? "Replace hero" : "Upload hero"}</button>
+              <button type="button" disabled={busy === `${slug}:SERVICE_HERO`} onClick={() => inputs.current[heroInput]?.click()} className="mt-3 inline-flex items-center gap-2 rounded-lg border border-[#2447e5] px-3 py-2 text-xs font-black text-[#C9471E] disabled:opacity-60"><UploadCloud size={14} />{asset.hero ? "Replace hero" : "Upload hero"}</button>
             </div>
             <div>
-              <div className="flex items-center justify-between gap-3"><div><p className="text-sm font-black">Old-work gallery</p><p className="mt-1 text-xs text-[#71837A]">{asset.gallery.length}/12 images</p></div><input ref={(element) => { inputs.current[galleryInput] = element; }} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(event) => upload(slug, "SERVICE_GALLERY", event)} /><button type="button" disabled={asset.gallery.length >= 12 || busy === `${slug}:SERVICE_GALLERY`} onClick={() => inputs.current[galleryInput]?.click()} className="inline-flex items-center gap-2 rounded-lg bg-[#157A4A] px-3 py-2 text-xs font-black text-white disabled:opacity-50"><Plus size={14} /> Add photo</button></div>
-              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">{asset.gallery.map((image) => <div key={image.key} className="group relative h-28 overflow-hidden rounded-lg bg-[#F3F7F4]">
+              <div className="flex items-center justify-between gap-3"><div><p className="text-sm font-black">Old-work gallery</p><p className="mt-1 text-xs text-[#657189]">{asset.gallery.length}/12 images</p></div><input ref={(element) => { inputs.current[galleryInput] = element; }} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(event) => upload(slug, "SERVICE_GALLERY", event)} /><button type="button" disabled={asset.gallery.length >= 12 || busy === `${slug}:SERVICE_GALLERY`} onClick={() => inputs.current[galleryInput]?.click()} className="inline-flex items-center gap-2 rounded-lg bg-[#2447e5] px-3 py-2 text-xs font-black text-white disabled:opacity-50"><Plus size={14} /> Add photo</button></div>
+              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">{asset.gallery.map((image) => <div key={image.key} className="group relative h-28 overflow-hidden rounded-lg bg-[#f2f4fa]">
                 <Image src={image.url} alt={`${service.shortTitle} gallery preview`} fill sizes="180px" unoptimized className="object-cover" />
                 <button type="button" disabled={busy === image.key} onClick={() => remove(slug, "gallery", image.key)} className="absolute right-2 top-2 grid h-7 w-7 place-items-center rounded-full bg-black/65 text-white"><Trash2 size={13} /></button>
-              </div>)}{asset.gallery.length === 0 && <div className="col-span-full grid h-28 place-items-center rounded-lg border border-dashed border-[#D5E1DA] text-center text-xs text-[#8A9991]">Default gallery active. Add verified work photos here.</div>}</div>
+              </div>)}{asset.gallery.length === 0 && <div className="col-span-full grid h-28 place-items-center rounded-lg border border-dashed border-[#dfe4ed] text-center text-xs text-[#758096]">Default gallery active. Add verified work photos here.</div>}</div>
             </div>
           </div>
-        </article>;
+        </article></details>;
       })}</div>}
     </section>
   );

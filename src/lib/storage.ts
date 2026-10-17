@@ -53,6 +53,11 @@ export function createUploadSignature(publicId: string, resourceType: Cloudinary
   const timestamp = Math.floor(Date.now() / 1000);
   const signatureParams: Record<string, string | number> = { public_id: publicId, timestamp };
   if (deliveryType !== "upload") signatureParams.type = deliveryType;
+  // Candidate files are immutable. A replacement must use a newly issued public
+  // ID, so replaying an upload signature cannot change an already reviewed file.
+  // This must be signed AND sent by the upload client; changing or omitting it
+  // then invalidates the signature. Public site-asset callers remain unchanged.
+  if (deliveryType === "authenticated") signatureParams.overwrite = "false";
   const signature = cloudinary.utils.api_sign_request(signatureParams, apiSecret);
   return {
     uploadUrl: `https://api.cloudinary.com/v1_1/${encodeURIComponent(cloudName)}/${resourceType}/upload`,
@@ -61,6 +66,7 @@ export function createUploadSignature(publicId: string, resourceType: Cloudinary
     signature,
     publicId,
     deliveryType,
+    ...(deliveryType === "authenticated" ? { overwrite: false as const } : {}),
   };
 }
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ArrowLeft, BadgeCheck, BriefcaseBusiness, CalendarDays, CircleCheck, Clock3, MapPin, WalletCards } from "lucide-react";
 import { portalStore, type Job } from "@/lib/portal";
 import { ApplyButton } from "@/components/apply-button";
@@ -7,6 +8,7 @@ import { SaveJobButton } from "@/components/save-job-button";
 import { ShareJobButton } from "@/components/share-job-button";
 import { SiteHeader } from "@/components/site-header";
 import { getCandidateSession } from "@/lib/candidate-auth";
+import { getSiteUrl } from "@/lib/seo";
 
 function toSchemaEmploymentType(type: Job["employmentType"]) {
   return type === "CONTRACT" ? "CONTRACTOR" : type;
@@ -15,7 +17,7 @@ function toSchemaEmploymentType(type: Job["employmentType"]) {
 export async function generateMetadata({ params }: PageProps<"/jobs/[jobId]">): Promise<Metadata> {
   const { jobId } = await params;
   const job = await portalStore.getPublishedJob(jobId);
-  if (!job) return { title: "Job not found | CG Job Care" };
+  if (!job) return { title: "Job not found | CG Job Care", robots: { index: false, follow: true } };
   const title = `${job.title} in ${job.city} | CG Job Care`;
   const description = `${job.title} at ${job.company} in ${job.city}, Chhattisgarh. Salary Rs. ${job.salaryMin.toLocaleString("en-IN")} - ${job.salaryMax.toLocaleString("en-IN")} per month. ${job.vacancies} vacancies. Apply now with CG Job Care.`;
   const canonical = `/jobs/${job.id}`;
@@ -26,17 +28,20 @@ export default async function JobDetailPage({ params }: PageProps<"/jobs/[jobId]
   const { jobId } = await params;
   const [job, session] = await Promise.all([portalStore.getPublishedJob(jobId), getCandidateSession()]);
 
-  if (!job) return <main className="grid min-h-screen place-items-center bg-[#F5FAF7] p-5"><div className="max-w-md text-center"><p className="section-kicker text-[#157A4A]">JOB NOT AVAILABLE</p><h1 className="section-title">This opportunity is no longer active.</h1><Link href="/jobs" className="mt-7 inline-flex rounded-lg bg-[#157A4A] px-5 py-3 text-sm font-bold text-white">Browse open jobs</Link></div></main>;
+  if (!job) notFound();
 
   const salary = `Rs. ${job.salaryMin.toLocaleString("en-IN")} - ${job.salaryMax.toLocaleString("en-IN")} per month`;
   const savedJobIds = session ? await portalStore.listSavedJobIds(session.candidateId) : [];
   const initialSaved = savedJobIds.includes(job.id);
   const description = job.description ?? "We are looking for reliable candidates who are ready to work with a local employer. CG Job Care will guide eligible candidates through profile verification, interview coordination and joining.";
+  const canonicalUrl = `${getSiteUrl()}/jobs/${job.id}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "JobPosting",
     title: job.title,
     description,
+    url: canonicalUrl,
+    identifier: { "@type": "PropertyValue", name: "CG Job Care", value: job.id },
     datePosted: job.postedAt,
     ...(job.applicationDeadline ? { validThrough: job.applicationDeadline } : {}),
     employmentType: toSchemaEmploymentType(job.employmentType),

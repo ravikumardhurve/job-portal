@@ -1,5 +1,7 @@
 "use client";
 
+import styles from "@/components/admin-management.module.css";
+
 import { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Building2, Globe, ImageIcon, MapPin, Phone, Plus, Save, Trash2, UploadCloud } from "lucide-react";
@@ -103,58 +105,64 @@ export function SiteSettingsManager() {
     }
   }
 
-  if (!settings) return error ? <div role="alert" className="rounded-lg bg-[#FFF0E7] p-5 text-sm font-bold text-[#C9471E]">{error} <button type="button" onClick={() => { setError(undefined); void refresh().catch((cause: unknown) => setError(cause instanceof Error ? cause.message : "Site settings load nahi ho sake.")); }} className="ml-2 underline">Retry</button></div> : <p role="status" className="text-sm font-semibold text-[#71837a]">Loading site settings...</p>;
+  if (!settings) return error ? <div role="alert" className="rounded-lg bg-[#FFF0E7] p-3.5 sm:p-5 text-sm font-bold text-[#C9471E]">{error} <button type="button" onClick={() => { setError(undefined); void refresh().catch((cause: unknown) => setError(cause instanceof Error ? cause.message : "Site settings load nahi ho sake.")); }} className="ml-2 underline">Retry</button></div> : <p role="status" className="text-sm font-semibold text-[#657189]">Loading site settings...</p>;
 
   return (
     <div className="grid gap-6">
       {message && <p className="rounded-lg bg-[#e8f5ed] px-4 py-3 text-sm font-bold text-[#258653]">{message}</p>}
       {error && <p className="rounded-lg bg-[#fff0e7] px-4 py-3 text-sm font-bold text-[#c9471e]">{error}</p>}
 
-      <section className="rounded-lg border border-[#e0e8e2] bg-white p-6">
-        <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#e95d2b]"><ImageIcon size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#e95d2b]">BRANDING ASSETS</p><h2 className="text-lg font-black">Logo &amp; favicon</h2></div></div>
+      <details className={styles.fold}><summary>Logo &amp; favicon</summary><section className="rounded-lg border border-[#e5e8f0] bg-white p-4 sm:p-6">
+        <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#2447e5]"><ImageIcon size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#2447e5]">BRANDING ASSETS</p><h2 className="text-lg font-black">Logo &amp; favicon</h2></div></div>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           {singleAssetFields.map((field) => (
-            <div key={field.type} className="rounded-lg border border-dashed border-[#dce6df] p-4 text-center">
-              <div className="mx-auto grid h-20 w-full place-items-center overflow-hidden rounded-md bg-[#f7faf8]">
+            <div key={field.type} className="rounded-lg border border-dashed border-[#dfe4ed] p-4 text-center">
+              <div className="mx-auto grid h-20 w-full place-items-center overflow-hidden rounded-md bg-[#f8f9fc]">
                 {previews[field.type] ? (
                   <Image src={previews[field.type] as string} alt={`${field.label} preview`} width={240} height={80} unoptimized className="h-full w-full object-contain" />
                 ) : <span className="text-xs text-[#9aa8a1]">No file yet</span>}
               </div>
               <p className="mt-3 text-sm font-bold">{field.label}</p>
-              <p className="mt-1 text-[11px] text-[#71837a]">{field.hint}</p>
+              <p className="mt-1 text-[11px] text-[#657189]">{field.hint}</p>
               <input ref={(el) => { inputRefs.current[field.type] = el; }} type="file" accept={field.accept} className="hidden" onChange={(event) => handleFile(field.type, event)} />
-              <button type="button" disabled={uploading === field.type} onClick={() => inputRefs.current[field.type]?.click()} className="mt-3 inline-flex items-center gap-2 rounded-lg border border-[#e95d2b] px-3 py-2 text-xs font-bold text-[#c9471e] disabled:opacity-60">
+              <button type="button" disabled={uploading === field.type} onClick={() => inputRefs.current[field.type]?.click()} className="mt-3 inline-flex items-center gap-2 rounded-lg border border-[#2447e5] px-3 py-2 text-xs font-bold text-[#c9471e] disabled:opacity-60">
                 <UploadCloud size={14} /> {uploading === field.type ? "Uploading..." : previews[field.type] ? "Replace" : "Upload"}
               </button>
             </div>
           ))}
         </div>
-      </section>
+      </section></details>
 
-      <section className="rounded-lg border border-[#e0e8e2] bg-white p-6">
-        <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#e95d2b]"><ImageIcon size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#e95d2b]">HOMEPAGE HERO</p><h2 className="text-lg font-black">Rotating banners</h2></div></div>
-        <p className="mt-3 text-sm text-[#71837a]">Add one or more images — the homepage hero automatically cycles through them. With none uploaded, the hero shows a plain branded card instead of a photo.</p>
+      <details className={styles.fold}><summary>Rotating banners</summary><section className="rounded-lg border border-[#e5e8f0] bg-white p-4 sm:p-6">
+        <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#2447e5]"><ImageIcon size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#2447e5]">HOMEPAGE HERO</p><h2 className="text-lg font-black">Rotating banners</h2></div></div>
+        <p className="mt-3 text-sm text-[#657189]">Add one or more images — the homepage hero automatically cycles through them. With none uploaded, the hero shows a plain branded card instead of a photo.</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {heroBanners.map((banner) => (
-            <div key={banner.key} className="group relative overflow-hidden rounded-lg border border-[#dce6df]">
+            <div key={banner.key} className="group relative overflow-hidden rounded-lg border border-[#dfe4ed]">
               <Image src={banner.url} alt="Hero banner preview" width={480} height={128} unoptimized className="h-32 w-full object-cover" />
               <button type="button" disabled={removingBanner === banner.key} onClick={() => removeBanner(banner.key)} aria-label="Remove banner" className="absolute right-2 top-2 grid h-8 w-8 place-items-center rounded-full bg-black/60 text-white disabled:opacity-60">
                 <Trash2 size={14} />
               </button>
             </div>
           ))}
-          <button type="button" disabled={uploading === "HERO_BANNER"} onClick={() => bannerInputRef.current?.click()} className="grid h-32 place-items-center gap-2 rounded-lg border border-dashed border-[#dce6df] text-xs font-bold text-[#c9471e] disabled:opacity-60">
+          <button type="button" disabled={uploading === "HERO_BANNER"} onClick={() => bannerInputRef.current?.click()} className="grid h-32 place-items-center gap-2 rounded-lg border border-dashed border-[#dfe4ed] text-xs font-bold text-[#c9471e] disabled:opacity-60">
             <Plus size={18} /> {uploading === "HERO_BANNER" ? "Uploading..." : "Add banner"}
           </button>
           <input ref={bannerInputRef} type="file" accept="image/*" className="hidden" onChange={(event) => handleFile("HERO_BANNER", event)} />
         </div>
-        <p className="mt-3 text-[11px] text-[#71837a]">JPG, PNG or WebP, up to 5MB each.</p>
-      </section>
+        <p className="mt-3 text-[11px] text-[#657189]">JPG, PNG or WebP, up to 5MB each.</p>
+      </section></details>
 
-      <form onSubmit={submit} className="grid gap-6">
-        <section className="rounded-lg border border-[#e0e8e2] bg-white p-6">
-          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#e95d2b]"><ImageIcon size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#e95d2b]">LANDING PAGE CONTENT</p><h2 className="text-lg font-black">Homepage headings &amp; messages</h2></div></div>
-          <p className="mt-3 text-sm leading-6 text-[#71837a]">Homepage ke main headings aur descriptions yahan se update honge. Search intent clear rakhne ke liye service names aur location naturally mention karein.</p>
+      <form onSubmit={submit} className="grid gap-3" onInvalidCapture={(event) => {
+        let ancestor: HTMLElement | null = event.target as HTMLElement;
+        while (ancestor && ancestor !== event.currentTarget) {
+          if (ancestor instanceof HTMLDetailsElement) ancestor.open = true;
+          ancestor = ancestor.parentElement;
+        }
+      }}>
+        <details className={styles.fold}><summary>Homepage headings &amp; messages</summary><section className="rounded-lg border border-[#e5e8f0] bg-white p-4 sm:p-6">
+          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#2447e5]"><ImageIcon size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#2447e5]">LANDING PAGE CONTENT</p><h2 className="text-lg font-black">Homepage headings &amp; messages</h2></div></div>
+          <p className="mt-3 text-sm leading-6 text-[#657189]">Homepage ke main headings aur descriptions yahan se update honge. Search intent clear rakhne ke liye service names aur location naturally mention karein.</p>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             <Field label="Top announcement fallback"><input name="homeAnnouncementText" defaultValue={settings.homeAnnouncementText ?? ""} maxLength={160} className="admin-input" /></Field>
             <Field label="Hero location badge"><input name="homeHeroBadge" defaultValue={settings.homeHeroBadge ?? ""} maxLength={80} className="admin-input" /></Field>
@@ -168,53 +176,53 @@ export function SiteSettingsManager() {
             <Field label="Final CTA title"><input name="homeCtaTitle" defaultValue={settings.homeCtaTitle ?? ""} maxLength={120} className="admin-input" /></Field>
             <Field label="Final CTA description"><textarea name="homeCtaDescription" defaultValue={settings.homeCtaDescription ?? ""} maxLength={320} className="admin-input min-h-24 py-3" /></Field>
           </div>
-        </section>
+        </section></details>
 
-        <section className="rounded-lg border border-[#e0e8e2] bg-white p-6">
-          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#e95d2b]"><Building2 size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#e95d2b]">COMPANY IDENTITY</p><h2 className="text-lg font-black">Name &amp; tagline</h2></div></div>
+        <details className={styles.fold}><summary>Name &amp; tagline</summary><section className="rounded-lg border border-[#e5e8f0] bg-white p-4 sm:p-6">
+          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#2447e5]"><Building2 size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#2447e5]">COMPANY IDENTITY</p><h2 className="text-lg font-black">Name &amp; tagline</h2></div></div>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             <Field label="Company name"><input name="companyName" defaultValue={settings.companyName} required className="admin-input" /></Field>
             <Field label="Tagline"><input name="tagline" defaultValue={settings.tagline ?? ""} className="admin-input" /></Field>
           </div>
-        </section>
+        </section></details>
 
-        <section className="rounded-lg border border-[#e0e8e2] bg-white p-6">
-          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#e95d2b]"><Globe size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#e95d2b]">SEO</p><h2 className="text-lg font-black">Meta title &amp; description</h2></div></div>
+        <details className={styles.fold}><summary>Meta title &amp; description</summary><section className="rounded-lg border border-[#e5e8f0] bg-white p-4 sm:p-6">
+          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#2447e5]"><Globe size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#2447e5]">SEO</p><h2 className="text-lg font-black">Meta title &amp; description</h2></div></div>
           <div className="mt-5 grid gap-4">
             <Field label="Meta title"><input name="metaTitle" defaultValue={settings.metaTitle ?? ""} className="admin-input" /></Field>
             <Field label="Meta description"><textarea name="metaDescription" defaultValue={settings.metaDescription ?? ""} className="admin-input min-h-24 py-3" /></Field>
           </div>
-        </section>
+        </section></details>
 
-        <section className="rounded-lg border border-[#e0e8e2] bg-white p-6">
-          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#e95d2b]"><Phone size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#e95d2b]">CONTACT</p><h2 className="text-lg font-black">How customers reach you</h2></div></div>
+        <details className={styles.fold}><summary>How customers reach you</summary><section className="rounded-lg border border-[#e5e8f0] bg-white p-4 sm:p-6">
+          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#2447e5]"><Phone size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#2447e5]">CONTACT</p><h2 className="text-lg font-black">How customers reach you</h2></div></div>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             <Field label="Phone"><input name="phone" defaultValue={settings.phone ?? ""} className="admin-input" /></Field>
             <Field label="WhatsApp"><input name="whatsapp" defaultValue={settings.whatsapp ?? ""} className="admin-input" /></Field>
             <Field label="Email"><input name="email" type="email" defaultValue={settings.email ?? ""} className="admin-input" /></Field>
             <Field label="Facebook URL"><input name="facebookUrl" defaultValue={settings.facebookUrl ?? ""} className="admin-input" /></Field>
             <Field label="Instagram URL"><input name="instagramUrl" defaultValue={settings.instagramUrl ?? ""} className="admin-input" /></Field>
-            <Field label="Google Business Profile URL"><input name="googleBusinessProfileUrl" type="url" defaultValue={settings.googleBusinessProfileUrl ?? ""} placeholder="https://g.page/..." className="admin-input" /></Field>
+            <Field label="Google Business Profile URL"><input aria-label="https://g.page/..." name="googleBusinessProfileUrl" type="url" defaultValue={settings.googleBusinessProfileUrl ?? ""} placeholder="https://g.page/..." className="admin-input" /></Field>
             <Field label="GST number"><input name="gstNumber" defaultValue={settings.gstNumber ?? ""} className="admin-input" /></Field>
           </div>
-        </section>
+        </section></details>
 
-        <section className="rounded-lg border border-[#e0e8e2] bg-white p-6">
-          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#e95d2b]"><MapPin size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#e95d2b]">LOCATION</p><h2 className="text-lg font-black">Address &amp; hours</h2></div></div>
+        <details className={styles.fold}><summary>Address &amp; hours</summary><section className="rounded-lg border border-[#e5e8f0] bg-white p-4 sm:p-6">
+          <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-[#fff0e7] text-[#2447e5]"><MapPin size={19} /></span><div><p className="text-xs font-bold tracking-[.1em] text-[#2447e5]">LOCATION</p><h2 className="text-lg font-black">Address &amp; hours</h2></div></div>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             <Field label="Address"><input name="address" defaultValue={settings.address ?? ""} className="admin-input" /></Field>
-            <Field label="City"><input name="city" defaultValue={settings.city ?? ""} className="admin-input" /></Field>
+            <Field label="City"><input aria-label="City" name="city" defaultValue={settings.city ?? ""} className="admin-input" /></Field>
             <Field label="State"><input name="state" defaultValue={settings.state ?? ""} className="admin-input" /></Field>
             <Field label="Working hours"><input name="workingHours" defaultValue={settings.workingHours ?? ""} className="admin-input" /></Field>
           </div>
-        </section>
+        </section></details>
 
-        <button disabled={saving} className="inline-flex w-fit items-center gap-2 rounded-lg bg-[#e95d2b] px-5 py-3 text-sm font-bold text-white disabled:opacity-60"><Save size={16} /> {saving ? "Saving..." : "Save site settings"}</button>
+        <div className={styles.saveBar}><p>Review your edits, then save all text settings.</p><button disabled={saving} className="inline-flex w-fit items-center gap-2 rounded-lg bg-[#2447e5] px-5 py-3 text-sm font-bold text-white disabled:opacity-60"><Save size={16} /> {saving ? "Saving..." : "Save site settings"}</button></div>
       </form>
     </div>
   );
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <label className="grid gap-2 text-sm font-bold text-[#3c4c44]">{label}{children}</label>;
+  return <label className="grid gap-2 text-sm font-bold text-[#3c4961]">{label}{children}</label>;
 }

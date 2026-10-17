@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { SubmissionForm } from "@/components/submission-form";
 import { SiteHeader } from "@/components/site-header";
+
+export const metadata: Metadata = {
+  title: "Request a Service in Chhattisgarh | CG Job Care",
+  description: "Request security, baby care, caretaker, housekeeping, pest control or manpower support in Raipur and across Chhattisgarh.",
+  alternates: { canonical: "/services/request" },
+};
 
 export default async function ServiceRequestPage({ searchParams }: { searchParams: Promise<{ service?: string | string[]; city?: string | string[] }> }) {
   const params = await searchParams;

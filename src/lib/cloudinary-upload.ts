@@ -5,6 +5,7 @@ export type CloudinaryUploadSignature = {
   signature: string;
   publicId: string;
   deliveryType: "upload" | "authenticated";
+  overwrite?: false;
 };
 
 export type CloudinaryUploadResult = {
@@ -25,6 +26,7 @@ export async function uploadDirectlyToCloudinary(file: File, data: CloudinaryUpl
   formData.set("signature", data.signature);
   formData.set("public_id", data.publicId);
   if (data.deliveryType !== "upload") formData.set("type", data.deliveryType);
+  if (data.overwrite !== undefined) formData.set("overwrite", String(data.overwrite));
   const response = await fetch(data.uploadUrl, { method: "POST", body: formData });
   const result = await response.json() as CloudinaryUploadResult;
   if (!response.ok || result.error) throw new Error(result.error?.message ?? "Cloudinary upload failed.");

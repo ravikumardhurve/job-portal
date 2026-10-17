@@ -1,5 +1,9 @@
 "use client";
 
+import { AdminFilters } from "@/components/admin-filters";
+
+import styles from "@/components/admin-management.module.css";
+
 import { useCallback, useEffect, useState } from "react";
 import { Search, ShieldCheck } from "lucide-react";
 import type { AuditLog } from "@/lib/admin-operations";
@@ -37,16 +41,16 @@ export function AdminAuditLogManager() {
     return () => { window.clearTimeout(timer); controller.abort(); };
   }, [load]);
 
-  return <main>
-    <div><p className="section-kicker text-[#E95D2B]">SUPER ADMIN SECURITY</p><h1 className="mt-2 text-3xl font-black">Audit history</h1><p className="mt-2 text-sm text-[#71837A]">Admin login, data access aur workflow changes ki history.</p></div>
-    <section aria-label="Audit filters" className="mt-6 grid gap-3 rounded-xl border bg-white p-4 lg:grid-cols-[1fr_190px_190px]">
-      <label className="flex h-11 items-center gap-2 rounded-lg border px-3"><Search size={17} /><span className="sr-only">Search audit history</span><input value={q} onChange={(event) => setQ(event.target.value)} placeholder="Actor, action, target type ya ID" className="min-w-0 flex-1 outline-none" /></label>
+  return <main className={styles.page}>
+    <div><p className="section-kicker text-[#2447e5]">SUPER ADMIN SECURITY</p><h1 className="mt-2 text-2xl sm:text-3xl font-black">Audit history</h1><p className="mt-2 text-sm text-[#657189]">Admin login, data access aur workflow changes ki history.</p></div>
+    <AdminFilters search={<label className="flex h-11 items-center gap-2 rounded-lg border px-3"><Search size={17} /><span className="sr-only">Search audit history</span><input aria-label="Actor, action, target type ya ID" value={q} onChange={(event) => setQ(event.target.value)} placeholder="Actor, action, target type ya ID" className="min-w-0 flex-1 outline-none" /></label>} activeCount={[from, to].filter(Boolean).length}>
+
       <input aria-label="From date" type="date" value={from} onChange={(event) => setFrom(event.target.value)} className="admin-input" />
       <input aria-label="To date" type="date" value={to} onChange={(event) => setTo(event.target.value)} className="admin-input" />
-    </section>
+    </AdminFilters>
     {error && <div role="alert" className="mt-5 rounded-lg bg-[#FFF0E7] p-4 text-sm font-bold text-[#C9471E]">{error} <button type="button" onClick={() => void load(new AbortController().signal)} className="ml-2 underline">Retry</button></div>}
-    <section className="mt-6 overflow-hidden rounded-xl border bg-white" aria-busy={loading}>
-      {loading ? <p className="p-6 text-sm text-[#71837A]" role="status">Audit history loading...</p> : !error && logs.length === 0 ? <p className="p-8 text-center text-sm text-[#71837A]">Is filter ke liye koi audit entry nahi mili. Dates ya search term badalkar dekhein.</p> : <div className="overflow-x-auto"><table className="w-full min-w-[980px] text-left text-sm"><thead className="bg-[#F7FAF8] text-xs text-[#71837A]"><tr><th scope="col" className="px-5 py-3">TIME</th><th scope="col">ACTOR</th><th scope="col">ACTION</th><th scope="col">TARGET</th><th scope="col">DETAILS</th></tr></thead><tbody>{logs.map((log, index) => <tr key={`${log.targetId}:${log.createdAt}:${index}`} className="border-t align-top"><td className="px-5 py-4 whitespace-nowrap">{new Date(log.createdAt).toLocaleString("en-IN")}</td><td><p className="font-bold">{log.actor?.name ?? log.actorId}</p><p className="text-xs text-[#71837A]">{log.actor?.email}</p></td><td><span className="inline-flex items-center gap-1 rounded-full bg-[#EAF1FF] px-2.5 py-1 text-[11px] font-black text-[#3D69BE]"><ShieldCheck size={12} />{log.action.replaceAll("_", " ")}</span></td><td><p className="font-bold">{log.targetType}</p><p className="text-xs text-[#71837A]">{log.targetId}</p></td><td className="max-w-sm py-4 pr-5"><code className="break-words text-[11px] text-[#52665C]">{JSON.stringify(log.metadata ?? {})}</code>{log.ipAddress && <p className="mt-1 text-[10px] text-[#8A9991]">IP {log.ipAddress}</p>}</td></tr>)}</tbody></table></div>}
+    <section className="mt-4 sm:mt-6 overflow-hidden rounded-xl border bg-white" aria-busy={loading}>
+      {loading ? <p className="p-4 sm:p-6 text-sm text-[#657189]" role="status">Audit history loading...</p> : !error && logs.length === 0 ? <p className="p-8 text-center text-sm text-[#657189]">Is filter ke liye koi audit entry nahi mili. Dates ya search term badalkar dekhein.</p> : <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Audit history table. Scroll horizontally for more columns."><table role="table" className={`${styles.table} w-full min-w-[980px] text-left text-sm`}><thead className="bg-[#f8f9fc] text-xs text-[#657189]"><tr><th scope="col" className="px-5 py-3">TIME</th><th scope="col">ACTOR</th><th scope="col">ACTION</th><th scope="col">TARGET</th><th scope="col">DETAILS</th></tr></thead><tbody>{logs.map((log, index) => <tr key={`${log.targetId}:${log.createdAt}:${index}`} className="border-t align-top"><td data-label="TIME" className="px-5 py-4 whitespace-nowrap">{new Date(log.createdAt).toLocaleString("en-IN")}</td><td data-label="ACTOR" data-primary="true"><p className="font-bold">{log.actor?.name ?? log.actorId}</p><p className="text-xs text-[#657189]">{log.actor?.email}</p></td><td data-label="ACTION" data-actions="true"><span className="inline-flex items-center gap-1 rounded-full bg-[#EAF1FF] px-2.5 py-1 text-[11px] font-black text-[#3D69BE]"><ShieldCheck size={12} />{log.action.replaceAll("_", " ")}</span></td><td data-label="TARGET"><p className="font-bold">{log.targetType}</p><p className="text-xs text-[#657189]">{log.targetId}</p></td><td data-label="DETAILS" className="max-w-sm py-4 pr-5"><code className="break-words text-[11px] text-[#4e5c73]">{JSON.stringify(log.metadata ?? {})}</code>{log.ipAddress && <p className="mt-1 text-[10px] text-[#758096]">IP {log.ipAddress}</p>}</td></tr>)}</tbody></table></div>}
     </section>
   </main>;
 }

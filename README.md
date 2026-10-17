@@ -2,6 +2,10 @@
 
 A Next.js App Router MVP for the public portal and the first recruitment and facility-service workflows.
 
+## React Native mobile app
+
+The separate [`mobile/`](mobile/README.md) Expo app includes candidate and admin workspaces using the same backend and database. See its README for environment setup, supported features, verification and APK build instructions. Mobile-only APIs live under `/api/mobile/*`; the existing web login is unchanged.
+
 ## Run locally
 
 ```powershell

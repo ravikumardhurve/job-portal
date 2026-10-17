@@ -1,0 +1,11 @@
+export type Job = { id: string; title: string; company: string; city: string; district: string; category: string; salaryMin: number; salaryMax: number; employmentType: string; vacancies: number; status: string; urgent: boolean; description?: string; qualification?: string; shift?: string; applicationDeadline?: string; benefits?: string[] };
+export type Candidate = { id: string; fullName: string; mobile: string; email?: string; city?: string; preferredRole?: string; verificationStatus: string; profileCompletion: number; currentAddress?: { line1?: string; city?: string; state?: string }; jobPreference?: { role?: string } };
+export type Admin = { id: string; name: string; email: string; role: string; businessVerticals: string[] };
+export type Identity = { kind: 'candidate'; user: Candidate } | { kind: 'admin'; user: Admin };
+export type AuthResult = Identity & { token: string; expiresAt: string };
+export type Application = { id: string; jobId: string; status: string; appliedAt: string; job?: Job; statusHistory: { status: string; at: string }[] };
+export type Interview = { id: string; scheduledAt: string; status: string; mode: string; job?: Job; address?: string; meetingLink?: string; instructions?: string; contactPerson?: string; contactMobile?: string; cancelReason?: string };
+export type SavedJob = { jobId: string; job?: Job };
+export type Page<T> = { data: T[]; total: number; page: number; pageSize: number };
+export type AdminRow = { id: string; title: string; subtitle: string; detail: string; status: string; job?: Job };
+export type Section = 'jobs' | 'applications' | 'candidates' | 'interviews' | 'services' | 'requirements';

@@ -84,7 +84,7 @@ export function AdminSectionShell({ children, role, name, companyName = "CG Job 
           <summary><Menu size={19} />Admin navigation<ChevronDown size={16} /></summary>
           <nav aria-label="Mobile admin navigation">{navGroups}</nav>
         </details>
-        <div id="admin-content" tabIndex={-1} className={`${styles.content} ${pathname === "/admin" ? "" : "[&>div]:min-h-0 [&>div]:bg-transparent [&>div>aside]:hidden [&>div>main]:!pl-0 [&>div>main>div]:!p-0 [&>div>main>header]:hidden [&>div>main>nav]:hidden [&>main]:min-h-0 [&>main]:bg-transparent [&>main>div]:mx-0 [&>main>div]:max-w-none [&>main>div]:p-0 [&>main>form]:mx-0 [&>main>form]:max-w-none [&>main>form]:p-0 [&>main>header]:hidden"}`}>
+        <div id="admin-content" tabIndex={-1} className={styles.content}>
           {children}
         </div>
       </div>
